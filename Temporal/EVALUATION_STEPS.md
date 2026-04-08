@@ -1,50 +1,52 @@
-# Temporal 评测详细说明
+# Temporal 评测详细说明（Linux 服务器版）
 
-本文档说明如何在 `E:/VBench/Temporal` 中完成：
-1. 生成多图 prompt
-2. 调用 Wan 生成多张图片
-3. 使用新的 `temporal_sequence` 模式进行评测
+你现在已经完成了：
+- `change_prompt_to_multi_image.py`
+- `run_inference_wan.py`
 
----
+也就是说，你已经有了：
 
-## 1. 当前整体流程
-
-当前 `Temporal` 项目的逻辑分为三步：
-
-### 第一步：从 benchmark prompt 生成多图 prompt
-脚本：
-- `E:/VBench/Temporal/change_prompt_to_multi_image.py`
-
-输入：
-- `E:/VBench/Temporal/prompts/meta_info/*.json`
-
-输出：
-- `E:/VBench/Temporal/temporal_prompts.json`
-
-这个输出文件中，每条样本都包含：
-- `id`
-- `dimension`
-- `prompt`
-- `global_prompt`
-- `num_images`
-- `sub_prompts`
-- `auxiliary_info`
-
----
-
-### 第二步：调用 Wan 生成多张图片
-脚本：
-- `E:/VBench/Temporal/run_inference_wan.py`
-
-输入：
-- `E:/VBench/Temporal/temporal_prompts.json`
-
-输出：
-- `E:/VBench/Temporal/temporal_results/<id>/<index>.png`
-
-例如：
 ```text
-E:/VBench/Temporal/temporal_results/
+/path/to/Temporal/temporal_prompts.json
+/path/to/Temporal/temporal_results/<id>/1.png, 2.png, ...
+```
+
+你当前卡在 **运行评测之前的环境配置**。这份文档专门面向 **Linux 服务器**，详细说明如何把评测环境配置好，然后开始评测。
+
+> 下面命令中的 `/path/to/Temporal` 请替换成你服务器上的实际项目路径。
+
+---
+
+# 1. 你现在的评测输入是什么
+
+评测时需要两类输入：
+
+## 1.1 prompt 元数据
+文件：
+
+```text
+/path/to/Temporal/temporal_prompts.json
+```
+
+作用：
+- 提供每条样本的 `id`
+- 提供每条样本的 `dimension`
+- 提供改写后的 `prompt`
+- 提供对应 `auxiliary_info`
+
+---
+
+## 1.2 图片序列结果
+目录：
+
+```text
+/path/to/Temporal/temporal_results/
+```
+
+结构例如：
+
+```text
+temporal_results/
 ├── tem_1/
 │   ├── 1.png
 │   ├── 2.png
@@ -56,33 +58,31 @@ E:/VBench/Temporal/temporal_results/
 │   └── ...
 ```
 
-这些图片现在就被视为“关键帧序列”。
+评测时，程序会把这些图片当作“有序关键帧序列”。
 
 ---
 
-### 第三步：评测这些关键帧序列
-脚本：
-- `E:/VBench/Temporal/evaluate.py`
+# 2. 评测依赖什么环境
 
-模式：
-- `temporal_sequence`
+当前评测依赖两部分：
 
-输入：
-- `E:/VBench/Temporal/temporal_results/`
-- `E:/VBench/Temporal/temporal_prompts.json`
+## 2.1 Python 运行环境
+建议使用独立虚拟环境，例如：
 
-输出：
-- `evaluation_results/*.json`
+```text
+/path/to/Temporal/.venv
+```
 
-评测时，程序会把 `temporal_results/<id>/1.png,2.png,...` 当作一段有序关键帧序列，而不是视频。
+如果你还没有虚拟环境，可以创建：
+
+```bash
+python3 -m venv /path/to/Temporal/.venv
+```
 
 ---
 
-# 2. 需要的模型与依赖
-
-## 2.1 需要哪些模型
-
-当前评测逻辑依赖以下模型：
+## 2.2 模型与推理依赖
+当前四个 retained evaluator 依赖：
 
 ### 对于 `Dynamic_Attribute` 和 `Dynamic_Spatial_Relationship`
 需要：
@@ -93,454 +93,489 @@ E:/VBench/Temporal/temporal_results/
 - `lmms-lab/LLaVA-Video-7B-Qwen2`
 - `Qwen/Qwen2.5-7B-Instruct`
 
-对应代码位置：
-- `E:/VBench/Temporal/vbench2/utils.py:313-329`
+模型加载逻辑在：
+- `vbench2/utils.py`
 
 ---
 
-## 2.2 会自动下载吗？
+# 3. 第一步：激活虚拟环境
 
-**会。**
+```bash
+source /path/to/Temporal/.venv/bin/activate
+```
 
-在评测时，`init_submodules(...)` 会自动检查模型是否存在；如果不存在，会尝试通过：
-- `huggingface-cli download`
+激活后你应该看到 shell 前面出现类似：
 
-自动下载模型。
+```text
+(.venv)
+```
 
-也就是说，如果你环境正确，第一次运行评测时会自动下载。
+如果你不想激活环境，也可以后续一直使用：
+
+```bash
+/path/to/Temporal/.venv/bin/python
+```
 
 ---
 
-## 2.3 模型默认下载到哪里
+# 4. 第二步：安装评测依赖
 
-模型缓存目录在：
-- `VBENCH2_CACHE_DIR` 环境变量指定的位置
-- 如果你没有设置这个环境变量，则默认下载到：
+建议在虚拟环境中安装以下依赖。
+
+## 4.1 基础依赖
+
+```bash
+/path/to/Temporal/.venv/bin/python -m pip install --upgrade pip
+/path/to/Temporal/.venv/bin/python -m pip install torch torchvision torchaudio
+/path/to/Temporal/.venv/bin/python -m pip install decord pillow tqdm requests pyyaml scenedetect gdown
+/path/to/Temporal/.venv/bin/python -m pip install "huggingface_hub[cli]"
+/path/to/Temporal/.venv/bin/python -m pip install transformers sentencepiece accelerate
+```
+
+如果你已经装过部分依赖，可以跳过重复步骤。
+
+---
+
+## 4.2 可选依赖（按报错再补）
+
+```bash
+/path/to/Temporal/.venv/bin/python -m pip install mmcv==2.2.0
+/path/to/Temporal/.venv/bin/python -m pip install retinaface_pytorch==0.0.8 --no-deps
+```
+
+说明：
+- `mmcv` 在 Linux 上通常比 Windows 好装，但仍可能依赖 CUDA / PyTorch 版本匹配
+- 如果你只是先测试链路，可以先不装，缺了再补
+
+---
+
+# 5. 第三步：设置环境变量
+
+你至少需要设置：
+- `DASHSCOPE_API_KEY`
+
+可选设置：
+- `VBENCH2_CACHE_DIR`
+
+建议在当前 shell 中直接 export：
+
+## 5.1 设置 `DASHSCOPE_API_KEY`
+
+```bash
+export DASHSCOPE_API_KEY="你的API_KEY"
+```
+
+检查是否设置成功：
+
+```bash
+echo $DASHSCOPE_API_KEY
+```
+
+---
+
+## 5.2 设置模型缓存目录（推荐）
+
+推荐你显式指定模型缓存目录，例如：
+
+```text
+/path/to/model_cache/vbench2
+```
+
+设置方式：
+
+```bash
+export VBENCH2_CACHE_DIR="/path/to/model_cache/vbench2"
+```
+
+检查：
+
+```bash
+echo $VBENCH2_CACHE_DIR
+```
+
+如果不设置，默认缓存目录是：
 
 ```text
 ~/.cache/vbench2
 ```
 
-在 Windows 下通常会对应到类似：
-```text
-C:/Users/<你的用户名>/.cache/vbench2
-```
-
-对应代码位置：
-- `E:/VBench/Temporal/vbench2/utils.py:37-39`
-
----
-
-## 2.4 建议手动提前下载吗？
-
-**建议。**
-
-因为：
-- 首次评测下载模型会比较慢
-- 可能受网络、Hugging Face 访问、CLI 配置影响
-- 提前下载更稳定
-
----
-
-# 3. 如何手动下载评测模型
-
-## 3.1 安装 Hugging Face CLI
-在虚拟环境中执行：
-
-```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe -m pip install "huggingface_hub[cli]"
-```
-
----
-
-## 3.2 下载 LLaVA-Video-7B-Qwen2
-
-```bash
-huggingface-cli download lmms-lab/LLaVA-Video-7B-Qwen2 --repo-type model --local-dir "C:/Users/admin/.cache/vbench2/lmms-lab/LLaVA-Video-7B-Qwen2"
-```
-
----
-
-## 3.3 下载 Qwen2.5-7B-Instruct
-
-```bash
-huggingface-cli download Qwen/Qwen2.5-7B-Instruct --repo-type model --local-dir "C:/Users/admin/.cache/vbench2/Qwen/Qwen2.5-7B-Instruct"
-```
-
----
-
-## 3.4 如果你想把缓存目录改到别处
-例如改到：
+也就是通常：
 
 ```text
-E:/model_cache/vbench2
+/home/<your_user>/.cache/vbench2
 ```
-
-### PowerShell
-```powershell
-$env:VBENCH2_CACHE_DIR="E:/model_cache/vbench2"
-```
-
-### cmd
-```cmd
-set VBENCH2_CACHE_DIR=E:/model_cache/vbench2
-```
-
-之后再运行评测，模型就会下载/读取到这个目录。
 
 ---
 
-# 4. 环境准备
+# 6. 第四步：下载评测模型
 
-## 4.1 激活虚拟环境
+## 是否必须手动下载？
+
+**不是必须，但强烈建议手动下载。**
+
+原因：
+- 自动下载可能因为网络问题失败
+- 第一次运行评测时会卡很久
+- 手动下载便于确认缓存位置和模型完整性
+
+---
+
+## 6.1 先安装 Hugging Face CLI
+
+如果上一步已经执行过，可以跳过；否则执行：
 
 ```bash
-E:/VBench/Temporal/.venv/Scripts/activate
+/path/to/Temporal/.venv/bin/python -m pip install "huggingface_hub[cli]"
 ```
 
-如果不激活，也可以直接调用：
+测试 CLI：
 
 ```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe
+huggingface-cli --help
 ```
 
----
-
-## 4.2 设置 DashScope API Key
-
-### PowerShell
-```powershell
-$env:DASHSCOPE_API_KEY="你的API_KEY"
-```
-
-### cmd
-```cmd
-set DASHSCOPE_API_KEY=你的API_KEY
-```
-
----
-
-## 4.3 可选：设置模型缓存目录
-
-### PowerShell
-```powershell
-$env:VBENCH2_CACHE_DIR="C:/Users/admin/.cache/vbench2"
-```
-
-### cmd
-```cmd
-set VBENCH2_CACHE_DIR=C:/Users/admin/.cache/vbench2
-```
-
----
-
-# 5. 生成多图 prompt
-
-如果你还没生成 `temporal_prompts.json`，先运行：
+如果提示找不到命令，可以直接用：
 
 ```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe "E:/VBench/Temporal/change_prompt_to_multi_image.py"
+/path/to/Temporal/.venv/bin/python -m huggingface_hub.commands.huggingface_cli --help
 ```
 
-输出文件：
+---
+
+## 6.2 下载 `LLaVA-Video-7B-Qwen2`
+
+如果你设置了：
+
+```bash
+export VBENCH2_CACHE_DIR="/path/to/model_cache/vbench2"
+```
+
+那么建议下载到：
 
 ```text
-E:/VBench/Temporal/temporal_prompts.json
+/path/to/model_cache/vbench2/lmms-lab/LLaVA-Video-7B-Qwen2
+```
+
+命令：
+
+```bash
+huggingface-cli download lmms-lab/LLaVA-Video-7B-Qwen2 --repo-type model --local-dir "/path/to/model_cache/vbench2/lmms-lab/LLaVA-Video-7B-Qwen2"
 ```
 
 ---
 
-# 6. 运行 Wan 推理
+## 6.3 下载 `Qwen/Qwen2.5-7B-Instruct`
 
-```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe "E:/VBench/Temporal/run_inference_wan.py"
+建议下载到：
+
+```text
+/path/to/model_cache/vbench2/Qwen/Qwen2.5-7B-Instruct
 ```
 
-它会读取：
-- `temporal_prompts.json`
+命令：
 
-并生成：
-- `temporal_results/<id>/1.png ...`
+```bash
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct --repo-type model --local-dir "/path/to/model_cache/vbench2/Qwen/Qwen2.5-7B-Instruct"
+```
 
 ---
 
-# 7. 运行评测
+## 6.4 如果服务器不能直接访问 Hugging Face
+如果你所在服务器不能稳定访问 Hugging Face，可以考虑：
 
-## 7.1 评测全部四个维度
+1. 在本地或另一台有网络的机器上下载模型；
+2. 用 `scp`/`rsync` 上传到服务器；
+3. 保持目录结构不变，例如：
+
+```text
+/path/to/model_cache/vbench2/lmms-lab/LLaVA-Video-7B-Qwen2
+/path/to/model_cache/vbench2/Qwen/Qwen2.5-7B-Instruct
+```
+
+上传后，再设置：
 
 ```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe "E:/VBench/Temporal/evaluate.py" \
-  --videos_path "E:/VBench/Temporal/temporal_results" \
+export VBENCH2_CACHE_DIR="/path/to/model_cache/vbench2"
+```
+
+即可让评测直接读取。
+
+---
+
+# 7. 第五步：检查模型目录是否正确
+
+下载完成后，至少应该看到类似：
+
+```text
+/path/to/model_cache/vbench2/
+├── lmms-lab/
+│   └── LLaVA-Video-7B-Qwen2/
+└── Qwen/
+    └── Qwen2.5-7B-Instruct/
+```
+
+如果你没设置 `VBENCH2_CACHE_DIR`，则去：
+
+```text
+~/.cache/vbench2
+```
+
+里找。
+
+---
+
+# 8. 第六步：从你当前状态开始运行评测
+
+你现在已经完成了 Wan 推理，所以可以直接执行评测：
+
+```bash
+python "/path/to/Temporal/evaluate.py" \
+  --videos_path "/path/to/Temporal/temporal_results" \
   --dimension Dynamic_Attribute Dynamic_Spatial_Relationship Motion_Order_Understanding Complex_Plot \
   --mode temporal_sequence \
-  --temporal_prompt_file "E:/VBench/Temporal/temporal_prompts.json" \
-  --output_path "E:/VBench/Temporal/evaluation_results"
+  --temporal_prompt_file "/path/to/Temporal/temporal_prompts.json" \
+  --output_path "/path/to/Temporal/evaluation_results"
 ```
 
 ---
 
-## 7.2 参数解释
+# 9. 评测参数详细解释
 
-### `--videos_path`
-虽然名字还是 `videos_path`，但在 `temporal_sequence` 模式下，它实际上表示：
+## `--videos_path`
+虽然参数名还是 `videos_path`，但在 `temporal_sequence` 模式下，它实际表示：
 
 ```text
-图片序列根目录
-E:/VBench/Temporal/temporal_results
+/path/to/Temporal/temporal_results
 ```
 
-程序会到这里找：
+即：
 - `tem_1/`
 - `tem_2/`
 - ...
 
-每个目录里的：
-- `1.png`
-- `2.png`
-- `3.png`
-
-会被当作关键帧。
+这些子目录中存放的 `1.png, 2.png, 3.png...` 会被当作关键帧序列。
 
 ---
 
-### `--mode temporal_sequence`
-这是关键参数。
+## `--mode temporal_sequence`
+必须加这个参数。
 
-表示：
-- 不再从 `.mp4` 中均匀抽帧
-- 而是直接读取 `temporal_results/<id>/` 里的有序图片序列
+含义：
+- 不再读取 `.mp4`
+- 不再从视频里抽帧
+- 直接把图片目录视为有序时序帧序列
 
 ---
 
-### `--temporal_prompt_file`
-传入：
+## `--temporal_prompt_file`
+这里传：
 
 ```text
-E:/VBench/Temporal/temporal_prompts.json
+/path/to/Temporal/temporal_prompts.json
 ```
 
 作用：
-- 建立 `id -> dimension`
-- 建立 `id -> prompt`
-- 建立 `id -> auxiliary_info`
-
-评测时会根据这里的 `id` 去找：
-- `temporal_results/<id>/`
+- 用 `id` 定位样本
+- 读取该样本所属的 `dimension`
+- 读取该样本的改写后 `prompt`
+- 读取该样本的 `auxiliary_info`
 
 ---
 
-### `--dimension`
+## `--dimension`
 当前支持：
 - `Dynamic_Attribute`
 - `Dynamic_Spatial_Relationship`
 - `Motion_Order_Understanding`
 - `Complex_Plot`
 
-你可以只评其中一个，也可以一起评。
+你可以只测一个维度，也可以全部一起测。
 
 ---
 
-## 7.3 只评某个单一维度
+# 10. 单维度测试（强烈推荐先做）
 
-### 只评 `Dynamic_Attribute`
+在真正跑全部之前，建议你先跑一个最小测试，确认环境没问题。
+
+## 10.1 先只跑 `Dynamic_Attribute`
+
 ```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe "E:/VBench/Temporal/evaluate.py" \
-  --videos_path "E:/VBench/Temporal/temporal_results" \
+/path/to/Temporal/.venv/bin/python "/path/to/Temporal/evaluate.py" \
+  --videos_path "/path/to/Temporal/temporal_results" \
   --dimension Dynamic_Attribute \
   --mode temporal_sequence \
-  --temporal_prompt_file "E:/VBench/Temporal/temporal_prompts.json" \
-  --output_path "E:/VBench/Temporal/evaluation_results_dynamic_attribute"
+  --temporal_prompt_file "/path/to/Temporal/temporal_prompts.json" \
+  --output_path "/path/to/Temporal/evaluation_results_debug"
 ```
 
-### 只评 `Dynamic_Spatial_Relationship`
-```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe "E:/VBench/Temporal/evaluate.py" \
-  --videos_path "E:/VBench/Temporal/temporal_results" \
-  --dimension Dynamic_Spatial_Relationship \
-  --mode temporal_sequence \
-  --temporal_prompt_file "E:/VBench/Temporal/temporal_prompts.json" \
-  --output_path "E:/VBench/Temporal/evaluation_results_spatial"
-```
-
-### 只评 `Motion_Order_Understanding`
-```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe "E:/VBench/Temporal/evaluate.py" \
-  --videos_path "E:/VBench/Temporal/temporal_results" \
-  --dimension Motion_Order_Understanding \
-  --mode temporal_sequence \
-  --temporal_prompt_file "E:/VBench/Temporal/temporal_prompts.json" \
-  --output_path "E:/VBench/Temporal/evaluation_results_motion"
-```
-
-### 只评 `Complex_Plot`
-```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe "E:/VBench/Temporal/evaluate.py" \
-  --videos_path "E:/VBench/Temporal/temporal_results" \
-  --dimension Complex_Plot \
-  --mode temporal_sequence \
-  --temporal_prompt_file "E:/VBench/Temporal/temporal_prompts.json" \
-  --output_path "E:/VBench/Temporal/evaluation_results_plot"
-```
+如果这个能正常跑，再跑全部维度。
 
 ---
 
-# 8. 评测内部现在是怎么工作的
+# 11. 评测输出会保存到哪里
 
-## 8.1 新模式的核心变化
-旧模式：
-- 输入视频 `.mp4`
-- 从视频里均匀抽样关键帧
-
-新模式：
-- 输入图片文件夹 `temporal_results/<id>/`
-- 直接把 `1.png, 2.png, ...` 当作关键帧序列
-
-也就是说：
-**你生成的这些图片本身就是 evaluator 要看的关键帧。**
-
----
-
-## 8.2 当前四个 evaluator 的含义
-
-### Dynamic_Attribute
-检查：
-- 开始状态是否正确
-- 结束状态是否正确
-- 属性变化是否发生
-
-### Dynamic_Spatial_Relationship
-检查：
-- 起始空间关系是否正确
-- 结束空间关系是否正确
-
-### Motion_Order_Understanding
-检查：
-- 图像序列中的动作顺序是否正确
-
-### Complex_Plot
-检查：
-- 图像序列是否覆盖关键剧情节点
-
----
-
-# 9. 输出结果
-
-评测完成后，会在你指定的 `output_path` 下生成结果文件，例如：
+例如你传：
 
 ```text
-E:/VBench/Temporal/evaluation_results/results_YYYY-MM-DD-HH-MM-SS_eval_results.json
-E:/VBench/Temporal/evaluation_results/results_YYYY-MM-DD-HH-MM-SS_full_info.json
+--output_path /path/to/Temporal/evaluation_results
 ```
 
-通常：
-- `*_eval_results.json`：最终维度得分与明细
-- `*_full_info.json`：本次实际用于评测的样本映射信息
-
----
-
-# 10. 常见问题排查
-
-## 10.1 找不到 `temporal_prompts.json`
-确认文件存在：
+则最终会生成：
 
 ```text
-E:/VBench/Temporal/temporal_prompts.json
+/path/to/Temporal/evaluation_results/results_YYYY-MM-DD-HH-MM-SS_eval_results.json
+/path/to/Temporal/evaluation_results/results_YYYY-MM-DD-HH-MM-SS_full_info.json
+```
+
+其中：
+- `*_eval_results.json`：维度分数和每条样本结果
+- `*_full_info.json`：本次评测实际用到的样本映射信息
+
+---
+
+# 12. 如果自动下载模型失败怎么办
+
+## 12.1 先确认 CLI 是否能工作
+
+```bash
+huggingface-cli --help
+```
+
+## 12.2 先确认缓存目录是否存在
+例如：
+
+```bash
+ls /path/to/model_cache/vbench2
+```
+
+## 12.3 手动重新下载模型
+
+```bash
+huggingface-cli download lmms-lab/LLaVA-Video-7B-Qwen2 --repo-type model --local-dir "/path/to/model_cache/vbench2/lmms-lab/LLaVA-Video-7B-Qwen2"
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct --repo-type model --local-dir "/path/to/model_cache/vbench2/Qwen/Qwen2.5-7B-Instruct"
+```
+
+## 12.4 如果公司/学校服务器封网
+可以在本地或中转机下载后上传：
+
+```bash
+rsync -av /local/model_cache/vbench2/ user@server:/path/to/model_cache/vbench2/
 ```
 
 ---
 
-## 10.2 找不到某个 `tem_x` 文件夹
+# 13. 常见问题排查
+
+## 13.1 找不到 `temporal_prompts.json`
+确认：
+
+```bash
+ls /path/to/Temporal/temporal_prompts.json
+```
+
+---
+
+## 13.2 找不到某个 `tem_x` 文件夹
 检查：
 
-```text
-E:/VBench/Temporal/temporal_results/tem_x/
+```bash
+ls /path/to/Temporal/temporal_results/tem_x
 ```
 
-是否存在，并且里面有：
+并确认里面至少有：
 - `1.png`
 - `2.png`
-- ...
 
 ---
 
-## 10.3 图片命名顺序不对
-当前评测按数字排序：
+## 13.3 图片命名不规范
+当前图片序列按数字顺序排序：
 - `1.png`
 - `2.png`
 - `3.png`
 
-不要用：
+不要混用：
 - `img1.png`
-- `frame_a.png`
+- `frame_1.png`
 - `001_final.png`
 
-最稳妥就是纯数字文件名。
-
 ---
 
-## 10.4 模型下载失败
-请先确认：
-
-### 是否安装了 Hugging Face CLI
-```bash
-E:/VBench/Temporal/.venv/Scripts/python.exe -m pip install "huggingface_hub[cli]"
-```
-
-### 是否能访问 Hugging Face
-如果不能稳定访问，建议手动下载。
-
----
-
-## 10.5 显存/加载失败
-LLaVA-Video-7B-Qwen2 和 Qwen2.5-7B-Instruct 都比较大。
-如果显存不足，可能会在评测时失败。
+## 13.4 显存不足
+LLaVA-Video-7B-Qwen2 与 Qwen2.5-7B-Instruct 体积较大。
 
 建议：
-- 先只跑一个维度测试
-- 确认模型能正常加载后，再跑全部
+- 先跑单一维度测试
+- 不要一上来就跑全部
+- 必要时只跑前几个样本做 smoke test
 
 ---
 
-# 11. 推荐完整执行顺序
+## 13.5 CUDA / PyTorch 版本不兼容
+如果模型加载时报 CUDA 或 torch 错误，先检查：
 
 ```bash
-# 1. 激活虚拟环境
-E:/VBench/Temporal/.venv/Scripts/activate
+/path/to/Temporal/.venv/bin/python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+```
 
-# 2. 设置 API Key
-# PowerShell:
-$env:DASHSCOPE_API_KEY="你的API_KEY"
+如果 `torch.cuda.is_available()` 是 `False`，则说明当前 PyTorch 没有正确识别 GPU。
 
-# 3. 可选：设置模型缓存目录
-$env:VBENCH2_CACHE_DIR="C:/Users/admin/.cache/vbench2"
+---
 
-# 4. 生成多图 prompt
-python "E:/VBench/Temporal/change_prompt_to_multi_image.py"
+# 14. 推荐最稳妥的执行顺序
 
-# 5. 调用 Wan 生成图片
-python "E:/VBench/Temporal/run_inference_wan.py"
+```bash
+# 1. 激活环境
+source /path/to/Temporal/.venv/bin/activate
 
-# 6. 跑评测
-python "E:/VBench/Temporal/evaluate.py" \
-  --videos_path "E:/VBench/Temporal/temporal_results" \
+# 2. 设置环境变量
+export DASHSCOPE_API_KEY="你的API_KEY"
+export VBENCH2_CACHE_DIR="/path/to/model_cache/vbench2"
+
+# 3. 安装依赖
+python -m pip install --upgrade pip
+python -m pip install torch torchvision torchaudio
+python -m pip install decord pillow tqdm requests pyyaml scenedetect gdown
+python -m pip install "huggingface_hub[cli]"
+python -m pip install transformers sentencepiece accelerate
+
+# 4. 手动下载评测模型
+huggingface-cli download lmms-lab/LLaVA-Video-7B-Qwen2 --repo-type model --local-dir "/path/to/model_cache/vbench2/lmms-lab/LLaVA-Video-7B-Qwen2"
+huggingface-cli download Qwen/Qwen2.5-7B-Instruct --repo-type model --local-dir "/path/to/model_cache/vbench2/Qwen/Qwen2.5-7B-Instruct"
+
+# 5. 先测试一个维度
+python "/path/to/Temporal/evaluate.py" \
+  --videos_path "/path/to/Temporal/temporal_results" \
+  --dimension Dynamic_Attribute \
+  --mode temporal_sequence \
+  --temporal_prompt_file "/path/to/Temporal/temporal_prompts.json" \
+  --output_path "/path/to/Temporal/evaluation_results_debug"
+
+# 6. 再跑全部维度
+python "/path/to/Temporal/evaluate.py" \
+  --videos_path "/path/to/Temporal/temporal_results" \
   --dimension Dynamic_Attribute Dynamic_Spatial_Relationship Motion_Order_Understanding Complex_Plot \
   --mode temporal_sequence \
-  --temporal_prompt_file "E:/VBench/Temporal/temporal_prompts.json" \
-  --output_path "E:/VBench/Temporal/evaluation_results"
+  --temporal_prompt_file "/path/to/Temporal/temporal_prompts.json" \
+  --output_path "/path/to/Temporal/evaluation_results"
 ```
 
 ---
 
-# 12. 总结
+# 15. 总结
 
-你现在的评测逻辑已经不再是：
-- 从视频中抽样关键帧
+你现在的情况不是“评测逻辑没写好”，而是：
+- **生成已经完成**
+- **评测模式已经改好了**
+- **你现在卡在 Linux 服务器上的评测环境准备这一步**
 
-而是：
-- 直接把 `run_inference_wan.py` 生成的多张图片当作关键帧序列来评测
+所以最关键的是：
+1. 创建/激活虚拟环境
+2. 安装依赖
+3. 设置 `DASHSCOPE_API_KEY`
+4. 设置 `VBENCH2_CACHE_DIR`
+5. 手动下载 LLaVA / Qwen 模型
+6. 先跑一个维度测试
+7. 再跑完整评测
 
-也就是说，现在 Temporal 的 evaluator 本质上已经是：
-
-**关键帧序列评测器**
-
-而不是纯视频评测器。
+如果你在服务器上执行某一步报错，建议直接把报错贴出来，再继续定位。

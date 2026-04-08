@@ -834,38 +834,38 @@
     "dimension": "Complex_Plot"
   },
   {
-    "prompt": "Generate a 5-frame cinematic sequence with strict visual continuity. Global setting: A young male artist in a remote misty European town courtyard, consistent character design with messy brown hair wearing a dusty canvas apron and holding restoration brushes, ancient stone sculpture on a pedestal, painterly realism, warm atmospheric lighting, highly detailed textures. Image 1: The artist first discovers the heavily eroded, moss-covered ancient sculpture that has completely lost its original form, standing alone in morning mist. Image 2: The artist actively scrubs and cleans the stone with a damp cloth, observing dust fall away as subtle cracks shift and the stone slowly reveals hidden human-like contours underneath. Image 3: A sudden magical transformation occurs as the stone glows and fractures, rapidly morphing into a living flesh-and-blood person whose facial features uncannily resemble the artist's lost family members. Image 4: The figure stands fully restored and alive in the courtyard, breathing but gazing blankly with complete memory loss, while the artist reaches out cautiously. Image 5: At golden hour sunset, the artist sits beside the amnesiac figure holding a faded photograph, his expression shifts to deep emotional realization as swirling translucent memory fragments wrap around them symbolizing inner resolution.",
-    "prompt_cn": "生成一组具有严格视觉连贯性的5张电影感分镜图。全局设定：偏远雾气欧洲小镇庭院中的年轻男性艺术家，一致的角色设计为棕色乱发、身穿沾满灰尘的帆布围裙并手持修复刷，基座上的古老石雕，绘画写实风格，温暖氛围光照，高度细节纹理。第1张：艺术家初次发现这座严重风化、长满青苔且已完全失去原貌的古朴石雕，它孤立在晨雾中。第2张：艺术家用湿布用力擦洗清洁石块，观察灰尘剥落，细微裂纹开始移位，石头下方缓缓显露出隐藏的人形轮廓。第3张：突然的魔法转变发生，石块发光碎裂，迅速蜕变为一个有血有肉的活人，其面部特征惊人地酷似艺术家失散的家人。第4张：该人物在庭院中完全复活并站立着，正在呼吸但眼神空洞完全失忆，艺术家谨慎地伸出手。第5张：日落黄金时刻，艺术家手持褪色照片坐在失忆者身旁，表情转变为深刻的情感顿悟，周围环绕着旋转的半透明记忆碎片，象征内心挣扎的化解。",
-    "global_prompt": "A young male artist in a remote misty European town courtyard, consistent character design with messy brown hair wearing a dusty canvas apron and holding restoration brushes, ancient stone sculpture on a pedestal, painterly realism, warm atmospheric lighting, highly detailed textures.",
-    "global_prompt_cn": "偏远雾气欧洲小镇庭院中的年轻男性艺术家，一致的角色设计为棕色乱发、身穿沾满灰尘的帆布围裙并手持修复刷，基座上的古老石雕，绘画写实风格，温暖氛围光照，高度细节纹理。",
+    "prompt": "A 5-image cinematic storyboard with consistent visual continuity. Global setting: a young male artist in a misty European courtyard, with messy brown hair, a dusty apron, restoration brushes, and an ancient stone sculpture on a pedestal. Image 1: The artist discovers the moss-covered eroded sculpture in the morning mist. Image 2: He scrubs the stone clean as dust falls and human-like contours emerge. Image 3: The sculpture glows, fractures, and transforms into a living person resembling the artist's lost family. Image 4: The restored figure stands alive but blank-eyed with no memory as the artist reaches out cautiously. Image 5: At sunset, the artist sits beside the amnesiac figure holding a faded photograph while translucent memory fragments swirl around them.",
+    "prompt_cn": "一组包含5张图的电影感分镜，场景始终是雾气笼罩的欧洲小镇庭院，主角是同一位棕发年轻修复师，穿着旧围裙，手持修复刷，身旁是一尊古老石雕。图1：他在晨雾中发现一尊布满苔藓、严重风化的石雕。图2：他用湿布擦拭石雕，尘土落下，石面逐渐显露出类似人脸的轮廓。图3：石雕发光并裂开，迅速变成一个与他逝去家人相似的活人。图4：复活的人站在庭院里，已经有生命迹象，却眼神空白、失去记忆，修复师试探着伸出手。图5：黄昏时分，修复师与失忆者并肩而坐，手里拿着一张旧照片，四周浮现半透明的记忆碎片。",
+    "global_prompt": "A cinematic 5-image storyboard set in a misty European courtyard, centered on a young artist, an ancient sculpture, and a magical transformation. Keep the character design, courtyard setting, and painterly realism consistent across all images.",
+    "global_prompt_cn": "一组5张图的电影感分镜，场景为雾气弥漫的欧洲庭院，围绕年轻修复师、古老石雕与魔法转化展开。所有画面保持角色设计、庭院环境和绘画写实风格一致。",
     "num_images": 5,
     "sub_prompts": [
-      "The artist first discovers the heavily eroded, moss-covered ancient sculpture that has completely lost its original form, standing alone in morning mist.",
-      "The artist actively scrubs and cleans the stone with a damp cloth, observing dust fall away as subtle cracks shift and the stone slowly reveals hidden human-like contours underneath.",
-      "A sudden magical transformation occurs as the stone glows and fractures, rapidly morphing into a living flesh-and-blood person whose facial features uncannily resemble the artist's lost family members.",
-      "The figure stands fully restored and alive in the courtyard, breathing but gazing blankly with complete memory loss, while the artist reaches out cautiously.",
-      "At golden hour sunset, the artist sits beside the amnesiac figure holding a faded photograph, his expression shifts to deep emotional realization as swirling translucent memory fragments wrap around them symbolizing inner resolution."
+      "Image 1: The artist discovers the moss-covered eroded sculpture in the morning mist.",
+      "Image 2: He scrubs the stone clean as dust falls and hidden human-like contours appear.",
+      "Image 3: The sculpture glows, fractures, and transforms into a living person resembling his lost family.",
+      "Image 4: The restored figure stands alive but blank-eyed with no memory as the artist reaches out cautiously.",
+      "Image 5: At sunset, the artist sits beside the amnesiac figure holding a faded photograph while memory fragments swirl around them."
     ],
     "sub_prompts_cn": [
-      "艺术家初次发现这座严重风化、长满青苔且已完全失去原貌的古朴石雕，它孤立在晨雾中。",
-      "艺术家用湿布用力擦洗清洁石块，观察灰尘剥落，细微裂纹开始移位，石头下方缓缓显露出隐藏的人形轮廓。",
-      "突然的魔法转变发生，石块发光碎裂，迅速蜕变为一个有血有肉的活人，其面部特征惊人地酷似艺术家失散的家人。",
-      "该人物在庭院中完全复活并站立着，正在呼吸但眼神空洞完全失忆，艺术家谨慎地伸出手。",
-      "日落黄金时刻，艺术家手持褪色照片坐在失忆者身旁，表情转变为深刻的情感顿悟，周围环绕着旋转的半透明记忆碎片，象征内心挣扎的化解。"
+      "图1：修复师在晨雾中发现一尊长满苔藓的古老石雕。",
+      "图2：他擦拭石雕，尘土落下，隐藏的人形轮廓逐渐显现。",
+      "图3：石雕发光开裂，变成一个与他逝去家人相似的活人。",
+      "图4：复活的人站在庭院里，眼神空白失去记忆，修复师小心伸手。",
+      "图5：黄昏下，两人并肩而坐，旧照片与记忆碎片象征情感和解。"
     ],
     "auxiliary_info": [
-      "Check initial state: heavy weathering and loss of form.",
-      "Check process: active cleaning revealing shifting contours and hidden shapes.",
-      "Check climax: rapid magical morphing from stone to living human with familiar features.",
-      "Check aftermath: fully alive but amnesiac posture and blank gaze.",
-      "Check resolution: emotional realization, prop integration, and memory symbolism."
+      "Check the starting state: eroded moss-covered sculpture in mist.",
+      "Check the cleaning process and emergence of hidden human contours.",
+      "Check the magical transformation from stone to living person.",
+      "Check the amnesiac restored figure and the artist's cautious reaction.",
+      "Check the emotional resolution with the photograph and memory fragments."
     ],
     "auxiliary_info_cn": [
-      "检查初始状态：严重风化与形态丧失。",
-      "检查过程：主动清理显现移位轮廓与隐藏形状。",
-      "检查高潮：从石质到活人且带有熟悉特征的快速魔法变形。",
-      "检查后续状态：完全苏醒但失忆的姿态与空洞凝视。",
-      "检查结局：情感顿悟、道具整合与记忆意象象征。"
+      "检查起始状态：晨雾中布满苔藓的风化石雕。",
+      "检查清理过程以及隐藏人形轮廓的出现。",
+      "检查从石雕到活人的魔法转化。",
+      "检查失忆复活者的状态与修复师试探性的反应。",
+      "检查旧照片和记忆碎片所体现的情感收束。"
     ],
     "id": "tem_22",
     "category": "Temporal Consistency",
@@ -1062,42 +1062,42 @@
     "dimension": "Complex_Plot"
   },
   {
-    "prompt": "This is a multi-image storyboard sequence prompt. [Global Setting] A cohesive cinematic fairytale visual series with strict character consistency for Snow White (blue/yellow dress, red ribbon), the Evil Queen, and seven dwarfs. Atmosphere shifts from dark suspense to warmth, mystical slumber, and bright triumph. [Image 1] Snow White running desperately through a dense dark forest, glancing back in fear, with the Evil Queen menacing silhouette visible among distant trees. [Image 2] Snow White safely standing at a rustic wooden cottage entrance, warmly interacting with seven distinct dwarfs who are offering shelter and food. [Image 3] The Evil Queen skillfully disguised as a hunched old peddler woman, extending a glossy red poisoned apple towards a hesitant Snow White near a shadowy path. [Image 4] Snow White lying peacefully in a deep magical sleep on a mossy forest bed with a half-eaten apple beside her, as a gallant prince in shining armor gently leans down to reach her under a soft ethereal glow. [Image 5] Snow White fully awakening with fierce determination in the prince arms, while the dwarfs stand ready behind them with mining tools turned into weapons, illuminated by bright dawn light. [Image 6] A triumphant wide shot in a grand palace courtyard where Snow White, the prince, and the dwarfs stand united confronting the defeated kneeling Evil Queen, with golden sunlight and flying banners symbolizing restored peace.",
-    "prompt_cn": "这是一组多画面分镜序列提示词。[全局设定] 连贯的电影级童话视觉系列，严格保持白雪公主（蓝黄长裙红蝴蝶结）、邪恶王后与七个小矮人的角色一致性。整体氛围从黑暗悬疑过渡到温暖宁静、神秘沉睡，最终走向明亮凯旋。[第1张] 白雪公主在幽暗茂密的森林中惊慌奔跑并回头张望，远处树影间隐约可见邪恶王后充满压迫感的剪影。[第2张] 白雪公主安全地站在质朴木屋前，与七位特征分明的小矮人温暖互动并接受他们的食物与庇护。[第3张] 邪恶王后巧妙伪装成驼背的卖货老妪，在阴影小径上将一颗光泽鲜红的毒苹果递给面露犹豫的白雪公主。[第4张] 白雪公主在长满苔藓的林地上陷入深度魔法沉睡，身旁放着咬过的苹果，一位身穿闪亮铠甲的英俊王子在空灵微光中温柔俯身靠近她。[第5张] 白雪公主在王子怀中彻底苏醒且眼神坚定无畏，小矮人们在身后严阵以待并将矿具变为武器，沐浴在明亮的晨曦中。[第6张] 宏伟宫殿庭院的胜利全景，白雪公主、王子与小矮人并肩站立，对峙跪地溃败的邪恶王后，金色阳光与飘扬的旗帜象征王国恢复和平。",
-    "global_prompt": "A cohesive cinematic fairytale visual series with strict character consistency for Snow White, the Evil Queen, and seven dwarfs. Atmosphere shifts from dark suspense to warmth, mystical slumber, and bright triumph.",
-    "global_prompt_cn": "连贯的电影级童话视觉系列，严格保持白雪公主、邪恶王后与七个小矮人的角色一致性。整体氛围从黑暗悬疑过渡到温暖宁静、神秘沉睡，最终走向明亮凯旋。",
+    "prompt": "A 6-image cinematic fairytale storyboard with consistent characters: a young princess in a blue-yellow dress with a red ribbon, an evil queen, a prince, and seven dwarf companions. The mood moves from dark danger to shelter, enchanted sleep, awakening, and final victory. Image 1: The princess runs through a dark forest while the queen's silhouette appears among the trees. Image 2: The princess reaches a rustic cottage and meets seven dwarfs who offer her shelter. Image 3: The disguised queen offers a poisoned red apple to the hesitant princess. Image 4: The princess lies in magical sleep on a mossy forest bed as a prince leans toward her under soft glowing light. Image 5: The princess awakens in the prince's arms while the dwarfs stand ready behind them in dawn light. Image 6: In a grand palace courtyard, the princess, the prince, and the dwarfs confront the defeated queen under golden sunlight.",
+    "prompt_cn": "一组包含6张图的电影感童话分镜，角色始终保持一致：一位穿蓝黄长裙、系红色发带的年轻公主、邪恶王后、王子和七位小矮人伙伴。整体情绪从黑暗危机推进到温暖庇护、魔法沉睡、苏醒反击与最终胜利。图1：公主在黑暗森林中奔跑，远处树影里浮现邪恶王后的身影。图2：公主来到木屋前，与七位小矮人相遇并获得庇护。图3：伪装后的王后向公主递出毒苹果。图4：公主躺在长满苔藓的林间沉睡，王子在柔和微光中俯身靠近。图5：公主在王子怀中苏醒，小矮人们在晨光中站在身后准备应战。图6：在宏伟宫殿庭院里，公主、王子和小矮人共同面对已经失败的王后。",
+    "global_prompt": "A cinematic 6-image fairytale storyboard with a young princess, an evil queen, a prince, and seven dwarfs, maintaining consistent character design and moving from danger to awakening and victory.",
+    "global_prompt_cn": "一组6张图的电影感童话分镜，包含一位年轻公主、邪恶王后、王子和七位小矮人，保持角色设计一致，并从危机推进到苏醒与胜利。",
     "num_images": 6,
     "sub_prompts": [
-      "Image 1: Snow White running desperately through a dense dark forest, glancing back in fear, with the Evil Queen menacing silhouette visible among distant trees.",
-      "Image 2: Snow White safely standing at a rustic wooden cottage entrance, warmly interacting with seven distinct dwarfs who are offering shelter and food.",
-      "Image 3: The Evil Queen skillfully disguised as a hunched old peddler woman, extending a glossy red poisoned apple towards a hesitant Snow White near a shadowy path.",
-      "Image 4: Snow White lying peacefully in a deep magical sleep on a mossy forest bed with a half-eaten apple beside her, as a gallant prince in shining armor gently leans down to reach her under a soft ethereal glow.",
-      "Image 5: Snow White fully awakening with fierce determination in the prince arms, while the dwarfs stand ready behind them with mining tools turned into weapons, illuminated by bright dawn light.",
-      "Image 6: A triumphant wide shot in a grand palace courtyard where Snow White, the prince, and the dwarfs stand united confronting the defeated kneeling Evil Queen, with golden sunlight and flying banners symbolizing restored peace."
+      "Image 1: The princess runs through a dark forest while the queen's silhouette appears among the trees.",
+      "Image 2: The princess reaches a rustic cottage and meets seven dwarfs who offer her shelter.",
+      "Image 3: The disguised queen offers a poisoned red apple to the hesitant princess.",
+      "Image 4: The princess lies in magical sleep on a mossy forest bed as a prince leans toward her under soft glowing light.",
+      "Image 5: The princess awakens in the prince's arms while the dwarfs stand ready behind them in dawn light.",
+      "Image 6: In a grand palace courtyard, the princess, the prince, and the dwarfs confront the defeated queen under golden sunlight."
     ],
     "sub_prompts_cn": [
-      "第1张：白雪公主在幽暗茂密的森林中惊慌奔跑并回头张望，远处树影间隐约可见邪恶王后充满压迫感的剪影。",
-      "第2张：白雪公主安全地站在质朴木屋前，与七位特征分明的小矮人温暖互动并接受他们的食物与庇护。",
-      "第3张：邪恶王后巧妙伪装成驼背的卖货老妪，在阴影小径上将一颗光泽鲜红的毒苹果递给面露犹豫的白雪公主。",
-      "第4张：白雪公主在长满苔藓的林地上陷入深度魔法沉睡，身旁放着咬过的苹果，一位身穿闪亮铠甲的英俊王子在空灵微光中温柔俯身靠近她。",
-      "第5张：白雪公主在王子怀中彻底苏醒且眼神坚定无畏，小矮人们在身后严阵以待并将矿具变为武器，沐浴在明亮的晨曦中。",
-      "第6张：宏伟宫殿庭院的胜利全景，白雪公主、王子与小矮人并肩站立，对峙跪地溃败的邪恶王后，金色阳光与飘扬的旗帜象征王国恢复和平。"
+      "图1：年轻公主在黑暗森林中奔跑，王后的阴影在树间出现。",
+      "图2：公主抵达木屋，与七位小矮人相遇并获得庇护。",
+      "图3：伪装成老妇的王后向公主递出毒苹果。",
+      "图4：公主在林间苔藓上陷入魔法沉睡，王子在柔光中俯身靠近。",
+      "图5：公主在王子怀中醒来，小矮人们在晨光中准备迎战。",
+      "图6：宫殿庭院中，公主、王子与小矮人共同面对战败的王后。"
     ],
     "auxiliary_info": [
-      "Frame 1: Verify forest environment, running motion, fear expression, and distant threat silhouette.",
-      "Frame 2: Confirm safe setting, presence of all seven dwarfs, welcoming spatial layout and warm interaction.",
-      "Frame 3: Check disguise effectiveness, clear focus on the red apple, and hesitant posture of Snow White.",
-      "Frame 4: Ensure magical sleep atmosphere, visible bitten apple prop, and prince gentle approach pose.",
-      "Frame 5: Validate eye opening/awakening state, determined facial expression, group readiness, and dawn lighting transition.",
-      "Frame 6: Verify palace setting, united ally grouping, queen defeated posture, and bright resolution lighting."
+      "Check forest escape and distant queen silhouette.",
+      "Check the cottage meeting and the presence of seven dwarf companions.",
+      "Check the poisoned apple handoff from the disguised queen.",
+      "Check the magical sleep state and the prince's gentle approach.",
+      "Check awakening, group readiness, and dawn lighting.",
+      "Check the final palace confrontation and the queen's defeated state."
     ],
     "auxiliary_info_cn": [
-      "图1检查：森林环境、奔跑动态、恐惧表情、远处威胁剪影是否清晰。",
-      "图2检查：安全场景、七矮人全部出现、欢迎的空间布局与温暖互动。",
-      "图3检查：伪装视觉区分度、毒苹果为画面焦点、白雪公主的犹豫姿态。",
-      "图4检查：魔法沉睡氛围、咬过的苹果道具、王子温柔靠近的构图。",
-      "图5检查：苏醒瞬间、坚定表情变化、团队备战状态、黎明光线转换。",
-      "图6检查：宫殿场景特征、盟友团结站位、王后溃败姿态、明亮结局光影。"
+      "检查森林逃跑场景与远处王后阴影。",
+      "检查木屋相遇场景以及七位小矮人伙伴的出现。",
+      "检查伪装王后递出毒苹果的关键动作。",
+      "检查魔法沉睡状态与王子的靠近。",
+      "检查苏醒时刻、团队应战状态与晨光氛围。",
+      "检查最终宫殿对峙与王后失败的状态。"
     ],
     "id": "tem_28",
     "category": "Temporal Consistency",
@@ -1532,38 +1532,38 @@
     "dimension": "Complex_Plot"
   },
   {
-    "prompt": "A consistent cinematic fantasy sequence depicting Princess Elsa's epic journey from a cursed, frozen northern kingdom to her triumphant return as a powerful queen. Maintain a cohesive art style with detailed character design, evolving lighting and weather conditions to reflect the narrative progression from bleak winter to vibrant spring, and ensure visual continuity of Elsa's appearance and the glowing magical crystals. This is a sequential multi-image series. [Image 1] The cursed northern kingdom buried in an endless blizzard, young Princess Elsa standing on a frost-covered balcony looking down sorrowfully, her breath visible in the freezing air, heavy gray skies, muted blue and white tones. [Image 2] Inside a dimly lit ancient stone tower, Elsa meets a wise old wizard with a glowing staff, a magical floating projection shows five distinct glowing crystal locations across a fantasy world, warm candlelight contrasting with the cold blue outside the window. [Image 3] A dynamic composition showing Elsa bravely navigating treacherous environments: scaling jagged blue glaciers, crossing a fiery volcanic path with lava flows, and pushing through an enchanted dense forest, holding a satchel with gathered crystals, adventurous lighting. [Image 4] Elsa standing at the edge of a vast sun-scorched desert transforming into a stormy coastal cliff, facing elemental challenges while reaching out to grasp glowing magical crystals embedded in sand and sea rock, dramatic high-contrast lighting, her cloak blowing fiercely. [Image 5] The climax at the kingdom's central plaza, Elsa floating slightly as she fuses the five glowing crystals in her hands, a massive shockwave of golden light shatters the eternal winter ice below, revealing lush green grass and blooming flowers, Elsa wearing regal attire with a confident expression, warm golden hour lighting.",
-    "prompt_cn": "一套连贯的电影级奇幻系列分镜，描绘艾尔莎公主从被诅咒的冰雪北方王国踏上征途，最终荣耀归来的女王之路。保持统一的绘画风格，详细刻画角色设计，通过光影和天气的变化反映剧情从凛冬到暖春的演变，并确保艾尔莎的外貌与发光的魔法水晶在视觉上具有连续性。这是一组具有时间连续性的多图序列。【第1张图】被诅咒的北方王国笼罩在无尽的暴风雪中，年轻的艾尔莎公主站在结霜的阳台上悲伤地俯瞰，呼出白气，灰暗天空，冷峻的蓝白色调。【第2张图】在昏暗的古老石塔内，艾尔莎遇见手持发光法杖的睿智老巫师，空中悬浮着展现五个发光魔法水晶位置的奇幻地图，温暖的烛光与窗外冰冷的蓝色形成对比。【第3张图】艾尔莎勇敢穿越险恶环境的动态构图：攀登锋利的蓝色冰川、踏过流淌熔岩的火山小径、穿越被魔法笼罩的密林，肩背行囊装着已收集的水晶，充满冒险感的打光。【第4张图】艾尔莎站在烈日炙烤的沙漠边缘面对狂风巨浪的海岸悬崖，在元素风暴中伸手抓取嵌在沙地与礁石中的发光魔法水晶，高对比度的戏剧性光影，斗篷剧烈飘动。【第5张图】王国中央广场的高潮场景，艾尔莎微微悬浮，双手将五颗发光水晶融合，耀眼的金色冲击波震碎下方的永恒坚冰，露出绿草与绽放的花朵，艾尔莎身着女王华服表情自信，温暖的金色暮光。",
-    "global_prompt": "A consistent cinematic fantasy sequence depicting Princess Elsa's epic journey from a cursed, frozen northern kingdom to her triumphant return as a powerful queen. Maintain a cohesive art style with detailed character design, evolving lighting and weather conditions to reflect the narrative progression from bleak winter to vibrant spring, and ensure visual continuity of Elsa's appearance and the glowing magical crystals.",
-    "global_prompt_cn": "一套连贯的电影级奇幻系列分镜，描绘艾尔莎公主从被诅咒的冰雪北方王国踏上征途，最终荣耀归来的女王之路。保持统一的绘画风格，详细刻画角色设计，通过光影和天气的变化反映剧情从凛冬到暖春的演变，并确保艾尔莎的外貌与发光的魔法水晶在视觉上具有连续性。",
+    "prompt": "A 5-image cinematic fantasy sequence following a young ice princess from a cursed frozen northern kingdom to her triumphant return as a powerful queen. Keep the princess design and magical crystals consistent while the world changes from bleak winter to warm renewal. Image 1: The princess stands on a frost-covered balcony above a kingdom buried in endless blizzard. Image 2: In an ancient stone tower, a wise wizard shows her the locations of five magical crystals. Image 3: She crosses glaciers, volcanic paths, and an enchanted forest while carrying crystals she has gathered. Image 4: She faces desert and coastal elemental trials while reaching for more glowing crystals. Image 5: In the kingdom plaza, she fuses all five crystals, breaks the eternal winter, and restores green grass and flowers beneath golden light.",
+    "prompt_cn": "一组包含5张图的电影感奇幻分镜，讲述一位年轻冰雪公主从被诅咒的冰封北境出发，最终作为强大女王凯旋归来的旅程。所有画面保持公主形象与魔法水晶的一致性，同时让世界从寒冬推进到温暖复苏。图1：公主站在结霜阳台上，俯视被暴风雪掩埋的王国。图2：在古老石塔中，一位智慧法师向她展示五颗魔法水晶的位置。图3：她穿越冰川、火山路径和魔法森林，携带已经收集到的水晶前行。图4：她在沙漠与海岸的元素试炼中继续获取发光水晶。图5：在王国广场上，她融合五颗水晶，打破永恒寒冬，让草地与花朵在金色光线下重现。",
+    "global_prompt": "A cinematic 5-image fantasy sequence following a young ice princess from a frozen cursed kingdom to a final scene of magical restoration, with consistent character design and crystal progression.",
+    "global_prompt_cn": "一组5张图的电影感奇幻分镜，讲述一位年轻冰雪公主从冰封诅咒王国走向最终魔法复苏的过程，保持角色设计和水晶推进的一致性。",
     "num_images": 5,
     "sub_prompts": [
-      "[Image 1] The cursed northern kingdom buried in an endless blizzard, young Princess Elsa standing on a frost-covered balcony looking down sorrowfully, her breath visible in the freezing air, heavy gray skies, muted blue and white tones.",
-      "[Image 2] Inside a dimly lit ancient stone tower, Elsa meets a wise old wizard with a glowing staff, a magical floating projection shows five distinct glowing crystal locations across a fantasy world, warm candlelight contrasting with the cold blue outside the window.",
-      "[Image 3] A dynamic composition showing Elsa bravely navigating treacherous environments: scaling jagged blue glaciers, crossing a fiery volcanic path with lava flows, and pushing through an enchanted dense forest, holding a satchel with gathered crystals, adventurous lighting.",
-      "[Image 4] Elsa standing at the edge of a vast sun-scorched desert transforming into a stormy coastal cliff, facing elemental challenges while reaching out to grasp glowing magical crystals embedded in sand and sea rock, dramatic high-contrast lighting, her cloak blowing fiercely.",
-      "[Image 5] The climax at the kingdom's central plaza, Elsa floating slightly as she fuses the five glowing crystals in her hands, a massive shockwave of golden light shatters the eternal winter ice below, revealing lush green grass and blooming flowers, Elsa wearing regal attire with a confident expression, warm golden hour lighting."
+      "Image 1: The ice princess stands on a frost-covered balcony above a kingdom buried in endless blizzard.",
+      "Image 2: In an ancient stone tower, a wise wizard reveals the locations of five magical crystals to the princess.",
+      "Image 3: The princess journeys across glaciers, volcanic paths, and an enchanted forest with collected crystals.",
+      "Image 4: The princess faces desert and coastal elemental trials while reaching for more glowing crystals.",
+      "Image 5: In the kingdom plaza, the princess fuses all five crystals, breaks the eternal winter, and restores spring under golden light."
     ],
     "sub_prompts_cn": [
-      "【第1张图】被诅咒的北方王国笼罩在无尽的暴风雪中，年轻的艾尔莎公主站在结霜的阳台上悲伤地俯瞰，呼出白气，灰暗天空，冷峻的蓝白色调。",
-      "【第2张图】在昏暗的古老石塔内，艾尔莎遇见手持发光法杖的睿智老巫师，空中悬浮着展现五个发光魔法水晶位置的奇幻地图，温暖的烛光与窗外冰冷的蓝色形成对比。",
-      "【第3张图】艾尔莎勇敢穿越险恶环境的动态构图：攀登锋利的蓝色冰川、踏过流淌熔岩的火山小径、穿越被魔法笼罩的密林，肩背行囊装着已收集的水晶，充满冒险感的打光。",
-      "【第4张图】艾尔莎站在烈日炙烤的沙漠边缘面对狂风巨浪的海岸悬崖，在元素风暴中伸手抓取嵌在沙地与礁石中的发光魔法水晶，高对比度的戏剧性光影，斗篷剧烈飘动。",
-      "【第5张图】王国中央广场的高潮场景，艾尔莎微微悬浮，双手将五颗发光水晶融合，耀眼的金色冲击波震碎下方的永恒坚冰，露出绿草与绽放的花朵，艾尔莎身着女王华服表情自信，温暖的金色暮光。"
+      "图1：冰雪公主站在结霜阳台上，俯视被暴风雪掩埋的王国。",
+      "图2：在古老石塔中，智慧法师向公主展示五颗魔法水晶的位置。",
+      "图3：公主穿越冰川、火山路径和魔法森林，携带已收集的水晶继续前行。",
+      "图4：公主在沙漠与海岸的元素试炼中继续伸手获取发光水晶。",
+      "图5：在王国广场上，公主融合五颗水晶，打破永恒寒冬，让春天在金色光线中重现。"
     ],
     "auxiliary_info": [
-      "Establish the initial state of the kingdom and Elsa's cursed ice powers under an eternal winter.",
-      "Introduce the inciting incident: meeting the wizard and defining the quest for five magical crystals.",
-      "Depict mid-journey progression through extreme biomes (glaciers, volcanoes, forests) and partial crystal collection.",
-      "Show late-stage trials in contrasting environments (desert, sea) and the successful acquisition of all crystals.",
-      "Illustrate the climax and resolution: fusing crystals, breaking the curse, landscape thawing, and Elsa's transformation into a crowned queen."
+      "Check the frozen kingdom and the princess's initial cursed state under blizzard conditions.",
+      "Check the wizard guidance scene and the quest setup for five crystals.",
+      "Check mid-journey progression through multiple harsh environments with collected crystals.",
+      "Check the late-stage elemental trials in desert and coastal settings.",
+      "Check the final crystal fusion, curse breaking, and restored spring landscape."
     ],
     "auxiliary_info_cn": [
-      "确立初始状态：王国处于永恒寒冬，展现艾尔莎受诅咒的冰雪能力。",
-      "引入任务动机：遇见巫师并明确寻找五颗魔法水晶的核心目标。",
-      "展现中期旅程：穿越冰川、火山、密林等极端地貌，体现收集过程。",
-      "展现后期试炼：在沙漠与海洋中克服最终挑战，成功集齐所有水晶。",
-      "描绘高潮与结局：融合水晶破除诅咒，环境回春，艾尔莎掌控力量并加冕。"
+      "检查暴风雪中的冰封王国与公主最初的受诅咒状态。",
+      "检查法师指引场景以及寻找五颗水晶的任务建立。",
+      "检查中段旅程中穿越多种极端环境并携带已收集水晶的推进。",
+      "检查后期沙漠与海岸元素试炼场景。",
+      "检查最终水晶融合、诅咒破除以及春天复苏的结局。"
     ],
     "id": "tem_40",
     "category": "Temporal Consistency",
