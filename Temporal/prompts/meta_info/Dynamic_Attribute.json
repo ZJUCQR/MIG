@@ -1,0 +1,71 @@
+[
+    {
+        "prompt_en": "The sky changes from deep black to white as dawn breaks.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Does the scene change from dark to bright? (yes or no)"
+        ]
+    },
+    {
+        "prompt_en": "A room changes from dark to bright as sunlight enters.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Does the room become brighter? (yes or no)"
+        ]
+    },
+    {
+        "prompt_en": "A tree stump changes from small to large as it decays.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Does the size of the tree stump increase as it decays? (yes or no)"
+        ]
+    },
+    {
+        "prompt_en": "A sponge changes from small to large as it absorbs water.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Does the size of the sponge increase as it absorbs water? (yes or no)"
+        ]
+    },
+    {
+        "prompt_en": "A sculpture changes from large to small as it’s carved.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Does the size of the sculpture decrease as it’s carved? (yes or no)"
+        ]
+    },
+    {
+        "prompt_en": "A puddle changes from small to large as rain continues to fall.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Does the size of the puddle increase as rain continues to fall? (yes or no)"
+        ]
+    },
+    {
+        "prompt_en": "The glass car window changed into a wooden car window.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Initially, is the material of the car window glass? (yes or no)",
+            "Finally, is the material of the car window wooden? (yes or no)",
+            "Does the material of the car window change? (yes or no)"
+        ]
+    },
+    {
+        "prompt_en": "The plastic water cup turned into a metal water cup.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Initially, is the material of the water cup plastic? (yes or no)",
+            "Finally, is the material of the water cup metal? (yes or no)",
+            "Does the material of the water cup change? (yes or no)"
+        ]
+    },
+    {
+        "prompt_en": "The wooden door handle transformed into a plastic door handle.",
+        "dimension": "Dynamic_Attribute",
+        "auxiliary_info": [
+            "Initially, is the material of the door handle wooden? (yes or no)",
+            "Finally, is the material of the door handle plastic? (yes or no)",
+            "Does the material of the door handle change? (yes or no)"
+        ]
+    }
+]
