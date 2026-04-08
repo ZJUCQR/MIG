@@ -456,16 +456,14 @@
       "在古老风化的石质祭坛前，法师将五颗收集到的发光水晶嵌入对应凹槽，激发绚丽的彩色魔法能量波席卷大地，使景观转变为晴空下和平繁茂的翠绿山谷。"
     ],
     "auxiliary_info": [
-      "Verify chronological progression of crystal acquisition: flame -> snow -> star -> life -> earth -> all five combined.",
-      "Check environmental shifts match the timeline: volcanic terrain -> ice kingdom -> starry tower -> bioluminescent forest -> desert dunes -> restored altar valley.",
-      "Ensure strict visual consistency for the sorcerer's facial features, cloak design, and body proportions across all 6 images.",
-      "Confirm the final image explicitly shows all five crystals united to trigger the magical restoration wave."
+      "Check that the sorcerer remains visually consistent across the sequence.",
+      "Check the overall progression of crystal collection across distinct environments.",
+      "Check that the final image shows the combined crystals and magical restoration."
     ],
     "auxiliary_info_cn": [
-      "验证水晶获取的时间顺序是否正确：火焰->冰雪->星辰->生命->大地->五颗汇聚。",
-      "检查环境转换是否符合时间线：火山地形->冰雪王国->星辰高塔->发光森林->沙漠沙丘->恢复生机的祭坛山谷。",
-      "确保6张图中法师的面部特征、斗篷设计与身体比例保持严格一致。",
-      "确认最终画面明确展示五颗水晶合一并触发王国复苏的魔法能量波。"
+      "检查法师在整组图中的形象是否保持一致。",
+      "检查不同环境中的水晶收集过程是否整体推进清楚。",
+      "检查最后一张图是否呈现水晶汇聚与魔法复苏。"
     ],
     "id": "tem_12",
     "category": "Temporal Consistency",
@@ -620,20 +618,14 @@
       "[图6]她宁静地站在阳光照耀的悬浮庭院中央，温柔微笑，看着漂浮的齿轮与沙漏沙化作金色尘埃消散，领悟到这无时间之境即是永恒的归宿。"
     ],
     "auxiliary_info": [
-      "Phase 1: Key reception and magical threshold crossing",
-      "Phase 2: Day 1 exploration of floating magical books",
-      "Phase 3: Day 2 kitchen interaction and cookie baking magic",
-      "Phase 4: Day 3 mirror revelation of transformed reflection",
-      "Phase 5: Day 4 garden planting and instantaneous giant tree growth",
-      "Phase 6: Final realization of timelessness and homecoming"
+      "Check that the same little girl appears consistently throughout the sequence.",
+      "Check that the story progresses from entering the magical place to experiencing several magical events.",
+      "Check that the ending shows realization and return/homecoming."
     ],
     "auxiliary_info_cn": [
-      "阶段1：获得钥匙与跨越魔法门槛",
-      "阶段2：第一天探索悬浮魔法书籍",
-      "阶段3：第二天厨房互动与烘焙魔法",
-      "阶段4：第三天魔镜揭示形态转变的倒影",
-      "阶段5：第四天花园播种与巨树瞬间长成",
-      "阶段6：最终领悟时间静止与回归归宿"
+      "检查同一个小女孩是否在整组图中保持一致。",
+      "检查剧情是否从进入魔法空间推进到经历多次魔法事件。",
+      "检查结尾是否表现出顿悟与归来。"
     ],
     "id": "tem_16",
     "category": "Temporal Consistency",
@@ -698,18 +690,14 @@
       "第五天暮色海边悬崖，她演奏终曲时半透明的发光音符从唇畔与胸口实体化飘出，照亮她顿悟的微笑，光粒在空气中漂浮。"
     ],
     "auxiliary_info": [
-      "Verify the girl's consistent facial features and deeply moved expression in the Day 1 market setting.",
-      "Check the emotional interaction and the clear handover of the silver flute between the old man and the girl on Day 2.",
-      "Ensure visible musical ripple effects and instant flower blooming around the stream are depicted on Day 3.",
-      "Confirm the visual representation of soothing sound waves successfully altering the crowd's emotional state on Day 4.",
-      "Validate the emergence of glowing notes directly from the girl's body and her enlightened expression during the Day 5 performance."
+      "Check the girl's identity consistency across all images.",
+      "Check the sequence of emotional and musical awakening over multiple days.",
+      "Check that the final performance clearly shows a strong magical musical climax."
     ],
     "auxiliary_info_cn": [
-      "核实第一天集市场景中少女面部特征的一致性及深受触动的表情。",
-      "检查第二天老乐师与少女之间的情感互动及银笛交接动作的清晰度。",
-      "确保第三天溪边场景中具象化的音乐涟漪与瞬间开花特效准确呈现。",
-      "确认第四天画面中安抚音波对人群情绪转变的视觉表达是否清晰。",
-      "验证第五天演奏时发光音符从少女体内飘出的细节及其顿悟神态。"
+      "检查女孩在所有图中的身份一致性。",
+      "检查多日过程中情感与音乐觉醒的顺序推进。",
+      "检查最终表演是否清楚体现出强烈的魔法音乐高潮。"
     ],
     "id": "tem_18",
     "category": "Temporal Consistency",
@@ -736,18 +724,14 @@
       "第5张图：回到书桌前，温暖的落日余晖洒满房间，照亮了如今留白的画布，画家合上素描本，脸上带着平和释然的微笑，象征着他情感上的放下与继续前行。"
     ],
     "auxiliary_info": [
-      "Verify consistent character design (young painter, dark hair, beige linen shirt) and studio environment across all panels.",
-      "Check Day 1 to Day 2 progression: from observing the street corner to actively painting the portrait with dream-like reflection overlay.",
-      "Check Day 2 to Day 3 state change: transition from 2D static canvas to surreal 3D motion and particle dissolution of the painted figure.",
-      "Check Day 3 to Day 4 spatial shift: move from indoor studio to outdoor misty street, emphasizing the search for traces and elusive atmosphere.",
-      "Check Day 4 to Day 5 emotional closure: shift from confusion on the street to indoor peaceful acceptance, highlighted by warm lighting and a blank canvas."
+      "Check that the young painter remains visually consistent across the sequence.",
+      "Check that the story moves from observation and painting to surreal transformation and search.",
+      "Check that the ending shows a calmer emotional resolution back in the studio."
     ],
     "auxiliary_info_cn": [
-      "检查所有画面中人物外貌（年轻画家、深色短发、米色亚麻衬衫）与画室环境是否保持严格一致。",
-      "检查第一天至第二天的推进：从在街角观察转变为在室内作画，并带有体现认知的梦境重叠视觉效果。",
-      "检查第二天至第三天的状态转变：从二维静态画布突变为超现实的三维动态及画中人化作粒子消散的特效。",
-      "检查第三天至第四天的空间转换：从室内画室转移至室外雾气弥漫的街道，突出寻找线索与虚幻氛围。",
-      "检查第四天至第五天的情感闭环：从街道上的困惑转为室内的平和释然，通过暖色调光线与留白画布强调放下与前行。"
+      "检查年轻画家在整组图中的外观是否保持一致。",
+      "检查剧情是否从观察与作画推进到超现实变化与追寻。",
+      "检查结尾是否表现出回到画室后的平静情绪收束。"
     ],
     "id": "tem_19",
     "category": "Temporal Consistency",
@@ -2682,16 +2666,12 @@
       "狗现在完全停下，安静地坐在沙发正前方的中心区域。"
     ],
     "auxiliary_info": [
-      "Does frame 1 accurately show the dog positioned on the left side of the sofa?",
-      "Does frame 2 depict the dynamic running motion transitioning from left to front?",
-      "Does frame 3 show the dog decelerating as it reaches the front of the sofa?",
-      "Does frame 4 confirm the dog has successfully stopped and settled directly in front of the sofa?"
+      "Check whether the dog is clearly on the left side of the sofa at the beginning.",
+      "Check whether the dog ends up clearly in front of the sofa at the end."
     ],
     "auxiliary_info_cn": [
-      "第1帧是否准确显示狗处于沙发的左侧位置？",
-      "第2帧是否描绘了从左到前方的动态奔跑过程？",
-      "第3帧是否显示狗在到达沙发前方时正在减速？",
-      "第4帧是否确认狗已成功停下并稳定位于沙发正前方？"
+      "检查开头时狗是否清楚地位于沙发左侧。",
+      "检查结尾时狗是否清楚地来到沙发前方。"
     ],
     "id": "tem_71",
     "category": "Temporal Consistency",
@@ -2714,14 +2694,12 @@
       "第3张图展示猫已完成移动，现在正好位于椅子的正前方中心位置，安静地休息并面朝观看者。"
     ],
     "auxiliary_info": [
-      "Verify that in image 1, the cat is distinctly positioned on the left side of the chair without overlapping.",
-      "Verify that in image 2, the cat exhibits a running motion trajectory moving toward the front of the chair.",
-      "Verify that in image 3, the cat is accurately located directly in front of the chair's seating area."
+      "Check whether the cat starts on the left side of the chair.",
+      "Check whether the cat ends clearly in front of the chair."
     ],
     "auxiliary_info_cn": [
-      "验证第1张图中猫是否明确且无重叠地位于椅子左侧。",
-      "验证第2张图中猫是否表现出向椅子正前方移动的奔跑运动轨迹。",
-      "验证第3张图中猫是否准确位于椅子座垫正前方的中心位置。"
+      "检查猫是否起始位于椅子左侧。",
+      "检查猫是否最终清楚地来到椅子前方。"
     ],
     "id": "tem_72",
     "category": "Temporal Consistency",
@@ -2746,16 +2724,12 @@
       "图4：猫停下脚步，安静地坐在盒子左侧。"
     ],
     "auxiliary_info": [
-      "Check if the cat is statically positioned on the right of the box.",
-      "Verify the cat is in active motion crossing the central front of the box.",
-      "Confirm the cat has successfully passed the center and moved toward the left.",
-      "Validate that the cat has stopped and settled on the left side of the box."
+      "Check whether the cat starts on the right side of the box.",
+      "Check whether the cat ends on the left side of the box."
     ],
     "auxiliary_info_cn": [
-      "检查猫是否静止位于盒子右侧。",
-      "验证猫是否在盒子正前方中心区域处于运动状态。",
-      "确认猫已成功越过中心并向左侧移动。",
-      "验证猫是否已停止并安顿在盒子左侧。"
+      "检查猫是否起始位于盒子右侧。",
+      "检查猫是否最终来到盒子左侧。"
     ],
     "id": "tem_73",
     "category": "Temporal Consistency",
@@ -2780,16 +2754,12 @@
       "兔子现已稳稳落在同一张木桌的正左侧并安静坐着，回头看向镜头，背景与桌子的摆放位置与之前完全一致。"
     ],
     "auxiliary_info": [
-      "Verify if the rabbit is stationary in front of the table in the first frame.",
-      "Verify if the rabbit initiates a leftward jump in the second frame.",
-      "Verify if the rabbit is airborne and traversing towards the left side in the third frame.",
-      "Verify if the rabbit has successfully relocated to the left of the table in the final frame."
+      "Check whether the rabbit starts in front of the table.",
+      "Check whether the rabbit ends on the left side of the table."
     ],
     "auxiliary_info_cn": [
-      "检查第一帧中兔子是否静止于桌子正前方。",
-      "检查第二帧中兔子是否开始向左侧发起跳跃动作。",
-      "检查第三帧中兔子是否处于腾空状态并向左侧移动。",
-      "检查第四帧中兔子是否已稳定位于桌子左侧。"
+      "检查兔子是否起始位于桌子前方。",
+      "检查兔子是否最终来到桌子左侧。"
     ],
     "id": "tem_74",
     "category": "Temporal Consistency",
@@ -2812,14 +2782,12 @@
       "兔子已成功落地，直立站在木桌的正前方，面朝观众。"
     ],
     "auxiliary_info": [
-      "Verify the rabbit's initial position is strictly on the left side of the table in frame 1.",
-      "Verify the rabbit is depicted in a dynamic mid-air jumping pose crossing the table's space in frame 2.",
-      "Verify the rabbit's final resting position is clearly in front of the table in frame 3."
+      "Check whether the rabbit starts on the left side of the table.",
+      "Check whether the rabbit ends in front of the table."
     ],
     "auxiliary_info_cn": [
-      "验证第1帧中兔子的初始位置是否严格位于桌子左侧。",
-      "验证第2帧中兔子是否呈现跨越桌子空间的动态半空跳跃姿态。",
-      "验证第3帧中兔子的最终静止位置是否清晰地处于桌子正前方。"
+      "检查兔子是否起始位于桌子左侧。",
+      "检查兔子是否最终来到桌子前方。"
     ],
     "id": "tem_75",
     "category": "Temporal Consistency",
@@ -2842,14 +2810,12 @@
       "图3描绘松鼠已成功着陆，现正倒挂并紧紧抓附在树枝的下方。"
     ],
     "auxiliary_info": [
-      "Check if Image 1 clearly positions the squirrel on the right side of the branch.",
-      "Check if Image 2 accurately shows the mid-jump motion transitioning to the underside.",
-      "Check if Image 3 confirms the squirrel's final position securely at the bottom of the branch."
+      "Check whether the squirrel starts on the right side of the branch.",
+      "Check whether the squirrel ends at the bottom/underside of the branch."
     ],
     "auxiliary_info_cn": [
-      "检查图1是否明确将松鼠定位在树枝右侧。",
-      "检查图2是否准确展示向底部过渡的跳跃动态。",
-      "检查图3是否确认松鼠最终稳固位于树枝底部。"
+      "检查松鼠是否起始位于树枝右侧。",
+      "检查松鼠是否最终来到树枝下方。"
     ],
     "id": "tem_76",
     "category": "Temporal Consistency",
@@ -2872,14 +2838,12 @@
       "松鼠已平稳落地，警觉地站立在石头明确左侧的草地上。"
     ],
     "auxiliary_info": [
-      "Verify the squirrel's initial position is strictly behind the rock in the first frame.",
-      "Confirm the squirrel is suspended mid-air moving leftward relative to the rock in the second frame.",
-      "Check that the squirrel's final position is clearly established on the left side of the rock in the third frame."
+      "Check whether the squirrel starts behind the rock.",
+      "Check whether the squirrel ends on the left side of the rock."
     ],
     "auxiliary_info_cn": [
-      "验证第一张图中松鼠的起始位置严格位于石头正后方。",
-      "确认第二张图中松鼠处于悬空状态且正相对石头向左侧移动。",
-      "检查第三张图中松鼠的最终落点明确位于石头左侧。"
+      "检查松鼠是否起始位于岩石后方。",
+      "检查松鼠是否最终来到岩石左侧。"
     ],
     "id": "tem_77",
     "category": "Temporal Consistency",
@@ -2928,14 +2892,12 @@
       "狐狸已停下脚步，明确位于皮鞋右侧。"
     ],
     "auxiliary_info": [
-      "Verify if the fox is positioned in front of the shoe.",
-      "Verify if the fox shows clear running motion towards the right.",
-      "Verify if the fox is now located on the right side of the shoe."
+      "Check whether the fox starts in front of the shoe.",
+      "Check whether the fox ends on the right side of the shoe."
     ],
     "auxiliary_info_cn": [
-      "检查狐狸是否位于鞋子前方。",
-      "检查狐狸是否呈现清晰的向右奔跑动态。",
-      "检查狐狸现在是否已移动到鞋子右侧。"
+      "检查狐狸是否起始位于鞋子前方。",
+      "检查狐狸是否最终来到鞋子右侧。"
     ],
     "id": "tem_79",
     "category": "Temporal Consistency",
@@ -2958,14 +2920,12 @@
       "袋鼠安全落地后站在盒子右侧，面朝前方。"
     ],
     "auxiliary_info": [
-      "Verify the kangaroo's starting position is strictly on the left side of the box in image 1.",
-      "Check the dynamic mid-air leap crossing spatially from left to right over the box in image 2.",
-      "Confirm the kangaroo's final resting position is on the right side of the box in image 3."
+      "Check whether the kangaroo starts on the left side of the box.",
+      "Check whether the kangaroo ends on the right side of the box."
     ],
     "auxiliary_info_cn": [
-      "验证图1中袋鼠的起始位置是否严格位于盒子左侧。",
-      "检查图2中袋鼠是否呈现从左向右越过盒子的动态腾空跳跃状态。",
-      "确认图3中袋鼠的最终停留位置是否位于盒子右侧。"
+      "检查袋鼠是否起始位于盒子左侧。",
+      "检查袋鼠是否最终来到盒子右侧。"
     ],
     "id": "tem_80",
     "category": "Temporal Consistency",
@@ -2988,14 +2948,12 @@
       "袋鼠已落地并稳稳站在篮子的右侧。"
     ],
     "auxiliary_info": [
-      "Does the first image clearly show the kangaroo positioned directly in front of the basket?",
-      "Does the second image capture the kangaroo in a clear mid-air leaping trajectory moving towards the right?",
-      "Does the third image confirm the kangaroo is now standing on the right side of the basket?"
+      "Check whether the kangaroo starts in front of the basket.",
+      "Check whether the kangaroo ends on the right side of the basket."
     ],
     "auxiliary_info_cn": [
-      "第一张图是否清晰显示袋鼠位于篮子正前方？",
-      "第二张图是否捕捉到袋鼠向右侧跳跃的腾空轨迹？",
-      "第三张图是否确认袋鼠已位于篮子右侧并站稳？"
+      "检查袋鼠是否起始位于篮子前方。",
+      "检查袋鼠是否最终来到篮子右侧。"
     ],
     "id": "tem_81",
     "category": "Temporal Consistency",
@@ -3016,12 +2974,12 @@
       "小麻雀已飞起并明确悬停在红苹果右侧，两者之间有明显可见间隙，展示完成的空间位置转换。"
     ],
     "auxiliary_info": [
-      "Frame 1: Verify complete occlusion and confirm the 'behind' spatial relation.",
-      "Frame 2: Verify visible separation and confirm the 'right of' spatial position."
+      "Check whether the bird starts behind the apple.",
+      "Check whether the bird ends on the right side of the apple."
     ],
     "auxiliary_info_cn": [
-      "图1检查：验证完全遮挡关系并确认“后方”空间位置。",
-      "图2检查：验证可见分离状态并确认“右侧”空间位置。"
+      "检查鸟是否起始位于苹果后方。",
+      "检查鸟是否最终来到苹果右侧。"
     ],
     "id": "tem_82",
     "category": "Temporal Consistency",
@@ -3044,14 +3002,12 @@
       "图3：小鸟已降落，清晰停留在苹果左侧，完全无遮挡且在构图中与水果保持明确的空间区分。"
     ],
     "auxiliary_info": [
-      "Check Image 1 for occlusion: verify the bird is predominantly positioned behind the apple.",
-      "Check Image 2 for motion direction: confirm the bird is flying leftward from the background position.",
-      "Check Image 3 for final spatial state: ensure the bird is fully visible and located on the left side of the apple."
+      "Check whether the bird starts behind the apple.",
+      "Check whether the bird ends on the left side of the apple."
     ],
     "auxiliary_info_cn": [
-      "检查图1遮挡关系：确认小鸟主要位置处于苹果后方。",
-      "检查图2运动方向：确认小鸟正从后方位置向左飞行。",
-      "检查图3最终空间状态：确认小鸟完全可见且位于苹果左侧。"
+      "检查鸟是否起始位于苹果后方。",
+      "检查鸟是否最终来到苹果左侧。"
     ],
     "id": "tem_83",
     "category": "Temporal Consistency",
@@ -3076,16 +3032,12 @@
       "第4帧：猴子稳稳降落在苹果右侧，此时苹果清晰可见地位于其左侧，完成空间位置转换。"
     ],
     "auxiliary_info": [
-      "Verify the monkey is strictly positioned behind the apple in image 1.",
-      "Check the dynamic mid-air posture and clear trajectory toward the right in image 2 and 3.",
-      "Confirm the monkey is fully landed on the right side of the apple with the apple on its left in image 4.",
-      "Ensure the apple remains fixed and the environment/lighting is perfectly consistent across all 4 frames."
+      "Check whether the monkey starts behind the apple.",
+      "Check whether the monkey ends on the right side of the apple."
     ],
     "auxiliary_info_cn": [
-      "验证第1张图中猴子是否严格位于苹果正后方。",
-      "检查第2和第3张图中猴子的动态腾空姿态以及向右移动的清晰轨迹。",
-      "确认第4张图中猴子已完全降落在苹果右侧，且苹果位于其左侧。",
-      "确保苹果位置固定，且所有4张图的环境和光照保持高度一致。"
+      "检查猴子是否起始位于苹果后方。",
+      "检查猴子是否最终来到苹果右侧。"
     ],
     "id": "tem_84",
     "category": "Temporal Consistency",
@@ -3108,14 +3060,12 @@
       "画面三：最终状态，猴子已落地并清晰地坐在苹果左侧位置。"
     ],
     "auxiliary_info": [
-      "Check if the spatial relationship in image 1 places the monkey behind the apple.",
-      "Check if image 2 accurately depicts the jumping motion towards the left direction.",
-      "Check if the final position in image 3 correctly shows the monkey to the left of the apple."
+      "Check whether the monkey starts behind the apple.",
+      "Check whether the monkey ends on the left side of the apple."
     ],
     "auxiliary_info_cn": [
-      "检查画面一的空间关系是否显示猴子位于苹果后方。",
-      "检查画面二是否准确描绘了向左跳跃的运动过程。",
-      "检查画面三的最终位置是否正确显示猴子在苹果左侧。"
+      "检查猴子是否起始位于苹果后方。",
+      "检查猴子是否最终来到苹果左侧。"
     ],
     "id": "tem_85",
     "category": "Temporal Consistency",
@@ -3138,14 +3088,12 @@
       "第3张图：大象已完成移动，安静地站在车辆正后方，面朝车尾保险杠，完成空间位置转变。"
     ],
     "auxiliary_info": [
-      "Check if the elephant is positioned strictly on the left side of the car in the first frame.",
-      "Verify the elephant is in a walking motion transitioning behind the car in the second frame.",
-      "Confirm the elephant is stationary and directly behind the rear of the car in the final frame."
+      "Check whether the elephant starts on the left side of the car.",
+      "Check whether the elephant ends behind the car."
     ],
     "auxiliary_info_cn": [
-      "检查第一张图中大象是否严格位于车辆左侧。",
-      "验证第二张图中大象是否处于向车尾移动的行走过渡状态。",
-      "确认最后一张图中大象是否已静止并位于车辆正后方。"
+      "检查大象是否起始位于汽车左侧。",
+      "检查大象是否最终来到汽车后方。"
     ],
     "id": "tem_86",
     "category": "Temporal Consistency",
@@ -3204,16 +3152,12 @@
       "人物正在积极扫地，腰部微弯，扫帚在硬木地板上移动，呈现动态感。"
     ],
     "auxiliary_info": [
-      "State 1: seated and relaxed on the couch",
-      "State 2: transitional rising motion with forward lean",
-      "State 3: fully upright, holding sweeping tool",
-      "State 4: active sweeping action with dynamic posture"
+      "Check whether the person starts seated on the couch.",
+      "Check whether the person ends up sweeping the floor."
     ],
     "auxiliary_info_cn": [
-      "状态1：在沙发上舒适坐着且放松",
-      "状态2：身体前倾的起身过渡动作",
-      "状态3：完全直立，手持清扫工具",
-      "状态4：弯腰扫地的动态姿势"
+      "检查这个人是否起始坐在沙发上。",
+      "检查这个人是否最终在扫地。"
     ],
     "id": "tem_88",
     "category": "Temporal Consistency",
@@ -3238,16 +3182,12 @@
       "狗狗完全侧卧在地毯上，轻轻喘气，表情安详，双眼半闭，球安静地待在它身旁。"
     ],
     "auxiliary_info": [
-      "active upright play with paw-ball interaction",
-      "mid-air jump catching ball",
-      "lowering posture transition from play",
-      "complete horizontal resting pose on carpet"
+      "Check whether the dog starts by actively playing with a ball.",
+      "Check whether the dog ends lying down on the carpet."
     ],
     "auxiliary_info_cn": [
-      "动态站立与球互动的玩耍姿态",
-      "跳跃接球的空中动作",
-      "身体下压的过渡姿势",
-      "在地毯上完全水平卧倒的休息状态"
+      "检查狗是否起始在积极玩球。",
+      "检查狗是否最终躺在地毯上。"
     ],
     "id": "tem_89",
     "category": "Temporal Consistency",
@@ -3306,16 +3246,12 @@
       "猫完全沉浸在自我梳理中，低着头细致地清洁胸部和肩部的毛发。"
     ],
     "auxiliary_info": [
-      "Check 1: Cat posture is upright, gaze fixed outside, ears alert.",
-      "Check 2: Gaze shifts inward, front paw lifts, transition from watching to moving.",
-      "Check 3: Paw contacts face/mouth area, licking action initiates.",
-      "Check 4: Head lowered, continuous licking motion on body fur, full grooming pose."
+      "Check whether the cat starts by watching outside attentively.",
+      "Check whether the cat ends in a clear self-grooming pose."
     ],
     "auxiliary_info_cn": [
-      "检查点1：猫姿势端正，视线固定窗外，耳朵警觉。",
-      "检查点2：视线向内转移，前爪抬起，处于从观察到行动的过渡。",
-      "检查点3：爪子接触面部/嘴部，舔舐动作开始。",
-      "检查点4：头部低下，持续舔舐身体毛发，呈现完整梳理姿态。"
+      "检查猫是否起始专注地向外看。",
+      "检查猫是否最终进入明显的自我梳理姿态。"
     ],
     "id": "tem_91",
     "category": "Temporal Consistency",
@@ -3370,16 +3306,12 @@
       "狗正精力充沛地跑出一个完整的圆圈，身体动态舒展，泥土草屑被踢起，腿部带有明显的运动拖影以强调环形奔跑速度。"
     ],
     "auxiliary_info": [
-      "static seated posture",
-      "alert standing transition",
-      "initial curved acceleration",
-      "dynamic circular running with motion trails"
+      "Check whether the dog starts sitting calmly on the grass.",
+      "Check whether the dog ends running in circles."
     ],
     "auxiliary_info_cn": [
-      "静态坐姿状态",
-      "警觉站立过渡",
-      "弧形加速起步",
-      "环形动态奔跑与运动轨迹"
+      "检查狗是否起始平静地坐在草地上。",
+      "检查狗是否最终在绕圈奔跑。"
     ],
     "id": "tem_93",
     "category": "Temporal Consistency",
@@ -3404,16 +3336,12 @@
       "猫咪完全投入到快速旋转追逐尾巴的动作中，捕捉到动态模糊的中间帧，表情充满喜悦和专注。"
     ],
     "auxiliary_info": [
-      "Frame 1: Static resting pose in sunlight",
-      "Frame 2: Alert reaction and muscle preparation",
-      "Frame 3: Initial leap and body twist",
-      "Frame 4: Full dynamic spinning chase motion"
+      "Check whether the cat starts resting in the sunlight.",
+      "Check whether the cat ends chasing its own tail."
     ],
     "auxiliary_info_cn": [
-      "图1：阳光下静止的休息姿态",
-      "图2：警觉反应与肌肉蓄力",
-      "图3：初次起跳与身体扭转",
-      "图4：完整的动态旋转追逐动作"
+      "检查猫是否起始在阳光下休息。",
+      "检查猫是否最终在追自己的尾巴。"
     ],
     "id": "tem_94",
     "category": "Temporal Consistency",
@@ -3438,16 +3366,12 @@
       "第4张图：小鸟已安全降落在草地上，直立站立，双翼整齐收拢。"
     ],
     "auxiliary_info": [
-      "Check static perching state and branch position in frame 1",
-      "Verify takeoff impulse and wing spreading in frame 2",
-      "Confirm mid-air downward trajectory and body angle in frame 3",
-      "Assess grounded landing posture and environmental transition in frame 4"
+      "Check whether the bird starts perched on the branch.",
+      "Check whether the bird ends on the ground after flying down."
     ],
     "auxiliary_info_cn": [
-      "检查图1中的静止栖息状态与树枝位置",
-      "验证图2中的起跳发力与展翅瞬间",
-      "确认图3中的空中下降轨迹与身体俯角",
-      "评估图4中的落地姿态与环境空间过渡"
+      "检查鸟是否起始停在树枝上。",
+      "检查鸟是否最终飞到地面上。"
     ],
     "id": "tem_95",
     "category": "Temporal Consistency",
@@ -3470,14 +3394,12 @@
       "第3帧：马处于全速奔跑的跨步瞬间，四肢伸展，鬃毛飘动，在草地上动态前进。"
     ],
     "auxiliary_info": [
-      "Initial state: stationary posture, head down, grazing activity",
-      "Transition state: alert posture, weight shift, muscle tension",
-      "Final state: full gallop, extended limbs, forward momentum"
+      "Check whether the horse starts by grazing calmly.",
+      "Check whether the horse ends in a clear galloping/running state."
     ],
     "auxiliary_info_cn": [
-      "初始状态：静止姿态，低头，吃草动作",
-      "过渡状态：警觉姿态，重心转移，肌肉紧绷",
-      "最终状态：全速奔跑，肢体伸展，向前动量"
+      "检查马是否起始在平静吃草。",
+      "检查马是否最终进入明显的奔跑状态。"
     ],
     "id": "tem_96",
     "category": "Temporal Consistency",
@@ -3502,16 +3424,12 @@
       "小鸟刚刚平稳落在树枝上，收拢翅膀，平静地环顾四周。"
     ],
     "auxiliary_info": [
-      "Verify initial state matches ground-pecking posture",
-      "Verify transition captures wing-spread takeoff moment",
-      "Verify mid-flight shows upward trajectory toward tree branches",
-      "Verify final state confirms perching on tree branch"
+      "Check whether the bird starts by pecking on the ground.",
+      "Check whether the bird ends perched on the tree branch."
     ],
     "auxiliary_info_cn": [
-      "检查初始状态是否匹配地面啄食姿态",
-      "检查过渡帧是否捕捉展翅起飞瞬间",
-      "检查飞行中段是否呈现向树冠攀升的轨迹",
-      "检查最终状态是否确认落于树枝栖息"
+      "检查鸟是否起始在地面啄食。",
+      "检查鸟是否最终停在树枝上。"
     ],
     "id": "tem_97",
     "category": "Temporal Consistency",
