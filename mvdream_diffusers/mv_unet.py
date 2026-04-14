@@ -173,6 +173,20 @@ class MemoryEfficientCrossAttention(nn.Module):
         )
         self.attention_op: Optional[Any] = None
 
+    def _attention(self, q, k, v):
+        try:
+            return xformers.ops.memory_efficient_attention(
+                q, k, v, attn_bias=None, op=self.attention_op
+            )
+        except RuntimeError as e:
+            error_message = str(e).lower()
+            if "no kernel image is available" not in error_message and "flash_attn" not in error_message:
+                raise
+
+            attention_scores = torch.bmm(q.float(), k.float().transpose(1, 2)) * (self.dim_head ** -0.5)
+            attention_probs = torch.softmax(attention_scores, dim=-1)
+            return torch.bmm(attention_probs, v.float()).to(dtype=q.dtype)
+
     def forward(self, x, context=None):
         q = self.to_q(x)
         context = default(context, x)
@@ -199,9 +213,7 @@ class MemoryEfficientCrossAttention(nn.Module):
         )
 
         # actually compute the attention, what we cannot get enough of
-        out = xformers.ops.memory_efficient_attention(
-            q, k, v, attn_bias=None, op=self.attention_op
-        )
+        out = self._attention(q, k, v)
 
         if self.ip_dim > 0:
             k_ip, v_ip = map(
@@ -213,9 +225,7 @@ class MemoryEfficientCrossAttention(nn.Module):
                 (k_ip, v_ip),
             )
             # actually compute the attention, what we cannot get enough of
-            out_ip = xformers.ops.memory_efficient_attention(
-                q, k_ip, v_ip, attn_bias=None, op=self.attention_op
-            )
+            out_ip = self._attention(q, k_ip, v_ip)
             out = out + self.ip_weight * out_ip
 
         out = (
