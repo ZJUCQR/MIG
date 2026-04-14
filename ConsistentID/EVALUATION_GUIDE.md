@@ -1,6 +1,6 @@
-# ConsistentID 评测运行指南
+# ConsistentID 评测运行指南（Linux 服务器版）
 
-本文把 **从建环境 → 下载权重 → 准备参考图片 → 跑 inference 生成图片 → 用生成图片做评测** 的流程整理成一份可直接照做的说明。
+本文把 **在 Linux 服务器上** 从 **建环境 → 下载权重 → 准备参考图片 → 跑 inference 生成图片 → 用生成图片做评测** 的流程整理成一份可直接照做的说明。
 
 > 先说结论：
 >
@@ -20,13 +20,11 @@
 >
 > 所以目前最实际的流程是：
 >
-> 1. 配环境
-> 2. 下载权重
+> 1. 在服务器上配环境
+> 2. 下载模型权重到本地目录
 > 3. 准备参考图片
-> 4. 生成评测图片
+> 4. 批量生成评测图片
 > 5. 用生成图片做本地指标统计（例如 FaceID cosine similarity）
->
-> 下面就是这个流程的具体步骤。
 
 ---
 
@@ -38,7 +36,7 @@
 - 主权重：`ConsistentID-v1.bin`
 - 推理入口：`infer.py`
 - pipeline：`pipline_StableDiffusion_ConsistentID.py`
-- base model 默认建议下载到本地，例如：`./pretrained_models/Realistic_Vision_V6.0_B1_noVAE`
+- base model：`SG161222/Realistic_Vision_V6.0_B1_noVAE`
 
 #### B. SDXL 版
 - 主权重：`ConsistentID_SDXL-v1.bin`
@@ -98,9 +96,46 @@
 
 ---
 
-## 3. 环境准备
+## 3. Linux 服务器环境准备
 
-推荐直接用 conda 新建环境。
+下面假设你的项目目录是：
+
+```bash
+PROJECT_ROOT=/path/to/ConsistentID
+```
+
+例如：
+
+```bash
+PROJECT_ROOT=/data/yourname/ConsistentID
+```
+
+### 3.1 进入服务器并进入项目目录
+
+如果仓库还没拷到服务器：
+
+```bash
+git clone https://github.com/JackAILab/ConsistentID.git "$PROJECT_ROOT"
+cd "$PROJECT_ROOT"
+```
+
+如果仓库已经在服务器上：
+
+```bash
+cd "$PROJECT_ROOT"
+```
+
+### 3.2 建议使用 tmux
+
+服务器上跑生成任务时，建议先开一个 `tmux` 会话：
+
+```bash
+tmux new -s consistentid
+```
+
+这样即使 SSH 断开，任务也不会直接退出。
+
+### 3.3 创建 conda 环境
 
 ```bash
 conda create -n consistentid python=3.8.10 -y
@@ -109,9 +144,9 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 可选：给 InsightFace 启用 GPU
+### 3.4 可选：给 InsightFace 启用 GPU
 
-`requirements.txt` 里有 `onnxruntime==1.16.1`，这足够跑，但如果你希望 `insightface` 尽量走 GPU，可以额外安装：
+`requirements.txt` 里有 `onnxruntime==1.16.1`。如果你希望 `insightface` 尽量走 GPU，可以额外安装：
 
 ```bash
 pip install onnxruntime-gpu==1.16.1
@@ -119,9 +154,17 @@ pip install onnxruntime-gpu==1.16.1
 
 如果不装也通常能跑，只是 `FaceAnalysis` 可能回退到 CPU。
 
+### 3.5 检查 GPU 是否可见
+
+```bash
+python -c "import torch; print(torch.cuda.is_available(), torch.cuda.device_count())"
+```
+
+如果输出里第一个值是 `True`，说明 PyTorch 能看到 CUDA。
+
 ---
 
-## 4. 下载权重
+## 4. 在服务器上下载权重
 
 ### 4.1 你至少需要哪些东西
 
@@ -143,10 +186,22 @@ pip install onnxruntime-gpu==1.16.1
 
 ### 4.2 推荐目录结构
 
-建议把模型都下载到一个统一目录，比如：
+先在服务器上创建目录：
+
+```bash
+cd "$PROJECT_ROOT"
+mkdir -p pretrained_models/Realistic_Vision_V6.0_B1_noVAE
+mkdir -p pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K
+mkdir -p pretrained_models/JackAILab_ConsistentID
+mkdir -p ref_images
+mkdir -p outputs_sd15
+mkdir -p eval_outputs_sd15
+```
+
+推荐结构如下：
 
 ```text
-E:/VBench/ConsistentID/
+$PROJECT_ROOT/
 ├── pretrained_models/
 │   ├── Realistic_Vision_V6.0_B1_noVAE/
 │   ├── CLIP-ViT-H-14-laion2B-s32B-b79K/
@@ -154,38 +209,41 @@ E:/VBench/ConsistentID/
 │       ├── ConsistentID-v1.bin
 │       ├── ConsistentID_SDXL-v1.bin
 │       └── face_parsing.pth
+├── ref_images/
+├── outputs_sd15/
+└── eval_outputs_sd15/
 ```
 
-### 4.3 推荐下载方式：提前下载到本地目录
+### 4.3 下载命令
 
 #### 下载 base model（SD1.5）
 
 ```bash
-python -c "from huggingface_hub import snapshot_download; print(snapshot_download(repo_id='SG161222/Realistic_Vision_V6.0_B1_noVAE', local_dir='E:/VBench/ConsistentID/pretrained_models/Realistic_Vision_V6.0_B1_noVAE'))"
+python -c "from huggingface_hub import snapshot_download; print(snapshot_download(repo_id='SG161222/Realistic_Vision_V6.0_B1_noVAE', local_dir='$PROJECT_ROOT/pretrained_models/Realistic_Vision_V6.0_B1_noVAE'))"
 ```
 
 #### 下载 CLIP image encoder
 
 ```bash
-python -c "from huggingface_hub import snapshot_download; print(snapshot_download(repo_id='laion/CLIP-ViT-H-14-laion2B-s32B-b79K', local_dir='E:/VBench/ConsistentID/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K'))"
+python -c "from huggingface_hub import snapshot_download; print(snapshot_download(repo_id='laion/CLIP-ViT-H-14-laion2B-s32B-b79K', local_dir='$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K'))"
 ```
 
 #### 下载 ConsistentID SD1.5 主权重
 
 ```bash
-python -c "from huggingface_hub import hf_hub_download; print(hf_hub_download(repo_id='JackAILab/ConsistentID', filename='ConsistentID-v1.bin', repo_type='model', local_dir='E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID'))"
+python -c "from huggingface_hub import hf_hub_download; print(hf_hub_download(repo_id='JackAILab/ConsistentID', filename='ConsistentID-v1.bin', repo_type='model', local_dir='$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID'))"
 ```
 
 #### 下载 face parsing 权重
 
 ```bash
-python -c "from huggingface_hub import hf_hub_download; print(hf_hub_download(repo_id='JackAILab/ConsistentID', filename='face_parsing.pth', repo_type='model', local_dir='E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID'))"
+python -c "from huggingface_hub import hf_hub_download; print(hf_hub_download(repo_id='JackAILab/ConsistentID', filename='face_parsing.pth', repo_type='model', local_dir='$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID'))"
 ```
 
 #### 如果你以后想跑 SDXL 版，也可以顺手下载
 
 ```bash
-python -c "from huggingface_hub import hf_hub_download; print(hf_hub_download(repo_id='JackAILab/ConsistentID', filename='ConsistentID_SDXL-v1.bin', repo_type='model', local_dir='E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID'))"
+python -c "from huggingface_hub import hf_hub_download; print(hf_hub_download(repo_id='JackAILab/ConsistentID', filename='ConsistentID_SDXL-v1.bin', repo_type='model', local_dir='$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID'))"
 ```
 
 ### 4.4 关于 `convert_weights.py`
@@ -212,12 +270,12 @@ python evaluation/convert_weights.py
 
 这是 evaluation 最关键的一步。
 
-### 5.1 先建一个参考图片目录
+### 5.1 参考图片目录
 
-建议在仓库根目录下创建：
+在服务器上把参考图统一放到：
 
-```text
-E:/VBench/ConsistentID/ref_images/
+```bash
+$PROJECT_ROOT/ref_images/
 ```
 
 ### 5.2 图片怎么命名
@@ -279,7 +337,21 @@ ref_images/
 
 如果参考图里检测不到稳定人脸，生成和评分都会受影响。
 
-### 5.5 先用 demo 图做 smoke test
+### 5.5 如果图片在你的本地电脑上
+
+可以先从本地上传到服务器，比如：
+
+```bash
+scp -r ./ref_images your_user@your_server:$PROJECT_ROOT/
+```
+
+上传后，服务器上就会有：
+
+```bash
+$PROJECT_ROOT/ref_images/
+```
+
+### 5.6 先用 demo 图做 smoke test
 
 如果你只是先确认环境是否可用，可以先用仓库里的：
 
@@ -297,20 +369,22 @@ ref_images/
 ### 6.1 查看脚本参数
 
 ```bash
+cd "$PROJECT_ROOT"
 python infer.py --help
 ```
 
 ### 6.2 跑一个单张图 smoke test（SD1.5）
 
 ```bash
-python infer.py ^
-  --base_model "E:/VBench/ConsistentID/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" ^
-  --consistentid_ckpt "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" ^
-  --image_encoder_path "E:/VBench/ConsistentID/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" ^
-  --face_parsing_path "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" ^
-  --input_image "E:/VBench/ConsistentID/examples/albert_einstein.jpg" ^
-  --prompt "A man wearing a santa hat" ^
-  --output_path "E:/VBench/ConsistentID/outputs_sd15/albert_einstein_santa.png"
+cd "$PROJECT_ROOT"
+python infer.py \
+  --base_model "$PROJECT_ROOT/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" \
+  --consistentid_ckpt "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" \
+  --image_encoder_path "$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" \
+  --face_parsing_path "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" \
+  --input_image "$PROJECT_ROOT/examples/albert_einstein.jpg" \
+  --prompt "A man wearing a santa hat" \
+  --output_path "$PROJECT_ROOT/outputs_sd15/albert_einstein_santa.png"
 ```
 
 ### 6.3 如果你想保留原来 demo 里的“电影风模板”
@@ -324,22 +398,23 @@ python infer.py ^
 例如：
 
 ```bash
-python infer.py ^
-  --base_model "E:/VBench/ConsistentID/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" ^
-  --consistentid_ckpt "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" ^
-  --image_encoder_path "E:/VBench/ConsistentID/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" ^
-  --face_parsing_path "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" ^
-  --input_image "E:/VBench/ConsistentID/examples/albert_einstein.jpg" ^
-  --prompt "A man wearing a santa hat" ^
-  --use_prompt_template ^
-  --output_path "E:/VBench/ConsistentID/outputs_sd15/albert_einstein_santa.png"
+cd "$PROJECT_ROOT"
+python infer.py \
+  --base_model "$PROJECT_ROOT/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" \
+  --consistentid_ckpt "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" \
+  --image_encoder_path "$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" \
+  --face_parsing_path "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" \
+  --input_image "$PROJECT_ROOT/examples/albert_einstein.jpg" \
+  --prompt "A man wearing a santa hat" \
+  --use_prompt_template \
+  --output_path "$PROJECT_ROOT/outputs_sd15/albert_einstein_santa.png"
 ```
 
 ### 6.4 预期结果
 
 运行成功后，你应该得到：
 
-- 一张生成图片，例如 `outputs_sd15/albert_einstein_santa.png`
+- 一张生成图片，例如 `$PROJECT_ROOT/outputs_sd15/albert_einstein_santa.png`
 
 如果这一步能跑通，说明：
 
@@ -372,14 +447,15 @@ albert_einstein.png,a man wearing a santa hat
 ### 7.2 批量运行命令
 
 ```bash
-python infer.py ^
-  --base_model "E:/VBench/ConsistentID/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" ^
-  --consistentid_ckpt "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" ^
-  --image_encoder_path "E:/VBench/ConsistentID/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" ^
-  --face_parsing_path "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" ^
-  --input_dir "E:/VBench/ConsistentID/ref_images" ^
-  --prompt_csv "E:/VBench/ConsistentID/evaluation/EvaluationIMGs_stars_prompts.csv" ^
-  --output_dir "E:/VBench/ConsistentID/eval_outputs_sd15"
+cd "$PROJECT_ROOT"
+python infer.py \
+  --base_model "$PROJECT_ROOT/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" \
+  --consistentid_ckpt "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" \
+  --image_encoder_path "$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" \
+  --face_parsing_path "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" \
+  --input_dir "$PROJECT_ROOT/ref_images" \
+  --prompt_csv "$PROJECT_ROOT/evaluation/EvaluationIMGs_stars_prompts.csv" \
+  --output_dir "$PROJECT_ROOT/eval_outputs_sd15"
 ```
 
 ### 7.3 先做小规模测试
@@ -387,23 +463,40 @@ python infer.py ^
 建议先只跑前几条，确认目录映射没问题：
 
 ```bash
-python infer.py ^
-  --base_model "E:/VBench/ConsistentID/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" ^
-  --consistentid_ckpt "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" ^
-  --image_encoder_path "E:/VBench/ConsistentID/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" ^
-  --face_parsing_path "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" ^
-  --input_dir "E:/VBench/ConsistentID/ref_images" ^
-  --prompt_csv "E:/VBench/ConsistentID/evaluation/EvaluationIMGs_stars_prompts.csv" ^
-  --output_dir "E:/VBench/ConsistentID/eval_outputs_sd15" ^
+cd "$PROJECT_ROOT"
+python infer.py \
+  --base_model "$PROJECT_ROOT/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" \
+  --consistentid_ckpt "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" \
+  --image_encoder_path "$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" \
+  --face_parsing_path "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" \
+  --input_dir "$PROJECT_ROOT/ref_images" \
+  --prompt_csv "$PROJECT_ROOT/evaluation/EvaluationIMGs_stars_prompts.csv" \
+  --output_dir "$PROJECT_ROOT/eval_outputs_sd15" \
   --limit 5
 ```
 
-### 7.4 输出目录会是什么样子
+### 7.4 指定 GPU
+
+如果服务器有多张卡，你可以指定 GPU，例如：
+
+```bash
+cd "$PROJECT_ROOT"
+CUDA_VISIBLE_DEVICES=0 python infer.py \
+  --base_model "$PROJECT_ROOT/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" \
+  --consistentid_ckpt "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" \
+  --image_encoder_path "$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" \
+  --face_parsing_path "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" \
+  --input_dir "$PROJECT_ROOT/ref_images" \
+  --prompt_csv "$PROJECT_ROOT/evaluation/EvaluationIMGs_stars_prompts.csv" \
+  --output_dir "$PROJECT_ROOT/eval_outputs_sd15"
+```
+
+### 7.5 输出目录会是什么样子
 
 更新后的 `infer.py` 会按 subject 分目录保存：
 
 ```text
-E:/VBench/ConsistentID/eval_outputs_sd15/
+$PROJECT_ROOT/eval_outputs_sd15/
 ├── albert_einstein/
 │   ├── 0001__a_man_wearing_a_red_hat.png
 │   ├── 0002__a_man_wearing_a_santa_hat.png
@@ -423,20 +516,22 @@ E:/VBench/ConsistentID/eval_outputs_sd15/
 ### 8.1 查看参数
 
 ```bash
+cd "$PROJECT_ROOT"
 python infer_SDXL.py --help
 ```
 
 ### 8.2 单张图运行示例
 
 ```bash
-python infer_SDXL.py ^
-  --base_model "E:/VBench/ConsistentID/pretrained_models/sdxl-base" ^
-  --consistentid_ckpt "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/ConsistentID_SDXL-v1.bin" ^
-  --image_encoder_path "E:/VBench/ConsistentID/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" ^
-  --face_parsing_path "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" ^
-  --input_image "E:/VBench/ConsistentID/examples/scarlett_johansson.jpg" ^
-  --prompt "A woman wearing a santa hat" ^
-  --output_path "E:/VBench/ConsistentID/outputs_sdxl/scarlett_santa.png"
+cd "$PROJECT_ROOT"
+python infer_SDXL.py \
+  --base_model "$PROJECT_ROOT/pretrained_models/sdxl-base" \
+  --consistentid_ckpt "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/ConsistentID_SDXL-v1.bin" \
+  --image_encoder_path "$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" \
+  --face_parsing_path "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" \
+  --input_image "$PROJECT_ROOT/examples/scarlett_johansson.jpg" \
+  --prompt "A woman wearing a santa hat" \
+  --output_path "$PROJECT_ROOT/outputs_sdxl/scarlett_santa.png"
 ```
 
 ### 8.3 说明
@@ -475,10 +570,11 @@ import cv2
 import numpy as np
 from insightface.app import FaceAnalysis
 
-ref_dir = Path(r"E:/VBench/ConsistentID/ref_images")
-gen_dir = Path(r"E:/VBench/ConsistentID/eval_outputs_sd15")
-csv_path = Path(r"E:/VBench/ConsistentID/evaluation/EvaluationIMGs_stars_prompts.csv")
-out_csv = Path(r"E:/VBench/ConsistentID/faceid_scores.csv")
+PROJECT_ROOT = Path("/path/to/ConsistentID")
+ref_dir = PROJECT_ROOT / "ref_images"
+gen_dir = PROJECT_ROOT / "eval_outputs_sd15"
+csv_path = PROJECT_ROOT / "evaluation" / "EvaluationIMGs_stars_prompts.csv"
+out_csv = PROJECT_ROOT / "faceid_scores.csv"
 
 app = FaceAnalysis(name="buffalo_l", providers=["CUDAExecutionProvider", "CPUExecutionProvider"])
 app.prepare(ctx_id=0, det_size=(640, 640))
@@ -552,6 +648,7 @@ else:
 ### 9.3 运行评测
 
 ```bash
+cd "$PROJECT_ROOT"
 python score_faceid.py
 ```
 
@@ -559,20 +656,22 @@ python score_faceid.py
 
 你会得到：
 
-- `faceid_scores.csv`
+- `$PROJECT_ROOT/faceid_scores.csv`
 - 终端里会打印平均 FaceID cosine similarity
 
 这个结果可以作为一个**本地可复现的 identity consistency 指标**。
 
 ---
 
-## 10. 推荐的最小可运行流程
+## 10. 服务器上最小可运行流程
 
 如果你只想先确认整套流程能跑通，推荐这样做：
 
-### 第一步：建环境
+### 第一步：进入项目目录并建环境
 
 ```bash
+PROJECT_ROOT=/path/to/ConsistentID
+cd "$PROJECT_ROOT"
 conda create -n consistentid python=3.8.10 -y
 conda activate consistentid
 python -m pip install --upgrade pip
@@ -588,10 +687,10 @@ pip install -r requirements.txt
 
 ### 第三步：准备参考图片
 
-创建：
+创建目录：
 
-```text
-E:/VBench/ConsistentID/ref_images/
+```bash
+mkdir -p "$PROJECT_ROOT/ref_images"
 ```
 
 然后把参考图按 subject 名字放进去。
@@ -599,32 +698,35 @@ E:/VBench/ConsistentID/ref_images/
 ### 第四步：跑一次单图 smoke test
 
 ```bash
-python infer.py ^
-  --base_model "E:/VBench/ConsistentID/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" ^
-  --consistentid_ckpt "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" ^
-  --image_encoder_path "E:/VBench/ConsistentID/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" ^
-  --face_parsing_path "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" ^
-  --input_image "E:/VBench/ConsistentID/examples/albert_einstein.jpg" ^
-  --prompt "A man wearing a santa hat" ^
-  --output_path "E:/VBench/ConsistentID/outputs_sd15/albert_einstein_santa.png"
+cd "$PROJECT_ROOT"
+python infer.py \
+  --base_model "$PROJECT_ROOT/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" \
+  --consistentid_ckpt "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" \
+  --image_encoder_path "$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" \
+  --face_parsing_path "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" \
+  --input_image "$PROJECT_ROOT/examples/albert_einstein.jpg" \
+  --prompt "A man wearing a santa hat" \
+  --output_path "$PROJECT_ROOT/outputs_sd15/albert_einstein_santa.png"
 ```
 
 ### 第五步：跑 evaluation 批量生成
 
 ```bash
-python infer.py ^
-  --base_model "E:/VBench/ConsistentID/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" ^
-  --consistentid_ckpt "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" ^
-  --image_encoder_path "E:/VBench/ConsistentID/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" ^
-  --face_parsing_path "E:/VBench/ConsistentID/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" ^
-  --input_dir "E:/VBench/ConsistentID/ref_images" ^
-  --prompt_csv "E:/VBench/ConsistentID/evaluation/EvaluationIMGs_stars_prompts.csv" ^
-  --output_dir "E:/VBench/ConsistentID/eval_outputs_sd15"
+cd "$PROJECT_ROOT"
+CUDA_VISIBLE_DEVICES=0 python infer.py \
+  --base_model "$PROJECT_ROOT/pretrained_models/Realistic_Vision_V6.0_B1_noVAE" \
+  --consistentid_ckpt "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/ConsistentID-v1.bin" \
+  --image_encoder_path "$PROJECT_ROOT/pretrained_models/CLIP-ViT-H-14-laion2B-s32B-b79K" \
+  --face_parsing_path "$PROJECT_ROOT/pretrained_models/JackAILab_ConsistentID/face_parsing.pth" \
+  --input_dir "$PROJECT_ROOT/ref_images" \
+  --prompt_csv "$PROJECT_ROOT/evaluation/EvaluationIMGs_stars_prompts.csv" \
+  --output_dir "$PROJECT_ROOT/eval_outputs_sd15"
 ```
 
 ### 第六步：本地评分
 
 ```bash
+cd "$PROJECT_ROOT"
 python score_faceid.py
 ```
 
@@ -677,6 +779,15 @@ python score_faceid.py
 
 这样更适合做可复现 evaluation。
 
+### Q7. 服务器上长任务怎么避免 SSH 断开影响？
+建议使用：
+
+- `tmux`
+- `screen`
+- 或者 `nohup`
+
+最推荐 `tmux`。
+
 ---
 
 ## 12. 我建议你实际采用的方案
@@ -689,4 +800,4 @@ python score_faceid.py
 4. **再跑 CSV 批量生成**
 5. **最后做 FaceID cosine similarity 评测**
 
-这样你可以最快得到一套可运行、可复现、可解释的本地 evaluation 流程。
+这样你可以最快得到一套适合 Linux 服务器、可运行、可复现、可解释的本地 evaluation 流程。
