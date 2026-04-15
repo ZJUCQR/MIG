@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import random
 import re
 from pathlib import Path
 from typing import Any, Dict, List, Set
@@ -116,6 +117,7 @@ def request_prompt_batch(
     model: str,
     batch_size: int,
     existing_prompts: List[str],
+    seed: int,
 ) -> List[Dict[str, Any]]:
     messages = [
         {"role": "system", "content": build_system_prompt(batch_size)},
@@ -127,14 +129,14 @@ def request_prompt_batch(
             model=model,
             messages=messages,
             response_format={"type": "json_object"},
-            extra_body={"enable_thinking": True, "thinking_budget": 4096},
+            extra_body={"enable_thinking": True, "thinking_budget": 4096, "seed": seed},
         )
         answer_content = completion.choices[0].message.content or "{}"
     except Exception:
         completion = client.chat.completions.create(
             model=model,
             messages=messages,
-            extra_body={"enable_thinking": True, "thinking_budget": 4096},
+            extra_body={"enable_thinking": True, "thinking_budget": 4096, "seed": seed},
         )
         answer_content = completion.choices[0].message.content or "{}"
 
@@ -156,18 +158,21 @@ def generate_multi_view_prompts(
     results: List[Dict[str, Any]] = []
     seen: Set[str] = set()
     attempts = 0
+    rng = random.SystemRandom()
 
     while len(results) < count and attempts < max_attempts:
         attempts += 1
         current_batch_size = min(batch_size, count - len(results))
         existing_prompts = [item["prompt"] for item in results]
-        print(f"[attempt {attempts}] requesting {current_batch_size} prompts...")
+        seed = rng.randint(1, 2**31 - 1)
+        print(f"[attempt {attempts}] requesting {current_batch_size} prompts with seed {seed}...")
 
         raw_items = request_prompt_batch(
             client,
             model=model,
             batch_size=current_batch_size,
             existing_prompts=existing_prompts,
+            seed=seed,
         )
 
         added = 0
