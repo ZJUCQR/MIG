@@ -3,7 +3,7 @@ import csv
 import os
 import re
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 
 import torch
 from diffusers import EulerDiscreteScheduler
@@ -125,7 +125,7 @@ def ensure_device(device: str) -> torch.dtype:
     raise RuntimeError("The current ConsistentID inference path is CUDA-only. Please run with --device cuda.")
 
 
-def split_ckpt_spec(ckpt_spec: str) -> tuple[str, str]:
+def split_ckpt_spec(ckpt_spec: str) -> Tuple[str, str]:
     ckpt_dir = os.path.dirname(ckpt_spec) or "."
     weight_name = os.path.basename(ckpt_spec)
     if not weight_name:
