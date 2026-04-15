@@ -1,0 +1,82 @@
+[
+    {
+        "prompt_en": "A person is sitting on the couch, then suddenly they get up and start sweeping the floor.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "sitting",
+            "get up and sweeping"
+        ]
+    },
+    {
+        "prompt_en": "A dog is playing with a ball, then it suddenly starts lying down on the carpet.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "playing with a ball",
+            "lying down"
+        ]
+    },
+    {
+        "prompt_en": "A person is cooking dinner, then they suddenly start organizing the pantry.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "cooking",
+            "organizing the pantry"
+        ]
+    },
+    {
+        "prompt_en": "A cat is watching birds through the window, then it suddenly starts grooming itself.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "watching",
+            "grooming itself"
+        ]
+    },
+    {
+        "prompt_en": "A horse is trotting in the field, then it suddenly starts drinking from a stream.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "trotting in the field",
+            "drinking from a stream"
+        ]
+    },
+    {
+        "prompt_en": "A dog is sitting in the yard, then it suddenly starts running in circles.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "sitting in the yard",
+            "running in circles"
+        ]
+    },
+    {
+        "prompt_en": "A cat is lying in the sun, then it suddenly starts chasing its tail.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "lying in the sun",
+            "chasing its tail"
+        ]
+    },
+    {
+        "prompt_en": "A bird is perched on a branch, then it suddenly flies down to the ground.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "perched on a branch",
+            "flying down to the ground"
+        ]
+    },
+    {
+        "prompt_en": "A horse is grazing in the field, then it suddenly starts running across the meadow.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "grazing in the field",
+            "running across the meadow"
+        ]
+    },
+    {
+        "prompt_en": "A bird is pecking at the ground, then it suddenly flies into the tree.",
+        "dimension": "Motion_Order_Understanding",
+        "auxiliary_info": [
+            "pecking",
+            "flying"
+        ]
+    }
+]
