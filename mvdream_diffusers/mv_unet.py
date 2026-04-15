@@ -11,9 +11,7 @@ from einops import rearrange, repeat
 from diffusers.configuration_utils import ConfigMixin
 from diffusers.models.modeling_utils import ModelMixin
 
-# require xformers!
-import xformers
-import xformers.ops
+# use standard PyTorch attention for broader GPU compatibility
 
 from kiui.cam import orbit_camera
 
@@ -174,18 +172,9 @@ class MemoryEfficientCrossAttention(nn.Module):
         self.attention_op: Optional[Any] = None
 
     def _attention(self, q, k, v):
-        try:
-            return xformers.ops.memory_efficient_attention(
-                q, k, v, attn_bias=None, op=self.attention_op
-            )
-        except RuntimeError as e:
-            error_message = str(e).lower()
-            if "no kernel image is available" not in error_message and "flash_attn" not in error_message:
-                raise
-
-            attention_scores = torch.bmm(q.float(), k.float().transpose(1, 2)) * (self.dim_head ** -0.5)
-            attention_probs = torch.softmax(attention_scores, dim=-1)
-            return torch.bmm(attention_probs, v.float()).to(dtype=q.dtype)
+        attention_scores = torch.bmm(q.float(), k.float().transpose(1, 2)) * (self.dim_head ** -0.5)
+        attention_probs = torch.softmax(attention_scores, dim=-1)
+        return torch.bmm(attention_probs, v.float()).to(dtype=q.dtype)
 
     def forward(self, x, context=None):
         q = self.to_q(x)
