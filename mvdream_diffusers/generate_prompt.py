@@ -46,9 +46,10 @@ def build_system_prompt(batch_size: int) -> str:
 硬性要求：
 1. `items` 长度必须严格等于 {batch_size}，每个 item 只包含 `prompt` 和 `prompt_cn`
 2. 每条数据都必须是同一主体的 four-view multi-view prompt，顺序为 front, left, back, right，主体外观保持一致
-3. `prompt` 和 `prompt_cn` 要简短、直接、自然，避免长句和过多修饰词
+3. `prompt` 和 `prompt_cn` 要写成完整自然的一句话，清晰说明主体、四视角和一致性要求
 4. 主体要多样，允许自由发挥，覆盖人物、动物、车辆、产品、幻想生物等不同类型
-5. 所有字符串必须是单行；不要输出解释
+5. 背景不固定，可以自由变化
+6. 所有字符串必须是单行；不要输出解释
 '''
 
 
@@ -62,8 +63,9 @@ def build_user_prompt(batch_size: int, existing_prompts: List[str]) -> str:
         f"请生成 {batch_size} 条 multi-view prompt。"
         f" 每条都必须是同一主体的四个固定视角：front, left, back, right。"
         f" 需要显著提高主体多样性，并明确加入人物类主体。"
-        f" prompt 和 prompt_cn 请尽量写得更短、更简单、更直接。"
-        f" 不要写得太复杂，不要堆很多风格形容词，不要长句。"
+        f" prompt 和 prompt_cn 不要太短，写成自然完整的一句话。"
+        f" 但也不要过长，不要堆很多风格形容词，不要复杂长段落。"
+        f" 背景可以自由发挥，不要让所有 prompt 都变成纯白背景。"
         f" 输出为严格 JSON 对象，顶层键为 items，每个 item 只保留 prompt 和 prompt_cn 两个字段。"
         f" 不要生成 category。"
         f"{avoid_text}"
@@ -76,11 +78,11 @@ def repair_generated_item(item: Dict[str, Any], prompt_id: int) -> Dict[str, Any
 
     if not prompt:
         prompt = (
-            "A multi-view image set of the same subject, showing four consistent views in the exact order: "
-            "front, left, back, right, with consistent appearance and identity."
+            "Generate four consistent views of the same subject in the exact order front, left, back, and right, "
+            "with a coherent appearance and a natural scene that matches the subject."
         )
     if not prompt_cn:
-        prompt_cn = "同一主体的多视角图像，严格按照正视图、左视图、后视图、右视图的顺序生成四个一致视角，外观与身份保持一致。"
+        prompt_cn = "请生成同一主体的四个一致视角，顺序为正视图、左视图、后视图和右视图，主体外观保持连贯，背景场景自然匹配主体。"
 
     return {
         "id": f"mv_{prompt_id}",
