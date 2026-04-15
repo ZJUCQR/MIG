@@ -5,31 +5,55 @@ import numpy as np
 from typing import Callable, List, Optional, Union
 
 
+def _safe_scaled_dot_product_attention(query, key, value, attn_mask=None, dropout_p=0.0, is_causal=False, scale=None):
+    scale_factor = scale if scale is not None else query.size(-1) ** -0.5
+    attention_scores = torch.matmul(query.float(), key.float().transpose(-2, -1)) * scale_factor
+
+    if is_causal:
+        causal_mask = torch.ones(
+            attention_scores.shape[-2],
+            attention_scores.shape[-1],
+            device=attention_scores.device,
+            dtype=torch.bool,
+        ).tril()
+        while causal_mask.ndim < attention_scores.ndim:
+            causal_mask = causal_mask.unsqueeze(0)
+        attention_scores = attention_scores.masked_fill(~causal_mask, float("-inf"))
+
+    if attn_mask is not None:
+        if attn_mask.dtype == torch.bool:
+            attention_scores = attention_scores.masked_fill(~attn_mask, float("-inf"))
+        else:
+            attention_scores = attention_scores + attn_mask.to(attention_scores.dtype)
+
+    attention_probs = torch.softmax(attention_scores, dim=-1)
+    if dropout_p:
+        attention_probs = torch.dropout(attention_probs, dropout_p, train=False)
+    return torch.matmul(attention_probs, value.float()).to(dtype=query.dtype)
+
+
+def _safe_xformers_memory_efficient_attention(query, key, value, attn_bias=None, p=0.0, scale=None, *args, **kwargs):
+    return _safe_scaled_dot_product_attention(
+        query,
+        key,
+        value,
+        attn_mask=attn_bias,
+        dropout_p=p,
+        is_causal=False,
+        scale=scale,
+    )
+
+
 def _disable_unsupported_attention_backends():
     if hasattr(F, "scaled_dot_product_attention"):
-        def _safe_scaled_dot_product_attention(query, key, value, attn_mask=None, dropout_p=0.0, is_causal=False, scale=None):
-            scale_factor = scale if scale is not None else query.size(-1) ** -0.5
-            attention_scores = torch.matmul(query.float(), key.float().transpose(-2, -1)) * scale_factor
-
-            if is_causal:
-                causal_mask = torch.ones(
-                    attention_scores.shape[-2], attention_scores.shape[-1],
-                    device=attention_scores.device, dtype=torch.bool,
-                ).tril()
-                attention_scores = attention_scores.masked_fill(~causal_mask, float("-inf"))
-
-            if attn_mask is not None:
-                if attn_mask.dtype == torch.bool:
-                    attention_scores = attention_scores.masked_fill(~attn_mask, float("-inf"))
-                else:
-                    attention_scores = attention_scores + attn_mask.to(attention_scores.dtype)
-
-            attention_probs = torch.softmax(attention_scores, dim=-1)
-            if dropout_p:
-                attention_probs = torch.dropout(attention_probs, dropout_p, train=False)
-            return torch.matmul(attention_probs, value.float()).to(dtype=query.dtype)
-
         F.scaled_dot_product_attention = _safe_scaled_dot_product_attention
+
+    try:
+        import xformers.ops
+
+        xformers.ops.memory_efficient_attention = _safe_xformers_memory_efficient_attention
+    except Exception:
+        pass
 
     if hasattr(torch.backends, "cuda"):
         try:
