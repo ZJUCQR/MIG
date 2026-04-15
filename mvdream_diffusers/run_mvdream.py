@@ -11,7 +11,6 @@ if torch.cuda.is_available():
         pass
 
 import kiui
-import numpy as np
 import argparse
 from pipeline_mvdream import MVDreamPipeline
 
@@ -29,14 +28,7 @@ parser = argparse.ArgumentParser(description="MVDream")
 parser.add_argument("prompt", type=str, default="a cute owl 3d model")
 args = parser.parse_args()
 
-for i in range(5):
-    image = pipe(args.prompt, guidance_scale=5, num_inference_steps=30, elevation=0)
-    grid = np.concatenate(
-        [
-            np.concatenate([image[0], image[2]], axis=0),
-            np.concatenate([image[1], image[3]], axis=0),
-        ],
-        axis=1,
-    )
-    # kiui.vis.plot_image(grid)
-    kiui.write_image(f'test_mvdream_{i}.jpg', grid)
+images = pipe(args.prompt, guidance_scale=5, num_inference_steps=30, elevation=0)
+
+for view_idx, image in enumerate(images):
+    kiui.write_image(f"test_mvdream_view_{view_idx}.jpg", image)
