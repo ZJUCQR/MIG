@@ -36,7 +36,8 @@ def build_system_prompt(batch_size: int) -> str:
 {{
   "items": [
     {{
-      "prompt": "英文完整 prompt，单行字符串"
+      "prompt": "英文完整 prompt，单行字符串",
+      "prompt_cn": "中文完整 prompt，单行字符串"
     }}
   ]
 }}
@@ -46,15 +47,18 @@ def build_system_prompt(batch_size: int) -> str:
 2. 每条数据都必须是 multi-view，不是时序，不是剧情，不是不同物体拼接
 3. 每条数据都必须明确表示：生成同一主体的四个固定视角，顺序是 front, left, back, right
 4. 四张图必须是同一个主体，只允许视角变化，不允许主体、颜色、材质、配件、数量发生变化
-5. prompt 必须适合直接用于图像生成，写成自然、具体、清晰的英文
-6. 主体要非常多样，必须覆盖并混合：动物、车辆、家具、玩具、日用品、植物、雕塑、机器人、食物、建筑小品、幻想生物、武器道具、服饰配件、电子产品，以及人物
-7. 人物必须明显纳入生成范围，包括但不限于：young woman, old man, boy, girl, warrior, wizard, astronaut, chef, dancer, scientist, knight, cyberpunk character, cartoon character
-8. 尽量避免复杂多人场景，优先单主体
-9. 不要生成重复或近似重复的主体
-10. 所有字符串必须是单行，不允许出现换行符
-11. 不要输出 `dimension`、`global_prompt`、`global_prompt_cn`、`sub_prompts`、`sub_prompts_cn`、`auxiliary_info`、`auxiliary_info_cn`
-12. 每条 prompt 自身要写完整，不依赖其他字段
-13. prompt 里应明确提到 multi-view / four views / front left back right / same subject / consistent appearance 这类信息
+5. `prompt` 必须适合直接用于图像生成，写成自然、具体、清晰的英文
+6. `prompt_cn` 必须是对应的自然中文完整 prompt，不要只是英文直拷贝
+7. 主体要非常多样，必须覆盖并混合：动物、车辆、家具、玩具、日用品、植物、雕塑、机器人、食物、建筑小品、幻想生物、武器道具、服饰配件、电子产品，以及人物
+8. 人物必须明显纳入生成范围，包括但不限于：young woman, old man, boy, girl, warrior, wizard, astronaut, chef, dancer, scientist, knight, cyberpunk character, cartoon character
+9. 尽量避免复杂多人场景，优先单主体
+10. 不要生成重复或近似重复的主体
+11. 所有字符串必须是单行，不允许出现换行符
+12. 不要输出 `dimension`、`global_prompt`、`global_prompt_cn`、`sub_prompts`、`sub_prompts_cn`、`auxiliary_info`、`auxiliary_info_cn`
+13. 每条 prompt 自身要写完整，不依赖其他字段
+14. `prompt` 里应明确提到 multi-view / four views / front left back right / same subject / consistent appearance 这类信息
+15. `prompt` 和 `prompt_cn` 要尽量简洁，写成短一些、直白一些的生成指令，不要过度堆砌形容词
+16. 避免复杂背景、镜头语言、电影化描述、长串风格词，优先写清主体和四视角要求
 '''
 
 
@@ -68,22 +72,27 @@ def build_user_prompt(batch_size: int, existing_prompts: List[str]) -> str:
         f"请生成 {batch_size} 条 multi-view prompt。"
         f" 每条都必须是同一主体的四个固定视角：front, left, back, right。"
         f" 需要显著提高主体多样性，并明确加入人物类主体。"
-        f" 输出为严格 JSON 对象，顶层键为 items，每个 item 只保留 prompt 字段。"
+        f" 输出为严格 JSON 对象，顶层键为 items，每个 item 只保留 prompt 和 prompt_cn 两个字段。"
         f"{avoid_text}"
     )
 
 
 def repair_generated_item(item: Dict[str, Any], prompt_id: int) -> Dict[str, Any]:
     prompt = norm_line(str(item.get("prompt", "")))
+    prompt_cn = norm_line(str(item.get("prompt_cn", "")))
+
     if not prompt:
         prompt = (
             "A multi-view image set of the same subject, showing four consistent views in the exact order: "
             "front, left, back, right, with consistent appearance and identity."
         )
+    if not prompt_cn:
+        prompt_cn = "同一主体的多视角图像，严格按照正视图、左视图、后视图、右视图的顺序生成四个一致视角，外观与身份保持一致。"
 
     return {
         "id": f"mv_{prompt_id}",
         "prompt": prompt,
+        "prompt_cn": prompt_cn,
         "num_images": 4,
     }
 
