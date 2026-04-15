@@ -8,17 +8,13 @@ CUDA error (third_party/flash-attention/csrc/flash_attn/src/fmha_fwd_launch_temp
 
 这个报错的最简单解决方案是：
 
-**不要再走 `xformers/flash-attention`，直接把 `mv_unet.py` 里的 attention 改成普通 PyTorch attention。**
-
-相关位置：
-- `mv_unet.py:176-188`
-- `mv_unet.py:215-228`
+**彻底不要走 `xformers / flash-attention`，把 `mv_unet.py` 里的 attention 改成普通 PyTorch attention。**
 
 ---
 
 ## 一步修复
 
-在服务器项目目录里执行下面这段命令：
+在你的 Linux 服务器项目目录里执行：
 
 ```bash
 cd /mnt/workspace/cv_multimodal/qirui/multi-image-generation/temporal/MIG/mvdream_diffusers
@@ -28,40 +24,45 @@ from pathlib import Path
 import re
 
 p = Path("mv_unet.py")
-text = p.read_text()
+s = p.read_text()
 
-pattern = r"""    def _attention\(self, q, k, v\):\n(?:        .*\n)+?    def forward\(self, x, context=None\):"""
+s = s.replace(
+    "# require xformers!\nimport xformers\nimport xformers.ops\n",
+    "# use standard PyTorch attention for broader GPU compatibility\n"
+)
+
+pattern = r"    def _attention\(self, q, k, v\):\n[\s\S]*?    def forward\(self, x, context=None\):"
 replacement = """    def _attention(self, q, k, v):
-        attn = torch.bmm(q.float(), k.float().transpose(1, 2)) * (self.dim_head ** -0.5)
-        attn = torch.softmax(attn, dim=-1)
-        return torch.bmm(attn, v.float()).to(dtype=q.dtype)
+        attention_scores = torch.bmm(q.float(), k.float().transpose(1, 2)) * (self.dim_head ** -0.5)
+        attention_probs = torch.softmax(attention_scores, dim=-1)
+        return torch.bmm(attention_probs, v.float()).to(dtype=q.dtype)
 
     def forward(self, x, context=None):"""
 
-new_text, n = re.subn(pattern, replacement, text)
+s, n = re.subn(pattern, replacement, s, count=1)
 if n != 1:
-    raise SystemExit("patch failed: _attention block not found uniquely")
+    raise SystemExit("patch failed: _attention block not found")
 
-p.write_text(new_text)
+p.write_text(s)
 print("patched mv_unet.py")
 PY
 ```
 
 ---
 
-## 检查是否修好
+## 立刻检查是否真的修好
 
 执行：
 
 ```bash
-grep -n "memory_efficient_attention" mv_unet.py
+grep -n "xformers\|memory_efficient_attention" mv_unet.py
 ```
 
 正常情况下：
 
-- **不应该再有输出**
+- **不应该有任何输出**
 
-如果还有输出，说明补丁没有成功打上。
+如果还有输出，说明服务器上的 `mv_unet.py` 还没真正改成功，所以还会继续报 flash-attention 的错。
 
 ---
 
@@ -73,24 +74,17 @@ CUDA_VISIBLE_DEVICES=3 python run_mvdream.py "a cute owl"
 
 ---
 
-## 如果想先更快验证一次
+## 如果你想先快速验证能不能跑通
 
-原脚本会连续生成 5 次。
-如果你只想先验证能不能跑通，可以把生成次数改成 1 次。
-
-执行：
+原脚本会连续生成 5 次。可以先改成只生成 1 次：
 
 ```bash
 python - <<'PY'
 from pathlib import Path
 p = Path("run_mvdream.py")
-text = p.read_text()
-text = text.replace("for i in range(5):", "for i in range(1):")
-text = text.replace(
-    'image = pipe(args.prompt, guidance_scale=5, num_inference_steps=30, elevation=0)',
-    'image = pipe(args.prompt, guidance_scale=5, num_inference_steps=20, elevation=0)'
-)
-p.write_text(text)
+s = p.read_text()
+s = s.replace("for i in range(5):", "for i in range(1):")
+p.write_text(s)
 print("patched run_mvdream.py")
 PY
 ```
@@ -103,15 +97,15 @@ CUDA_VISIBLE_DEVICES=3 python run_mvdream.py "a cute owl"
 
 ---
 
-## 跑通后会得到什么
+## 跑通后会生成什么
 
-当前目录会生成：
+如果你把 `range(5)` 改成了 `range(1)`，当前目录会生成：
 
 ```text
 test_mvdream_0.jpg
 ```
 
-如果没有把 `range(5)` 改成 `range(1)`，则会生成：
+如果没有改，默认会生成：
 
 ```text
 test_mvdream_0.jpg
