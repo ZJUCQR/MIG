@@ -42,68 +42,69 @@ def load_video(video_path, max_frames_num,fps=1,force_sample=False):
     return spare_frames,frame_time,video_time
 
 def LLaVA_Video(prompt_dict_ls, model, tokenizer, image_processor, device):
-    final_score = 0
-    valid_num = 0
+    prompt_scores = []
     processed_json=[]
     for prompt_dict in tqdm(prompt_dict_ls):
         base_question = prompt_dict['auxiliary_info']
         question_num = len(base_question)
         video_paths = prompt_dict['video_list']
+        valid_video_scores = []
         for video_path in video_paths:
-        
-            max_frames_num = 64
-            video,frame_time,video_time = load_video(video_path, max_frames_num, 1, force_sample=True)
-            video = image_processor.preprocess(video, return_tensors="pt")["pixel_values"].cuda().bfloat16()
-            conv_template = "qwen_1_5"  # Make sure you use correct chat template for different models
-            score=0
-            flag=True
-            for i in range(len(base_question)):
-                if i==0:
-                    videoa=[video[:32]]
-                    time_instruciton = f"This ordered image sequence contains {len(video[0])} keyframes. The first half of the keyframes is: {frame_time[:len(frame_time)//2]}. Please answer yes or no only for the following questions."
-                    question = DEFAULT_IMAGE_TOKEN + f"{time_instruciton}\n{base_question[i]}"
-                    conv = copy.deepcopy(conv_templates[conv_template])
-                    conv.append_message(conv.roles[0], question)
-                    conv.append_message(conv.roles[1], None)
-                    prompt_question = conv.get_prompt()
-                    input_ids = tokenizer_image_token(prompt_question, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt").unsqueeze(0).to(device)
-                    cont = model.generate(
-                        input_ids,
-                        images=videoa,
-                        modalities= ["video"],
-                        do_sample=False,
-                        temperature=0,
-                        max_new_tokens=4096,
-                    )
-                elif i==1:
-                    videoa=[video[-1].unsqueeze(0)]
-                    time_instruciton = f"Please answer yes or no only for the following questions."
-                    question = DEFAULT_IMAGE_TOKEN + f"{time_instruciton}\n{base_question[i]}"
-                    conv = copy.deepcopy(conv_templates[conv_template])
-                    conv.append_message(conv.roles[0], question)
-                    conv.append_message(conv.roles[1], None)
-                    prompt_question = conv.get_prompt()
-                    input_ids = tokenizer_image_token(prompt_question, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt").unsqueeze(0).to(device)
-                    cont = model.generate(
-                        input_ids,
-                        images=videoa,
-                        modalities= ["image"],
-                        do_sample=False,
-                        temperature=0,
-                        max_new_tokens=4096,
-                    )
-                text_outputs = tokenizer.batch_decode(cont, skip_special_tokens=True)[0].strip()
-                if "yes" not in text_outputs.lower():
-                    flag=False
-            if flag:
-                final_score+=1
-                sco=1
-            else:
-                sco=0
-            valid_num+=1
-            processed_json.append({'video_path': video_path, 'video_results': sco})
-            
-    return final_score/(len(prompt_dict_ls)), processed_json
+            try:
+                max_frames_num = 64
+                video,frame_time,video_time = load_video(video_path, max_frames_num, 1, force_sample=True)
+                video = image_processor.preprocess(video, return_tensors="pt")["pixel_values"].cuda().bfloat16()
+                conv_template = "qwen_1_5"  # Make sure you use correct chat template for different models
+                flag=True
+                for i in range(len(base_question)):
+                    if i==0:
+                        videoa=[video[:32]]
+                        time_instruciton = f"This ordered image sequence contains {len(video[0])} keyframes. The first half of the keyframes is: {frame_time[:len(frame_time)//2]}. Please answer yes or no only for the following questions."
+                        question = DEFAULT_IMAGE_TOKEN + f"{time_instruciton}\n{base_question[i]}"
+                        conv = copy.deepcopy(conv_templates[conv_template])
+                        conv.append_message(conv.roles[0], question)
+                        conv.append_message(conv.roles[1], None)
+                        prompt_question = conv.get_prompt()
+                        input_ids = tokenizer_image_token(prompt_question, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt").unsqueeze(0).to(device)
+                        cont = model.generate(
+                            input_ids,
+                            images=videoa,
+                            modalities= ["video"],
+                            do_sample=False,
+                            temperature=0,
+                            max_new_tokens=4096,
+                        )
+                    elif i==1:
+                        videoa=[video[-1].unsqueeze(0)]
+                        time_instruciton = f"Please answer yes or no only for the following questions."
+                        question = DEFAULT_IMAGE_TOKEN + f"{time_instruciton}\n{base_question[i]}"
+                        conv = copy.deepcopy(conv_templates[conv_template])
+                        conv.append_message(conv.roles[0], question)
+                        conv.append_message(conv.roles[1], None)
+                        prompt_question = conv.get_prompt()
+                        input_ids = tokenizer_image_token(prompt_question, tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt").unsqueeze(0).to(device)
+                        cont = model.generate(
+                            input_ids,
+                            images=videoa,
+                            modalities= ["image"],
+                            do_sample=False,
+                            temperature=0,
+                            max_new_tokens=4096,
+                        )
+                    text_outputs = tokenizer.batch_decode(cont, skip_special_tokens=True)[0].strip()
+                    if "yes" not in text_outputs.lower():
+                        flag=False
+                sco = 1 if flag else 0
+                valid_video_scores.append(sco)
+                processed_json.append({'video_path': video_path, 'video_results': sco, 'status': 'ok'})
+            except Exception as e:
+                print(f"WARNING!!! Skipping broken video: {video_path} | {e}")
+                processed_json.append({'video_path': video_path, 'video_results': -1, 'status': 'skipped', 'reason': str(e)})
+        if valid_video_scores:
+            prompt_scores.append(sum(valid_video_scores) / len(valid_video_scores))
+    if not prompt_scores:
+        return 0, processed_json
+    return sum(prompt_scores) / len(prompt_scores), processed_json
         
         
 def compute_dynamic_spatial_relationship(json_dir, device, submodules_dict, **kwargs):
@@ -120,5 +121,4 @@ def compute_dynamic_spatial_relationship(json_dir, device, submodules_dict, **kw
     llava_model.eval()
     
     all_results, video_results = LLaVA_Video(prompt_dict_ls, llava_model, llava_tokenizer, image_processor, device)
-    all_results = sum([d['video_results'] for d in video_results]) / len(video_results)
     return all_results, video_results

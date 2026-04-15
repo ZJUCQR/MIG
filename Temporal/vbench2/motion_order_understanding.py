@@ -136,70 +136,80 @@ def load_video(video_path, max_frames_num,fps=1,force_sample=False):
     return spare_frames,frame_time,video_time
 
 def LLaVA_Video(prompt_dict_ls, llava_model, llava_tokenizer, image_processor, qwen_model, qwen_tokenizer, device):
-    final_score = 0
-    valid_num = 0
+    prompt_scores = []
     processed_json=[]
     for prompt_dict in tqdm(prompt_dict_ls):
         video_paths = prompt_dict['video_list']
         ground_truth_text = prompt_dict['auxiliary_info']
-        
+        valid_video_scores = []
+
         for video_path in video_paths:
             new_item = {
                 "video_path": video_path,
             }
-            max_frames_num = 64
-            video,frame_time,video_time = load_video(video_path, max_frames_num, 1, force_sample=True)
-            video = image_processor.preprocess(video, return_tensors="pt")["pixel_values"].cuda().bfloat16()
-            video = [video]
-            conv_template = "qwen_1_5"  # Make sure you use correct chat template for different models
-            time_instruciton = f"This ordered image sequence contains {len(video[0])} keyframes. The keyframes are: {frame_time}. Return the action order shown across the keyframes. Here is the template."
-            template = "1. ; 2. ."
-            question = DEFAULT_IMAGE_TOKEN + f"{time_instruciton}\n"+f"{template}"
-            conv = copy.deepcopy(conv_templates[conv_template])
-            conv.append_message(conv.roles[0], question)
-            conv.append_message(conv.roles[1], None)
-            prompt_question = conv.get_prompt()
-            input_ids = tokenizer_image_token(prompt_question, llava_tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt").unsqueeze(0).to(device)
-            cont = llava_model.generate(
-                input_ids,
-                images=video,
-                modalities= ["video"],
-                do_sample=False,
-                temperature=0,
-                max_new_tokens=4096,
-            )
-            answer_llava = llava_tokenizer.batch_decode(cont, skip_special_tokens=True)[0].strip()
-            flag=False
             try:
-                prompts=answer_llava.split('2.')
-                if len(prompts)<2:
+                max_frames_num = 64
+                video,frame_time,video_time = load_video(video_path, max_frames_num, 1, force_sample=True)
+                video = image_processor.preprocess(video, return_tensors="pt")["pixel_values"].cuda().bfloat16()
+                video = [video]
+                conv_template = "qwen_1_5"  # Make sure you use correct chat template for different models
+                time_instruciton = f"This ordered image sequence contains {len(video[0])} keyframes. The keyframes are: {frame_time}. Return the action order shown across the keyframes. Here is the template."
+                template = "1. ; 2. ."
+                question = DEFAULT_IMAGE_TOKEN + f"{time_instruciton}\n"+f"{template}"
+                conv = copy.deepcopy(conv_templates[conv_template])
+                conv.append_message(conv.roles[0], question)
+                conv.append_message(conv.roles[1], None)
+                prompt_question = conv.get_prompt()
+                input_ids = tokenizer_image_token(prompt_question, llava_tokenizer, IMAGE_TOKEN_INDEX, return_tensors="pt").unsqueeze(0).to(device)
+                cont = llava_model.generate(
+                    input_ids,
+                    images=video,
+                    modalities= ["video"],
+                    do_sample=False,
+                    temperature=0,
+                    max_new_tokens=4096,
+                )
+                answer_llava = llava_tokenizer.batch_decode(cont, skip_special_tokens=True)[0].strip()
+                flag=False
+                try:
+                    prompts=answer_llava.split('2.')
+                    if len(prompts)<2:
+                        flag=True
+                except:
                     flag=True
-            except:
-                flag=True
-            if flag:
-                new_item['video_results']=-1
+                if flag:
+                    new_item['video_results']=-1
+                    new_item['status']='skipped'
+                    new_item['reason']='invalid llava output'
+                    processed_json.append(new_item)
+                    continue
+                score=0
+                for q in range(2):
+                    prompt1 = ground_truth_text[q]
+                    prompt2 = prompts[q]
+                    prompt = f"""
+                        prompt1: {prompt1}
+                        prompt2: {prompt2}
+                    """
+                    response = judge(prompt, qwen_model, qwen_tokenizer)
+                    if 'yes' in response.lower():
+                        score+=1
+                sco = 1 if score==2 else 0
+                valid_video_scores.append(sco)
+                new_item['video_results']=sco
+                new_item['status']='ok'
                 processed_json.append(new_item)
-                continue
-            score=0
-            for q in range(2):
-                prompt1 = ground_truth_text[q]
-                prompt2 = prompts[q]
-                prompt = f"""
-                    prompt1: {prompt1}
-                    prompt2: {prompt2}
-                """
-                response = judge(prompt, qwen_model, qwen_tokenizer)
-                if 'yes' in response.lower():
-                    score+=1
-            if score==2:
-                final_score+=1
-                new_item['video_results']=1
-            else:
-                new_item['video_results']=0
-            valid_num+=1
-            processed_json.append(new_item)
-        
-    return final_score/valid_num, processed_json
+            except Exception as e:
+                print(f"WARNING!!! Skipping broken video: {video_path} | {e}")
+                new_item['video_results']=-1
+                new_item['status']='skipped'
+                new_item['reason']=str(e)
+                processed_json.append(new_item)
+        if valid_video_scores:
+            prompt_scores.append(sum(valid_video_scores) / len(valid_video_scores))
+    if not prompt_scores:
+        return 0, processed_json
+    return sum(prompt_scores) / len(prompt_scores), processed_json
         
         
 def compute_motion_order_understanding(json_dir, device, submodules_dict, **kwargs):
@@ -236,16 +246,4 @@ def compute_motion_order_understanding(json_dir, device, submodules_dict, **kwar
         qwen_tokenizer = AutoTokenizer.from_pretrained(qwen_model_name, cache_dir=submodules_dict['qwen'])
         
     all_results, video_results = LLaVA_Video(prompt_dict_ls, llava_model, llava_tokenizer, image_processor, qwen_model, qwen_tokenizer, device)
-    score=0
-    num=0
-    count=0
-    for d in video_results:
-        if d['video_results']!=-1:
-            num+=1
-            score+= d['video_results']
-        else:
-            count+=1
-    if count>0.9*len(video_results):
-        return 0, video_results 
-    all_results = score/num
     return all_results, video_results
