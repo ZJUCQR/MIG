@@ -45,7 +45,7 @@ def build_system_prompt(batch_size: int) -> str:
 
 硬性要求：
 1. `items` 长度必须严格等于 {batch_size}，每个 item 只包含 `prompt` 和 `prompt_cn`
-2. 每条数据都必须是同一主体的 four-view multi-view prompt，顺序为 front, left, back, right，主体外观保持一致
+2. 每条数据都必须是同一主体的 four-view multi-view prompt，只强调是四个不同视角，不要指定固定顺序，主体外观保持一致
 3. `prompt` 和 `prompt_cn` 要写成完整自然的一句话，清晰说明主体、四视角和一致性要求
 4. 主体要多样，允许自由发挥，覆盖人物、动物、车辆、产品、幻想生物等不同类型
 5. 背景不固定，可以自由变化
@@ -61,7 +61,7 @@ def build_user_prompt(batch_size: int, existing_prompts: List[str]) -> str:
 
     return (
         f"请生成 {batch_size} 条 multi-view prompt。"
-        f" 每条都必须是同一主体的四个固定视角：front, left, back, right。"
+        f" 每条都必须是同一主体的四个不同视角，但不要指定固定顺序。"
         f" 需要显著提高主体多样性，并明确加入人物类主体。"
         f" prompt 和 prompt_cn 不要太短，写成自然完整的一句话。"
         f" 但也不要过长，不要堆很多风格形容词，不要复杂长段落。"
@@ -78,11 +78,11 @@ def repair_generated_item(item: Dict[str, Any], prompt_id: int) -> Dict[str, Any
 
     if not prompt:
         prompt = (
-            "Generate four consistent views of the same subject in the exact order front, left, back, and right, "
+            "Generate four consistent views of the same subject from different viewpoints, "
             "with a coherent appearance and a natural scene that matches the subject."
         )
     if not prompt_cn:
-        prompt_cn = "请生成同一主体的四个一致视角，顺序为正视图、左视图、后视图和右视图，主体外观保持连贯，背景场景自然匹配主体。"
+        prompt_cn = "请生成同一主体的四个一致视角，展示不同观察角度，主体外观保持连贯，背景场景自然匹配主体。"
 
     return {
         "id": f"mv_{prompt_id}",
