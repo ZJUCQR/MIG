@@ -37,6 +37,11 @@ def safe_stem(name: str) -> str:
     return re.sub(r"[^a-zA-Z0-9._-]+", "_", stem).strip("_") or "subject"
 
 
+def human_name_from_image_name(name: str) -> str:
+    stem = Path(name).stem.replace("_", " ").strip()
+    return " ".join(part.capitalize() for part in stem.split()) or "the same person"
+
+
 def load_csv_groups(csv_path: Path) -> "OrderedDict[str, List[str]]":
     groups: "OrderedDict[str, List[str]]" = OrderedDict()
     with csv_path.open("r", newline="", encoding="utf-8") as handle:
@@ -84,7 +89,6 @@ def build_grouped_entries(
 
         prompts_copy = list(prompts)
         rng.shuffle(prompts_copy)
-        subject_id = safe_stem(image_name)
         chunk_index = 1
 
         while len(prompts_copy) >= min_group_size:
@@ -99,9 +103,8 @@ def build_grouped_entries(
             prompts_copy = prompts_copy[chunk_size:]
             entries.append(
                 {
-                    "id": f"{subject_id}_{chunk_index:03d}",
+                    "id": f"cn_{len(entries) + 1:03d}",
                     "image_name": image_name,
-                    "subject_id": subject_id,
                     "num_images": chunk_size,
                     "source_prompts": chunk,
                 }
@@ -114,7 +117,7 @@ def build_grouped_entries(
 def build_system_prompt() -> str:
     return '''你是一个专业的文生组图 prompt 设计师。
 
-你的任务是把输入的一组英文 prompt 改写成“单次生成多张图片”的组图 prompt。注意，这组 prompt 都对应同一个人，只是服装、动作、风格、场景等发生变化。
+你的任务是把输入的一组英文 prompt 改写成“单次生成多张图片”的组图 prompt。注意，这组 prompt 都对应同一个人，只是服装、动作、风格、场景等发生变化。你必须在输出的 prompt 和 global_prompt 中明确写出这个人物是谁，例如 Albert Einstein，这样生成模型能知道整组图片都是同一个指定人物。
 
 严格输出 JSON，不能输出任何解释、注释、markdown 代码块。
 
@@ -122,8 +125,8 @@ def build_system_prompt() -> str:
 {
   "prompt": "英文完整 prompt，必须是单行字符串，不允许出现\\n。结构应为：先写 global prompt，再按顺序列出每个子图指令，明确这是一组同一人物的多图/组图/sequence 图片。",
   "prompt_cn": "中文完整 prompt，必须是单行字符串，不允许出现\\n",
-  "global_prompt": "英文全局描述，强调同一个人物身份一致和整组图片的共同设定",
-  "global_prompt_cn": "中文全局描述",
+  "global_prompt": "英文全局描述，强调同一个人物身份一致、明确人物姓名，并描述整组图片的共同设定",
+  "global_prompt_cn": "中文全局描述，明确人物是谁",
   "num_images": 4,
   "sub_prompts": [
     "English instruction for image 1",
@@ -138,16 +141,20 @@ def build_system_prompt() -> str:
 硬性要求：
 1. `num_images` 必须严格等于输入 prompt 的条数
 2. `sub_prompts` 和 `sub_prompts_cn` 的长度必须严格等于 `num_images`
-3. `prompt`、`prompt_cn`、`global_prompt`、`global_prompt_cn` 都必须是单行字符串，不能含换行符
-4. `sub_prompts` 是英文列表，`sub_prompts_cn` 是中文列表
-5. 不要输出任何额外字段，也不要丢失 JSON 结构
+3. 输出的 `prompt` 和 `global_prompt` 必须明确写出人物姓名，例如 Albert Einstein；中文字段也要明确写出人物姓名，例如 爱因斯坦
+4. `prompt`、`prompt_cn`、`global_prompt`、`global_prompt_cn` 都必须是单行字符串，不能含换行符
+5. `sub_prompts` 是英文列表，`sub_prompts_cn` 是中文列表
+6. 不要输出任何额外字段，也不要丢失 JSON 结构
 '''
 
 
 def build_user_prompt(entry: Dict[str, Any]) -> str:
+    person_name = human_name_from_image_name(entry["image_name"])
     prompt_lines = "\n".join(f"{idx}. {prompt}" for idx, prompt in enumerate(entry["source_prompts"], start=1))
     return (
         f"请把下面这些属于同一个人物 `{entry['image_name']}` 的英文 prompt，合并改写成一个适合文生组图的 prompt。"
+        f"\n这个人物明确是：{person_name}。"
+        f"\n输出的英文 prompt 和 global_prompt 必须明确写出 {person_name}；中文字段也必须明确写出这个人物是谁。"
         f"\n这些 prompt 都必须对应同一个人，最终输出的 num_images 必须等于 {entry['num_images']}。"
         f"\n原始 prompts:\n{prompt_lines}"
     )
