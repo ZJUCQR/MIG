@@ -110,6 +110,18 @@ def collect_image_prompt_pairs(
     return image_paths, prompts, image_ids, matched_ids, missing_prompt_ids, sorted(set(missing_image_ids))
 
 
+def select_is_image_paths(image_paths: List[Path], image_ids: List[str], *, per_id_limit: int = 3) -> List[Path]:
+    selected: List[Path] = []
+    counts: Dict[str, int] = {}
+    for image_path, prompt_id in zip(image_paths, image_ids):
+        current = counts.get(prompt_id, 0)
+        if current >= per_id_limit:
+            continue
+        selected.append(image_path)
+        counts[prompt_id] = current + 1
+    return selected
+
+
 def compute_inception_score(image_paths: List[Path], batch_size: int, *, use_cuda: bool) -> Dict[str, float]:
     dataset = ImagePathDataset(image_paths)
     metrics = calculate_metrics(
@@ -159,18 +171,23 @@ def compute_clip_score(
         scores.append(score_value)
         per_id_scores.setdefault(prompt_id, []).append(score_value)
 
-    per_id_summary = {
-        prompt_id: {
+    per_id_summary = {}
+    reduced_scores: List[float] = []
+    for prompt_id, id_scores in sorted(per_id_scores.items()):
+        sorted_scores = sorted(id_scores, reverse=True)
+        top2_scores = sorted_scores[:2]
+        top2_mean = mean(top2_scores) if top2_scores else 0.0
+        reduced_scores.append(top2_mean)
+        per_id_summary[prompt_id] = {
             "num_images": len(id_scores),
             "clip_score_mean": mean(id_scores),
             "clip_score_std": pstdev(id_scores) if len(id_scores) > 1 else 0.0,
+            "clip_score_top2_mean": top2_mean,
         }
-        for prompt_id, id_scores in sorted(per_id_scores.items())
-    }
 
     return {
-        "clip_score_mean": mean(scores) if scores else 0.0,
-        "clip_score_std": pstdev(scores) if len(scores) > 1 else 0.0,
+        "clip_score_mean": mean(reduced_scores) if reduced_scores else 0.0,
+        "clip_score_std": pstdev(reduced_scores) if len(reduced_scores) > 1 else 0.0,
         "per_id": per_id_summary,
     }
 
@@ -195,6 +212,7 @@ def evaluate_result_root(
             "result_root": str(result_root),
             "num_ids_matched": 0,
             "num_images": 0,
+            "num_images_for_is": 0,
             "inception_score_mean": None,
             "inception_score_std": None,
             "clip_score_mean": None,
@@ -203,8 +221,9 @@ def evaluate_result_root(
             "missing_image_ids": missing_image_ids,
         }
 
+    is_image_paths = select_is_image_paths(image_paths, image_ids, per_id_limit=3)
     is_metrics = compute_inception_score(
-        image_paths,
+        is_image_paths,
         batch_size=batch_size,
         use_cuda=device.type == "cuda",
     )
@@ -220,6 +239,7 @@ def evaluate_result_root(
         "result_root": str(result_root),
         "num_ids_matched": len(set(matched_ids)),
         "num_images": len(image_paths),
+        "num_images_for_is": len(is_image_paths),
         "inception_score_mean": is_metrics["inception_score_mean"],
         "inception_score_std": is_metrics["inception_score_std"],
         "clip_score_mean": clip_metrics["clip_score_mean"],
@@ -309,9 +329,10 @@ def main() -> None:
 
         print(f"matched ids: {metrics['num_ids_matched']}")
         print(f"images: {metrics['num_images']}")
+        print(f"images used for IS: {metrics['num_images_for_is']}")
         if metrics["inception_score_mean"] is not None:
             print(f"IS: {metrics['inception_score_mean']:.4f} ± {metrics['inception_score_std']:.4f}")
-            print(f"CLIP Score: {metrics['clip_score_mean']:.4f} ± {metrics['clip_score_std']:.4f}")
+            print(f"CLIP Score (top-2 per id mean): {metrics['clip_score_mean']:.4f} ± {metrics['clip_score_std']:.4f}")
         else:
             print("No valid images found for this root.")
 
