@@ -23,7 +23,7 @@ DEFAULT_PROMPT_FILE = PROJECT_ROOT / "evaluation" / "multi_image_prompts.json"
 DEFAULT_IMAGE_ROOT = PROJECT_ROOT / "multi_image_results"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "multi_image_eval"
 DEFAULT_CLIP_MODEL = "openai/clip-vit-large-patch14"
-DEFAULT_DINO_MODEL = "vit_small_patch16_224.dino"
+DEFAULT_DINO_MODEL = "vit_small_patch16_224"
 DEFAULT_FACE_PARSING_PATH = PROJECT_ROOT / "pretrained_models" / "JackAILab_ConsistentID" / "face_parsing.pth"
 DEFAULT_METRICS = "clip_t,clip_i_anchor,dino_anchor,facesim_anchor,fgis_anchor"
 FACIAL_PART_IDS = (1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13)
@@ -32,6 +32,20 @@ ANCHOR_METRICS = ("clip_i_anchor", "dino_anchor", "facesim_anchor", "fgis_anchor
 ALL_METRICS = CLIP_TEXT_METRICS + ANCHOR_METRICS
 METRIC_ALIASES = {
     "clip_t": CLIP_TEXT_METRICS,
+}
+DINO_MODEL_ALIASES = {
+    "vit_small_patch16_224.dino": "vit_small_patch16_224",
+    "vit_base_patch16_224.dino": "vit_base_patch16_224",
+}
+DINO_AUTO_CHECKPOINTS = {
+    "vit_small_patch16_224": {
+        "filename": "dino_deitsmall16_pretrain.pth",
+        "url": "https://dl.fbaipublicfiles.com/dino/dino_deitsmall16_pretrain/dino_deitsmall16_pretrain.pth",
+    },
+    "vit_base_patch16_224": {
+        "filename": "dino_vitbase16_pretrain.pth",
+        "url": "https://dl.fbaipublicfiles.com/dino/dino_vitbase16_pretrain/dino_vitbase16_pretrain.pth",
+    },
 }
 
 
@@ -52,6 +66,12 @@ class FaceAnalysisResult:
 
 def default_device() -> str:
     return "cuda" if torch.cuda.is_available() else "cpu"
+
+
+def default_dino_cache_dir() -> str:
+    import torch.hub
+
+    return str(Path(torch.hub.get_dir()) / "checkpoints")
 
 
 def parse_args() -> argparse.Namespace:
@@ -110,7 +130,13 @@ def parse_args() -> argparse.Namespace:
         "--dino-checkpoint",
         type=str,
         default=None,
-        help="Optional local checkpoint path for the DINO model.",
+        help="Optional local checkpoint path for the DINO model. If omitted for a known DINO ViT-S/16 or ViT-B/16 architecture, the script auto-downloads the official checkpoint.",
+    )
+    parser.add_argument(
+        "--dino-cache-dir",
+        type=str,
+        default=default_dino_cache_dir(),
+        help="Directory used for auto-downloaded official DINO checkpoints.",
     )
     parser.add_argument(
         "--face-parsing-path",
@@ -366,6 +392,7 @@ class DinoScorer:
         device: str,
         batch_size: int,
         checkpoint_path: Optional[str] = None,
+        cache_dir: Optional[str] = None,
     ) -> None:
         import timm
         from torchvision import transforms
@@ -373,16 +400,56 @@ class DinoScorer:
 
         self.device = torch.device(device)
         self.batch_size = batch_size
+        resolved_model_name = self._resolve_model_name(model_name)
+        resolved_checkpoint_path = checkpoint_path
+        if resolved_checkpoint_path is None:
+            resolved_checkpoint_path = self._maybe_auto_download_checkpoint(
+                resolved_model_name,
+                cache_dir,
+            )
+
         timm_kwargs: Dict[str, Any] = {
-            "model_name": model_name,
+            "model_name": resolved_model_name,
             "num_classes": 0,
         }
-        if checkpoint_path:
-            timm_kwargs["pretrained"] = False
-            timm_kwargs["checkpoint_path"] = checkpoint_path
-        else:
-            timm_kwargs["pretrained"] = True
-        self.model = timm.create_model(**timm_kwargs).to(self.device)
+        try:
+            if resolved_checkpoint_path:
+                timm_kwargs["pretrained"] = False
+                self.model = timm.create_model(**timm_kwargs).to(self.device)
+                state_dict = self._load_checkpoint_state_dict(Path(resolved_checkpoint_path))
+                incompatible = self.model.load_state_dict(state_dict, strict=False)
+                missing = sorted(set(incompatible.missing_keys))
+                unexpected = sorted(set(incompatible.unexpected_keys))
+                if missing:
+                    print(
+                        f"[DINO] Loaded checkpoint with missing keys: {missing[:10]}"
+                        + (" ..." if len(missing) > 10 else "")
+                    )
+                if unexpected:
+                    print(
+                        f"[DINO] Ignored unexpected keys: {unexpected[:10]}"
+                        + (" ..." if len(unexpected) > 10 else "")
+                    )
+            else:
+                timm_kwargs["pretrained"] = True
+                self.model = timm.create_model(model_name, pretrained=True, num_classes=0).to(self.device)
+        except RuntimeError as error:
+            message = str(error)
+            if "Unknown model" in message:
+                if resolved_checkpoint_path:
+                    raise RuntimeError(
+                        f"Unknown model ({resolved_model_name}). When you pass --dino-checkpoint, "
+                        "use a timm architecture name such as 'vit_small_patch16_224' "
+                        "or 'vit_base_patch16_224'."
+                    ) from error
+                raise RuntimeError(
+                    f"Unknown model ({model_name}). Your timm version does not expose this DINO pretrained tag. "
+                    "Fix options: "
+                    "1) pass --dino-model vit_small_patch16_224 --dino-checkpoint /path/to/dino_vits16.pth; "
+                    "2) upgrade timm to a version that supports this tag; "
+                    "3) temporarily remove DINO-based metrics: dino_anchor and fgis_anchor."
+                ) from error
+            raise
         self.model.eval()
         self.transform = transforms.Compose(
             [
@@ -407,6 +474,66 @@ class DinoScorer:
                 raise TypeError("Unexpected DINO model output type.")
             features.append(F.normalize(batch_features, dim=-1).cpu())
         return torch.cat(features, dim=0)
+
+    @staticmethod
+    def _resolve_model_name(model_name: str) -> str:
+        return DINO_MODEL_ALIASES.get(model_name, model_name)
+
+    @classmethod
+    def _maybe_auto_download_checkpoint(
+        cls,
+        model_name: str,
+        cache_dir: Optional[str],
+    ) -> Optional[str]:
+        spec = DINO_AUTO_CHECKPOINTS.get(model_name)
+        if spec is None:
+            return None
+
+        from torch.hub import download_url_to_file
+
+        target_dir = Path(cache_dir) if cache_dir else Path(default_dino_cache_dir())
+        target_dir.mkdir(parents=True, exist_ok=True)
+        checkpoint_path = target_dir / spec["filename"]
+        if not checkpoint_path.exists():
+            print(f"[DINO] Downloading official checkpoint to {checkpoint_path}")
+            download_url_to_file(spec["url"], str(checkpoint_path), progress=True)
+        else:
+            print(f"[DINO] Reusing cached checkpoint: {checkpoint_path}")
+        return str(checkpoint_path)
+
+    @staticmethod
+    def _strip_known_prefixes(key: str) -> str:
+        prefixes = ("module.", "backbone.", "model.", "teacher.", "student.")
+        changed = True
+        while changed:
+            changed = False
+            for prefix in prefixes:
+                if key.startswith(prefix):
+                    key = key[len(prefix) :]
+                    changed = True
+        return key
+
+    @classmethod
+    def _load_checkpoint_state_dict(cls, checkpoint_path: Path) -> Dict[str, torch.Tensor]:
+        checkpoint = torch.load(checkpoint_path, map_location="cpu")
+        if isinstance(checkpoint, dict):
+            for key in ("teacher", "student", "state_dict", "model"):
+                candidate = checkpoint.get(key)
+                if isinstance(candidate, dict):
+                    checkpoint = candidate
+                    break
+        if not isinstance(checkpoint, dict):
+            raise TypeError(f"Unsupported checkpoint format: {checkpoint_path}")
+
+        cleaned: Dict[str, torch.Tensor] = {}
+        for key, value in checkpoint.items():
+            if not isinstance(value, torch.Tensor):
+                continue
+            normalized_key = cls._strip_known_prefixes(key)
+            cleaned[normalized_key] = value
+        if not cleaned:
+            raise ValueError(f"No tensor weights were found in checkpoint: {checkpoint_path}")
+        return cleaned
 
 
 class FaceNetAnalyzer:
@@ -772,6 +899,7 @@ def build_summary(
             "clip_model": args.clip_model,
             "dino_model": args.dino_model,
             "dino_checkpoint": args.dino_checkpoint,
+            "dino_cache_dir": to_absolute_string(Path(args.dino_cache_dir)),
             "face_parsing_path": to_absolute_string(Path(args.face_parsing_path)),
             "face_detector_device": args.face_detector_device or args.device,
             "batch_size": args.batch_size,
@@ -831,6 +959,7 @@ def main() -> None:
         args.device,
         args.batch_size,
         checkpoint_path=args.dino_checkpoint,
+        cache_dir=args.dino_cache_dir,
     ) if needs_dino else None
     face_analyzer = FaceNetAnalyzer(args.face_detector_device or args.device) if needs_faces else None
     face_parser = FaceParser(face_parsing_path, args.device) if "fgis_anchor" in requested_metrics else None

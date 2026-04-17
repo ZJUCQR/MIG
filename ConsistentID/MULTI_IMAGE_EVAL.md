@@ -80,7 +80,58 @@ facenet-pytorch==2.5.3
 ./pretrained_models/JackAILab_ConsistentID/face_parsing.pth
 ```
 
-## 4. 输入目录约定
+## 4. DINO 权重准备
+
+现在脚本默认支持自动下载官方 DINO 权重。
+
+默认行为:
+- 如果你没有传 `--dino-checkpoint`
+- 且 `--dino-model` 是 `vit_small_patch16_224` 或 `vit_base_patch16_224`
+- 脚本会自动下载官方 checkpoint
+- 默认缓存目录是 `~/.cache/torch/hub/checkpoints`
+
+你也可以显式指定缓存目录:
+
+```bash
+python evaluation/evaluate_multi_image.py \
+  --image-root multi_image_results \
+  --output-dir multi_image_eval \
+  --metrics clip_t,dino_anchor \
+  --dino-model vit_small_patch16_224 \
+  --dino-cache-dir /path/to/dino_cache
+```
+
+如果你想手动下载，再传给脚本，也可以。
+
+官方 DINO ViT-S/16:
+
+```bash
+mkdir -p /path/to/dino_cache
+cd /path/to/dino_cache
+wget https://dl.fbaipublicfiles.com/dino/dino_deitsmall16_pretrain/dino_deitsmall16_pretrain.pth
+```
+
+官方 DINO ViT-B/16:
+
+```bash
+mkdir -p /path/to/dino_cache
+cd /path/to/dino_cache
+wget https://dl.fbaipublicfiles.com/dino/dino_vitbase16_pretrain/dino_vitbase16_pretrain.pth
+```
+
+手动下载后，运行时这样指定:
+
+```bash
+python evaluation/evaluate_multi_image.py \
+  --image-root multi_image_results \
+  --output-dir multi_image_eval \
+  --metrics clip_t,dino_anchor,fgis_anchor \
+  --dino-model vit_small_patch16_224 \
+  --dino-checkpoint /path/to/dino_cache/dino_deitsmall16_pretrain.pth \
+  --face-parsing-path ./pretrained_models/JackAILab_ConsistentID/face_parsing.pth
+```
+
+## 5. 输入目录约定
 
 脚本默认读取:
 
@@ -99,7 +150,7 @@ multi_image_results/
 
 这和 `run_infer.py` 的默认输出结构一致。
 
-## 5. 基本用法
+## 6. 基本用法
 
 只跑严格成立的文本对齐指标:
 
@@ -122,13 +173,24 @@ python evaluation/evaluate_multi_image.py \
   --face-parsing-path ./pretrained_models/JackAILab_ConsistentID/face_parsing.pth
 ```
 
-如果 DINO 需要本地 checkpoint:
+如果让脚本自动下载 DINO:
 
 ```bash
 python evaluation/evaluate_multi_image.py \
   --image-root multi_image_results \
   --output-dir multi_image_eval \
   --metrics clip_t,dino_anchor \
+  --dino-model vit_small_patch16_224
+```
+
+如果 DINO 使用本地 checkpoint:
+
+```bash
+python evaluation/evaluate_multi_image.py \
+  --image-root multi_image_results \
+  --output-dir multi_image_eval \
+  --metrics clip_t,dino_anchor \
+  --dino-model vit_small_patch16_224 \
   --dino-checkpoint /path/to/dino_checkpoint.pth
 ```
 
@@ -141,7 +203,7 @@ python evaluation/evaluate_multi_image.py \
   --metrics clip_t,facesim_anchor
 ```
 
-## 6. 输出文件
+## 7. 输出文件
 
 脚本会写 3 个文件到 `--output-dir`:
 
@@ -177,7 +239,7 @@ python evaluation/evaluate_multi_image.py \
   - `face_detected`
   - `facial_region_ready`
 
-## 7. 常见情况
+## 8. 常见情况
 
 `facesim_valid_ratio` 很低
 - 说明 FaceNet/MTCNN 没有稳定检测到人脸
@@ -194,7 +256,51 @@ python evaluation/evaluate_multi_image.py \
 组目录不存在
 - `per_group.csv` 里该组会记为 `missing`
 
-## 8. 实现说明
+## 9. 常见报错
+
+如果你看到这类报错:
+
+```text
+RuntimeError: Unknown model (vit_small_patch16_224.dino)
+```
+
+原因是:
+- 你的 `timm` 版本不认识 `vit_small_patch16_224.dino` 这个预训练标签
+- 这不是 `run_infer.py` 的问题，是评测脚本里 DINO 模型名和当前 `timm` 版本不兼容
+
+优先解决方案:
+
+```bash
+python evaluation/evaluate_multi_image.py \
+  --image-root multi_image_results \
+  --output-dir multi_image_eval \
+  --metrics clip_t,dino_anchor,fgis_anchor \
+  --dino-model vit_small_patch16_224 \
+  --face-parsing-path ./pretrained_models/JackAILab_ConsistentID/face_parsing.pth
+```
+
+这里要注意:
+- `--dino-model` 写架构名 `vit_small_patch16_224`
+- 不传 `--dino-checkpoint` 时，脚本会自动下载官方 DINO ViT-S/16 权重
+- 如果你想手动指定本地权重，也可以再传 `--dino-checkpoint`
+- 不要把 `--dino-model` 继续写成 `vit_small_patch16_224.dino`
+
+如果你暂时没有 DINO checkpoint，可以先去掉依赖 DINO 的指标:
+
+```bash
+python evaluation/evaluate_multi_image.py \
+  --image-root multi_image_results \
+  --output-dir multi_image_eval \
+  --metrics clip_t,clip_i_anchor,facesim_anchor
+```
+
+这时会跳过:
+- `dino_anchor`
+- `fgis_anchor`
+
+如果你就是想继续用 `vit_small_patch16_224.dino` 这个名字，那就需要升级到支持这个标签的 `timm` 版本。
+
+## 10. 实现说明
 
 当前评测设计遵循这几个原则:
 - 没有参考图时，不伪造“论文原始指标”
