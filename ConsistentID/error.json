@@ -1,0 +1,520 @@
+[
+  {
+    "id": "cn_017",
+    "prompt": "Generate a 5-image sequence featuring the exact same consistent character, Barack Obama, maintaining identical facial features, skin tone, and build throughout. Panel 1: a street art stencil of Barack Obama. Panel 2: Barack Obama standing with a vibrant blue house in the background. Panel 3: a candid shot of Barack Obama reading a book. Panel 4: a painting of Barack Obama in the signature graffiti and stencil style of Banksy. Panel 5: Barack Obama positioned on top of a large purple rug in a dense forest.",
+    "prompt_cn": "生成一组5张的组图，主角为完全一致的同一人物奥巴马，在所有画面中严格保持其面部特征、肤色和体型不变。图1：一幅奥巴马的街头模板涂鸦画。图2：背景有一栋鲜艳蓝色房子的奥巴马。图3：一张奥巴马正在阅读书籍的抓拍照片。图4：采用班克西标志性涂鸦与模板风格绘制的奥巴马画作。图5：站在茂密森林中一块紫色地毯上的奥巴马。",
+    "global_prompt": "Generate a consistent multi-image sequence focusing on the distinct likeness of Barack Obama. Ensure his facial identity, posture, and physical appearance remain strictly unified across all variations, which explore different artistic mediums, poses, and environmental settings.",
+    "global_prompt_cn": "生成一组以奥巴马为主角的多图序列，确保其面部身份、姿态和外形特征在所有画面中严格统一，仅在艺术媒介、姿势和环境场景上有所变化。",
+    "num_images": 5,
+    "sub_prompts": [
+      "a street art stencil of Barack Obama",
+      "Barack Obama standing with a vibrant blue house in the background",
+      "a candid shot of Barack Obama reading a book",
+      "a painting of Barack Obama in the signature graffiti and stencil style of Banksy",
+      "Barack Obama positioned on top of a large purple rug in a dense forest"
+    ],
+    "sub_prompts_cn": [
+      "一幅奥巴马的街头模板涂鸦画",
+      "背景有一栋鲜艳蓝色房子的奥巴马",
+      "一张奥巴马正在阅读书籍的抓拍照片",
+      "采用班克西标志性涂鸦与模板风格绘制的奥巴马画作",
+      "站在茂密森林中一块紫色地毯上的奥巴马"
+    ]
+  },
+  {
+    "id": "cn_018",
+    "prompt": "Generate a sequence of 3 images of the exact same person, Barack Obama. All shots maintain his distinct facial likeness. Image 1: Barack Obama wearing a professional white chef outfit. Image 2: Barack Obama actively cooking a meal with a focused expression. Image 3: Barack Obama dressed in an elaborate purple wizard outfit and hat.",
+    "prompt_cn": "生成一组3张同一人物的组图，所有画面均保持美国前总统巴拉克·奥巴马的独特面部特征与一致形象。图1：巴拉克·奥巴马身穿专业的白色厨师服。图2：巴拉克·奥巴马正在专注地烹饪餐食。图3：巴拉克·奥巴马身穿精致的紫色巫师套装并佩戴巫师帽。",
+    "global_prompt": "A consistent multi-image sequence featuring the exact same individual, former US President Barack Obama. Maintain strict identity consistency across all frames.",
+    "global_prompt_cn": "一组同一人物的多图片序列，主角均为美国前总统巴拉克·奥巴马。所有图片中必须严格保持其身份与面部特征的高度一致性。",
+    "num_images": 3,
+    "sub_prompts": [
+      "Barack Obama wearing a professional white chef outfit, standing in a clean modern environment.",
+      "Barack Obama actively cooking a meal, holding utensils with a focused expression, realistic photography.",
+      "Barack Obama dressed in an elaborate purple wizard outfit and pointed hat, cinematic fantasy lighting."
+    ],
+    "sub_prompts_cn": [
+      "巴拉克·奥巴马身穿专业的白色厨师服，站在干净现代的环境中。",
+      "巴拉克·奥巴马正在积极烹饪餐食，手持厨具神情专注，写实摄影风格。",
+      "巴拉克·奥巴马身穿精致的紫色巫师套装并佩戴尖顶巫师帽，电影级奇幻光影。"
+    ]
+  },
+  {
+    "id": "cn_019",
+    "prompt": "Generate a consistent multi-image series featuring Barack Obama as the exclusive subject. Maintain exact facial identity, skin tone, and proportions across all frames. Image 1: Barack Obama wearing a festive red and white Santa hat, smiling warmly. Image 2: Barack Obama wearing a simple solid red cap, looking relaxed and confident. Ensure cohesive photorealistic style and consistent background lighting throughout the sequence.",
+    "prompt_cn": "生成一组连贯的多图序列，唯一主角为贝拉克·奥巴马。所有画面必须严格保持面部特征、肤色和比例一致。图1：奥巴马戴着节日红白圣诞帽，温暖微笑。图2：奥巴马戴着纯红色休闲帽，神态放松自信。确保整组图片保持连贯的写实摄影风格与统一的光影背景。",
+    "global_prompt": "A consistent multi-image sequence featuring the exact same person, Barack Obama. Maintain identical facial features, age, skin tone, and recognizable identity across all generated frames. The overall aesthetic should be high-quality photorealistic portraiture with consistent lighting and composition.",
+    "global_prompt_cn": "这是一组连贯的多图序列，主角均为同一个人：贝拉克·奥巴马。所有图片必须保持完全一致的面部特征、年龄、肤色和可识别身份。整体视觉为高质量写实人像摄影，光影与构图保持连贯统一。",
+    "num_images": 2,
+    "sub_prompts": [
+      "Image 1 of the sequence: Barack Obama wearing a festive red and white Santa hat, smiling warmly.",
+      "Image 2 of the sequence: Barack Obama wearing a simple solid red cap, looking relaxed and confident."
+    ],
+    "sub_prompts_cn": [
+      "序列图1：奥巴马戴着节日红白圣诞帽，温暖微笑。",
+      "序列图2：奥巴马戴着纯红色休闲帽，神态放松自信。"
+    ]
+  },
+  {
+    "id": "cn_020",
+    "prompt": "A cohesive multi-image sequence featuring the same consistent subject, former US President Barack Obama, depicted across 10 distinct scenarios, outfits, and artistic styles while maintaining identical facial features, body proportions, and recognizable likeness throughout all frames. This is a sequence of 10 ordered panels: Panel 1: Barack Obama wearing stylish pink glasses, modern portrait lighting. Panel 2: Barack Obama sitting and coding in front of a computer screen, focused expression, casual office setting. Panel 3: Barack Obama wearing a protective helmet and safety vest riding a motorcycle, dynamic outdoor lighting. Panel 4: Barack Obama walking a friendly dog on a park pathway, relaxed posture, natural daylight. Panel 5: A detailed pointillism painting of Barack Obama, visible colored dots forming his portrait, gallery style. Panel 6: Barack Obama standing casually on a historic cobblestone street, European architecture background, soft ambient lighting. Panel 7: Barack Obama dressed formally in a black top hat and wearing a classic silver monocle, elegant studio portrait. Panel 8: A vibrant oil painting of Barack Obama executed in the signature impasto and swirling brushstroke style of Vincent Van Gogh. Panel 9: Barack Obama elegantly holding a stemmed glass of red wine at a dimly lit lounge table, sophisticated atmosphere. Panel 10: Barack Obama walking barefoot on a white sandy beach with gentle ocean waves, sunny tropical daylight. Ensure all images strictly maintain Barack Obama's exact facial features and likeness as a single consistent person.",
+    "prompt_cn": "一组包含10张图片的连贯组图，主角始终是前美国总统巴拉克·奥巴马，他在不同的场景、服装和艺术风格中出现，但所有画面中他的面部特征、体型和可识别的外貌保持一致。这是一组按顺序排列的10幅画面：第1幅：巴拉克·奥巴马戴着时尚的粉色眼镜，现代肖像光效。第2幅：巴拉克·奥巴马坐在电脑屏幕前敲代码，神情专注，休闲办公环境。第3幅：巴拉克·奥巴马戴着头盔和防护背心骑着摩托车，动态户外光线。第4幅：巴拉克·奥巴马在公园小径上牵着一只友好的狗散步，姿态放松，自然日光。第5幅：一幅巴拉克·奥巴马的点彩派油画，由可见的彩色小圆点构成他的肖像，画廊风格。第6幅：巴拉克·奥巴马随意地站在一条古老的鹅卵石街道上，背景是欧洲建筑，柔和的环境光。第7幅：巴拉克·奥巴马身穿正式礼服，戴着黑色高顶礼帽和经典的单片眼镜，优雅的影棚肖像。第8幅：一幅以文森特·梵高标志性的厚涂和漩涡笔触风格绘制的巴拉克·奥巴马油画。第9幅：巴拉克·奥巴马在光线昏暗的休息室桌旁优雅地端着一杯红酒，氛围精致。第10幅：巴拉克·奥巴马赤脚走在白沙海滩上，伴随着轻柔的海浪，阳光明媚的热带日光。确保所有图片严格保持巴拉克·奥巴马完全一致的面部特征和外貌。",
+    "global_prompt": "A cohesive multi-image sequence featuring the same consistent subject, former US President Barack Obama, depicted across various scenarios and artistic styles while strictly maintaining his identical facial features, body proportions, and recognizable likeness in every frame.",
+    "global_prompt_cn": "一组包含多张图片的连贯组图，主角始终是前美国总统巴拉克·奥巴马，他在不同的场景和艺术风格中出现，但所有画面中他的面部特征、体型和可识别的外貌严格保持一致。",
+    "num_images": 10,
+    "sub_prompts": [
+      "Barack Obama wearing stylish pink glasses, modern portrait lighting.",
+      "Barack Obama sitting and coding in front of a computer screen, focused expression, casual office setting.",
+      "Barack Obama wearing a protective helmet and safety vest riding a motorcycle, dynamic outdoor lighting.",
+      "Barack Obama walking a friendly dog on a park pathway, relaxed posture, natural daylight.",
+      "A detailed pointillism painting of Barack Obama, visible colored dots forming his portrait, gallery style.",
+      "Barack Obama standing casually on a historic cobblestone street, European architecture background, soft ambient lighting.",
+      "Barack Obama dressed formally in a black top hat and wearing a classic silver monocle, elegant studio portrait.",
+      "A vibrant oil painting of Barack Obama executed in the signature impasto and swirling brushstroke style of Vincent Van Gogh.",
+      "Barack Obama elegantly holding a stemmed glass of red wine at a dimly lit lounge table, sophisticated atmosphere.",
+      "Barack Obama walking barefoot on a white sandy beach with gentle ocean waves, sunny tropical daylight."
+    ],
+    "sub_prompts_cn": [
+      "巴拉克·奥巴马戴着时尚的粉色眼镜，现代肖像光效。",
+      "巴拉克·奥巴马坐在电脑屏幕前敲代码，神情专注，休闲办公环境。",
+      "巴拉克·奥巴马戴着头盔和防护背心骑着摩托车，动态户外光线。",
+      "巴拉克·奥巴马在公园小径上牵着一只友好的狗散步，姿态放松，自然日光。",
+      "一幅巴拉克·奥巴马的点彩派油画，由可见的彩色小圆点构成他的肖像，画廊风格。",
+      "巴拉克·奥巴马随意地站在一条古老的鹅卵石街道上，背景是欧洲建筑，柔和的环境光。",
+      "巴拉克·奥巴马身穿正式礼服，戴着黑色高顶礼帽和经典的单片眼镜，优雅的影棚肖像。",
+      "一幅以文森特·梵高标志性的厚涂和漩涡笔触风格绘制的巴拉克·奥巴马油画。",
+      "巴拉克·奥巴马在光线昏暗的休息室桌旁优雅地端着一杯红酒，氛围精致。",
+      "巴拉克·奥巴马赤脚走在白沙海滩上，伴随着轻柔的海浪，阳光明媚的热带日光。"
+    ]
+  },
+  {
+    "id": "cn_021",
+    "prompt": "Generate a multi-image series of exactly the same person, Barack Obama, maintaining strictly consistent facial features and identity throughout the sequence. Image 1 shows Barack Obama in a snowy winter landscape, dressed warmly. Image 2 features a street art mural of Barack Obama in vibrant graffiti style. Image 3 is a watercolor painting of Barack Obama with soft artistic brushstrokes. Image 4 depicts Barack Obama wearing a full firefighter outfit, realistic photography. Image 5 portrays Barack Obama wearing an academic doctoral cap and gown in a dignified pose. Image 6 captures Barack Obama wearing a yellow casual shirt in a relaxed everyday setting. Ensure all six panels strictly depict the exact same individual in different styles and scenarios.",
+    "prompt_cn": "生成一组多图序列，人物为完全相同的同一个人巴拉克·奥巴马，全组画面需严格保持一致的面部特征与身份。图1展示奥巴马站在冰雪冬季风景中，穿着保暖衣物。图2为描绘奥巴马的街头艺术壁画，呈现色彩鲜艳的涂鸦风格。图3是奥巴马的水彩画，带有柔和的艺术笔触。图4展现奥巴马身穿全套消防员制服，写实摄影风格。图5描绘奥巴马头戴正式博士帽并身穿学位服，姿态庄重。图6捕捉奥巴马穿着黄色休闲衬衫，姿态放松的日常场景。确保六张画面均严格呈现完全相同的同一个人。",
+    "global_prompt": "A cohesive multi-image sequence featuring exactly the same individual, Barack Obama, maintaining strictly consistent facial features, age, and identity across all panels to ensure a unified representation of the specified person.",
+    "global_prompt_cn": "一组连贯的多图序列，展示完全相同的同一个人巴拉克·奥巴马，所有画面中必须严格保持面部特征、年龄和身份的高度一致，以确保该指定人物的统一呈现。",
+    "num_images": 6,
+    "sub_prompts": [
+      "Barack Obama standing in a snowy winter landscape, dressed warmly, photorealistic style",
+      "A street art mural depicting Barack Obama, vibrant urban graffiti style",
+      "A watercolor painting of Barack Obama, soft brushstrokes and artistic composition",
+      "Barack Obama wearing a complete firefighter outfit, standing confidently, realistic photography",
+      "Barack Obama wearing a formal academic doctoral cap and gown, dignified pose",
+      "Barack Obama wearing a bright yellow casual shirt, relaxed posture, everyday setting"
+    ],
+    "sub_prompts_cn": [
+      "奥巴马站在冰雪冬季风景中，穿着保暖衣物，写实摄影风格",
+      "描绘奥巴马的街头艺术壁画，色彩鲜艳的城市涂鸦风格",
+      "奥巴马的水彩画，柔和的笔触与艺术构图",
+      "奥巴马身穿全套消防员制服，自信站立，写实摄影",
+      "奥巴马头戴正式博士帽并身穿学位服，姿态庄重",
+      "奥巴马穿着亮黄色休闲衬衫，姿态放松，日常场景"
+    ]
+  },
+  {
+    "id": "cn_022",
+    "prompt": "A cohesive multi-image sequence explicitly depicting the exact same person, Barack Obama, with perfectly consistent facial features and physique across all frames. 1. Barack Obama standing outdoors with a majestic mountain in the background. 2. Barack Obama casually gardening in a sunny backyard. 3. Barack Obama sitting gracefully on top of draped pink fabric. 4. Barack Obama smiling while holding a slice of delicious cake. 5. Barack Obama depicted as a classical Greek marble sculpture. 6. Barack Obama wearing a professional police uniform. 7. Barack Obama standing firmly on top of a polished wooden floor.",
+    "prompt_cn": "一套连贯的多图序列，明确展现同一位人物奥巴马，确保所有画面中面部特征与体型高度一致。第1张：奥巴马站在户外，背景是一座雄伟的山脉。第2张：奥巴马在阳光明媚的后院里休闲园艺。第3张：奥巴马优雅地坐在铺开的粉色织物上。第4张：奥巴马微笑着拿着一片美味的蛋糕。第5张：奥巴马被呈现为古典希腊大理石雕塑。第6张：奥巴马穿着专业的警服。第7张：奥巴马坚定地站在抛光的木地板上。",
+    "global_prompt": "A consistent character sequence series strictly featuring the exact same individual, Barack Obama, ensuring absolute identity and facial consistency throughout the entire set of generated images.",
+    "global_prompt_cn": "严格基于同一人物奥巴马的连贯组图系列，确保整套生成图片中人物身份与面部特征绝对一致。",
+    "num_images": 7,
+    "sub_prompts": [
+      "Barack Obama standing outdoors with a majestic mountain in the background",
+      "Barack Obama casually gardening in a sunny backyard",
+      "Barack Obama sitting gracefully on top of draped pink fabric",
+      "Barack Obama smiling while holding a slice of delicious cake",
+      "Barack Obama depicted as a classical Greek marble sculpture",
+      "Barack Obama wearing a professional police uniform",
+      "Barack Obama standing firmly on top of a polished wooden floor"
+    ],
+    "sub_prompts_cn": [
+      "奥巴马站在户外，背景是一座雄伟的山脉",
+      "奥巴马在阳光明媚的后院里休闲园艺",
+      "奥巴马优雅地坐在铺开的粉色织物上",
+      "奥巴马微笑着拿着一片美味的蛋糕",
+      "奥巴马被呈现为古典希腊大理石雕塑",
+      "奥巴马穿着专业的警服",
+      "奥巴马坚定地站在抛光的木地板上"
+    ]
+  },
+  {
+    "id": "cn_023",
+    "prompt": "Create a 4-image sequence featuring the exact same person, Barack Obama, with strictly consistent facial features and identity across all frames. Image 1: Barack Obama riding a horse. Image 2: A Japanese woodblock print of Barack Obama. Image 3: Barack Obama wearing a rainbow scarf. Image 4: Barack Obama standing in the jungle.",
+    "prompt_cn": "生成一组4张图片的组图，主角为同一人物贝拉克·奥巴马，全程严格保持其面部特征与身份一致。第一张：奥巴马骑马。第二张：奥巴马的日本浮世绘版画。第三张：奥巴马戴着彩虹围巾。第四张：奥巴马站在丛林中。",
+    "global_prompt": "A multi-panel image sequence focusing on a single subject, Barack Obama, requiring absolute consistency in facial structure, skin tone, and recognizable identity across every generated frame while exploring different artistic styles, clothing, and environments.",
+    "global_prompt_cn": "一组以单个人物贝拉克·奥巴马为核心的多图序列，要求所有图片中人物的面部结构、肤色和辨识度保持绝对一致，仅改变艺术风格、服装与背景环境。",
+    "num_images": 4,
+    "sub_prompts": [
+      "Barack Obama riding a horse",
+      "A Japanese woodblock print of Barack Obama",
+      "Barack Obama wearing a rainbow scarf",
+      "Barack Obama standing in the jungle"
+    ],
+    "sub_prompts_cn": [
+      "奥巴马骑马",
+      "奥巴马的日本浮世绘版画",
+      "奥巴马戴着彩虹围巾",
+      "奥巴马站在丛林中"
+    ]
+  },
+  {
+    "id": "cn_024",
+    "prompt": "Generate a multi-image sequence of 8 distinct panels featuring the exact same person, former US President Barack Obama, ensuring strict consistency in his facial features, age, and identity across all images. The series explores diverse scenarios, outfits, and artistic styles for Barack Obama. Panel 1: Barack Obama working out at a modern gym in athletic wear. Panel 2: Barack Obama posing with a detailed city skyline in the background. Panel 3: Barack Obama wearing sunglasses and a stylish necklace in a casual portrait. Panel 4: Barack Obama baking cookies in a warm home kitchen. Panel 5: Barack Obama wearing a futuristic spacesuit. Panel 6: A classic black and white photograph portrait of Barack Obama. Panel 7: A vibrant colorful graffiti painting of Barack Obama on a street wall. Panel 8: Barack Obama giving a confident lecture at a podium.",
+    "prompt_cn": "生成一组包含8张不同画面的连贯组图序列，主角为完全同一个人物、前美国总统巴拉克·奥巴马，确保所有画面中奥巴马的面部特征、年龄和身份严格保持一致。该系列探索奥巴马在不同场景、服装和艺术风格中的多样形象。画面1：巴拉克·奥巴马在现代健身房穿着运动装备锻炼。画面2：巴拉克·奥巴马站立，背景为细节丰富的城市天际线。画面3：巴拉克·奥巴马佩戴墨镜和时尚项链的休闲肖像。画面4：巴拉克·奥巴马在温馨的家庭厨房里烤饼干。画面5：巴拉克·奥巴马身穿未来感宇航服。画面6：巴拉克·奥巴马的经典黑白摄影肖像。画面7：绘制在街墙上的色彩鲜艳的巴拉克·奥巴马涂鸦画作。画面8：巴拉克·奥巴马在讲台上自信地进行演讲。",
+    "global_prompt": "A multi-image sequence featuring the exact same person, former US President Barack Obama. Maintain strict facial consistency, realistic skin tones, and identical age across all panels. The series captures Barack Obama in various everyday, professional, and stylized settings while preserving his recognizable identity.",
+    "global_prompt_cn": "这是一组包含多张图片的序列，展示完全同一个人物、前美国总统巴拉克·奥巴马。必须在所有画面中严格保持其面部特征、肤色和年龄的一致性。该系列捕捉奥巴马在日常生活、专业及风格化场景中的形象，同时保留其标志性的身份特征。",
+    "num_images": 8,
+    "sub_prompts": [
+      "Barack Obama working out intensely at a modern gym, wearing athletic gear, realistic photography style.",
+      "Barack Obama standing confidently with a detailed urban city skyline in the background, natural daylight.",
+      "Barack Obama wearing sleek sunglasses and a stylish pendant necklace, casual close-up portrait.",
+      "Barack Obama happily baking cookies in a cozy home kitchen, holding a tray, warm lighting.",
+      "Barack Obama wearing a highly detailed astronaut spacesuit, standing in a futuristic sci-fi environment.",
+      "A high-contrast black and white portrait photograph of Barack Obama, classic journalistic style.",
+      "A vibrant colorful graffiti street art painting of Barack Obama, bold outlines and urban texture.",
+      "Barack Obama delivering an inspiring lecture at a wooden podium, academic auditorium setting."
+    ],
+    "sub_prompts_cn": [
+      "巴拉克·奥巴马在现代健身房进行高强度锻炼，身穿运动装备，写实摄影风格。",
+      "巴拉克·奥巴马自信站立，背景为细节丰富的城市天际线，自然日光。",
+      "巴拉克·奥巴马佩戴光滑墨镜和时尚吊坠项链，休闲半身肖像特写。",
+      "巴拉克·奥巴马在温馨家庭厨房里开心地烤饼干，手持托盘，暖光照明。",
+      "巴拉克·奥巴马身穿细节丰富的宇航服，站在未来科幻场景中。",
+      "巴拉克·奥巴马的高对比度黑白肖像摄影，经典新闻摄影风格。",
+      "一幅色彩鲜艳的巴拉克·奥巴马街头涂鸦艺术画，粗犷线条与城市肌理。",
+      "巴拉克·奥巴马在木质讲台前发表鼓舞人心的演讲，学术礼堂背景。"
+    ]
+  },
+  {
+    "id": "cn_035",
+    "prompt": "Generate a cohesive multi-image sequence featuring the exact same person, Elon Mask, ensuring strict facial and physical consistency across all panels. Panel 1: Elon Mask standing on a beach. Panel 2: Elon Mask wearing a red hat. Panel 3: Elon Mask with a city in the background. Panel 4: A street art mural of Elon Mask. Panel 5: Elon Mask in a police outfit. Panel 6: Elon Mask wearing a doctoral cap. Panel 7: Elon Mask reading a book. Panel 8: Elon Mask with a mountain in the background. Panel 9: Elon Mask wearing a santa hat.",
+    "prompt_cn": "生成一组连贯的组图序列，展现完全相同的人物 Elon Mask，确保所有画面中面部和体态严格一致。图1：Elon Mask 站在海滩上。图2：Elon Mask 戴着红帽子。图3：Elon Mask 背景中有城市。图4：一幅 Elon Mask 的街头艺术壁画。图5：Elon Mask 穿着警服。图6：Elon Mask 戴着博士帽。图7：Elon Mask 在读一本书。图8：Elon Mask 背景中有山脉。图9：Elon Mask 戴着圣诞帽。",
+    "global_prompt": "A sequence of 9 images depicting the exact same individual, Elon Mask, with identical facial features, age, and body structure maintained throughout the entire series to ensure character consistency.",
+    "global_prompt_cn": "一系列9张图片描绘完全相同的个体 Elon Mask，在整个系列中始终保持相同的面部特征、年龄和体型结构以确保人物一致性。",
+    "num_images": 9,
+    "sub_prompts": [
+      "Elon Mask standing on a beach",
+      "Elon Mask wearing a red hat",
+      "Elon Mask with a city in the background",
+      "A street art mural of Elon Mask",
+      "Elon Mask in a police outfit",
+      "Elon Mask wearing a doctoral cap",
+      "Elon Mask reading a book",
+      "Elon Mask with a mountain in the background",
+      "Elon Mask wearing a santa hat"
+    ],
+    "sub_prompts_cn": [
+      "Elon Mask 站在海滩上",
+      "Elon Mask 戴着红色帽子",
+      "Elon Mask 背景为城市",
+      "一幅 Elon Mask 的街头壁画",
+      "Elon Mask 身穿警服",
+      "Elon Mask 戴着博士帽",
+      "Elon Mask 正在阅读一本书",
+      "Elon Mask 背景为山脉",
+      "Elon Mask 戴着圣诞帽"
+    ]
+  },
+  {
+    "id": "cn_045",
+    "prompt": "A multi-image sequence of 10 panels featuring the exact same person Feifei Li, maintaining strict facial consistency and identity across all panels. Image 1: Feifei Li depicted as a classical Greek marble sculpture. Image 2: Feifei Li portrayed in a delicate watercolor painting style. Image 3: Feifei Li wearing a formal police officer uniform. Image 4: Feifei Li rendered in a vibrant pointillism painting style. Image 5: Feifei Li standing gracefully in a snowy winter environment. Image 6: Feifei Li positioned elegantly on a polished wooden floor. Image 7: Feifei Li wearing stylish pink glasses. Image 8: Feifei Li walking a dog outdoors on a leash. Image 9: Feifei Li wearing a traditional academic doctoral cap. Image 10: Feifei Li sitting and coding in front of a computer desk.",
+    "prompt_cn": "一组包含10张画面的组图，全部描绘完全相同的同一个人物李飞飞，确保所有画面中她的面部特征和身份严格保持一致。第一张图：古典希腊大理石雕塑风格的李飞飞。第二张图：精致水彩画风格的李飞飞。第三张图：身穿正式警服的李飞飞。第四张图：色彩鲜明的点彩画风格的李飞飞。第五张图：在冬日雪景中优雅伫立的李飞飞。第六张图：优雅地站在抛光木地板上的李飞飞。第七张图：佩戴时尚粉色眼镜的李飞飞。第八张图：在户外牵着狗散步的李飞飞。第九张图：头戴传统学术博士帽的李飞飞。第十张图：坐在电脑桌前专注编程的李飞飞。",
+    "global_prompt": "A cohesive multi-panel sequence explicitly depicting the renowned AI researcher Feifei Li, ensuring her distinct facial features, age, and identity remain perfectly consistent across every generated image despite changes in artistic style, clothing, and environment.",
+    "global_prompt_cn": "一组连贯的多画面组图，明确描绘著名人工智能研究员李飞飞，确保无论艺术风格、服装或环境如何变化，她独特的面部特征、年龄和身份在所有生成的图片中始终保持完全一致。",
+    "num_images": 10,
+    "sub_prompts": [
+      "Image 1: Feifei Li depicted as a classical Greek marble sculpture.",
+      "Image 2: Feifei Li portrayed in a delicate watercolor painting style.",
+      "Image 3: Feifei Li wearing a formal police officer uniform.",
+      "Image 4: Feifei Li rendered in a vibrant pointillism painting style.",
+      "Image 5: Feifei Li standing gracefully in a snowy winter environment.",
+      "Image 6: Feifei Li positioned elegantly on a polished wooden floor.",
+      "Image 7: Feifei Li wearing stylish pink glasses.",
+      "Image 8: Feifei Li walking a dog outdoors on a leash.",
+      "Image 9: Feifei Li wearing a traditional academic doctoral cap.",
+      "Image 10: Feifei Li sitting and coding in front of a computer desk."
+    ],
+    "sub_prompts_cn": [
+      "第一张图：古典希腊大理石雕塑风格的李飞飞。",
+      "第二张图：精致水彩画风格的李飞飞。",
+      "第三张图：身穿正式警服的李飞飞。",
+      "第四张图：色彩鲜明的点彩画风格的李飞飞。",
+      "第五张图：在冬日雪景中优雅伫立的李飞飞。",
+      "第六张图：优雅地站在抛光木地板上的李飞飞。",
+      "第七张图：佩戴时尚粉色眼镜的李飞飞。",
+      "第八张图：在户外牵着狗散步的李飞飞。",
+      "第九张图：头戴传统学术博士帽的李飞飞。",
+      "第十张图：坐在电脑桌前专注编程的李飞飞。"
+    ]
+  },
+  {
+    "id": "cn_049",
+    "prompt": "A cohesive multi-image sequence of 8 pictures featuring Geoffrey Hinton, maintaining strict facial consistency and recognizable identity across all variations. Image 1: a street art stencil of Geoffrey Hinton. Image 2: a realistic photo of Geoffrey Hinton holding a piece of cake. Image 3: a candid shot of Geoffrey Hinton reading a book. Image 4: Geoffrey Hinton dressed in a firefighter outfit. Image 5: Geoffrey Hinton dressed in a police officer uniform. Image 6: a portrait of Geoffrey Hinton wearing sunglasses and a necklace. Image 7: Geoffrey Hinton casually walking a dog. Image 8: a Greek marble sculpture depicting Geoffrey Hinton.",
+    "prompt_cn": "一组包含8张连贯图片的系列生成，全部以杰弗里·辛顿为主角，在所有变体中保持严格的面部一致性与可识别身份。图1：杰弗里·辛顿的街头艺术漏喷涂鸦。图2：杰弗里·辛顿手持一块蛋糕的写实照片。图3：杰弗里·辛顿正在阅读书籍的抓拍。图4：杰弗里·辛顿身穿消防员制服。图5：杰弗里·辛顿身穿警察制服。图6：杰弗里·辛顿佩戴墨镜和项链的肖像。图7：杰弗里·辛顿悠闲遛狗。图8：描绘杰弗里·辛顿的希腊大理石雕塑。",
+    "global_prompt": "Generate a cohesive multi-image sequence of 8 pictures featuring Geoffrey Hinton, maintaining strict facial consistency and recognizable identity across all variations.",
+    "global_prompt_cn": "生成一组包含8张连贯图片的系列图，全部以杰弗里·辛顿为主角，在所有画面中保持严格的面部一致性与可识别身份。",
+    "num_images": 8,
+    "sub_prompts": [
+      "Image 1: a street art stencil of Geoffrey Hinton.",
+      "Image 2: a realistic photo of Geoffrey Hinton holding a piece of cake.",
+      "Image 3: a candid shot of Geoffrey Hinton reading a book.",
+      "Image 4: Geoffrey Hinton dressed in a firefighter outfit.",
+      "Image 5: Geoffrey Hinton dressed in a police officer uniform.",
+      "Image 6: a portrait of Geoffrey Hinton wearing sunglasses and a necklace.",
+      "Image 7: Geoffrey Hinton casually walking a dog.",
+      "Image 8: a Greek marble sculpture depicting Geoffrey Hinton."
+    ],
+    "sub_prompts_cn": [
+      "图1：杰弗里·辛顿的街头艺术漏喷涂鸦。",
+      "图2：杰弗里·辛顿手持一块蛋糕的写实照片。",
+      "图3：杰弗里·辛顿正在阅读书籍的抓拍。",
+      "图4：杰弗里·辛顿身穿消防员制服。",
+      "图5：杰弗里·辛顿身穿警察制服。",
+      "图6：杰弗里·辛顿佩戴墨镜和项链的肖像。",
+      "图7：杰弗里·辛顿悠闲遛狗。",
+      "图8：描绘杰弗里·辛顿的希腊大理石雕塑。"
+    ]
+  },
+  {
+    "id": "cn_055",
+    "prompt": "Generate a 5-panel image sequence of the same individual. Global constraint: Joe Biden is the consistent subject in every panel, maintaining identical facial features, age, and identity across all scenes. Panel 1: Joe Biden wearing a spacesuit. Panel 2: Joe Biden dressed in a firefighter outfit. Panel 3: Joe Biden baking cookies in a kitchen. Panel 4: Joe Biden holding a piece of cake. Panel 5: A pointillism painting of Joe Biden. Ensure strict character continuity throughout the sequence.",
+    "prompt_cn": "生成一组包含5个画面的同一人物图像序列。全局约束：乔·拜登是每个画面中始终如一的主角，在所有场景中保持面部特征、年龄和身份完全一致。画面1：乔·拜登穿着宇航服。画面2：乔·拜登身穿消防员制服。画面3：乔·拜登在厨房烤饼干。画面4：乔·拜登手持一块蛋糕。画面5：一幅乔·拜登的点彩画。确保整组序列中人物严格连续统一。",
+    "global_prompt": "A consistent multi-panel series featuring Joe Biden as the sole subject, enforcing identical facial structure, age, and recognizable likeness across every generated variation.",
+    "global_prompt_cn": "一组以乔·拜登为唯一主角的连贯多图系列，强制在每张生成图中保持完全一致的面部结构、年龄和可识别相貌。",
+    "num_images": 5,
+    "sub_prompts": [
+      "Joe Biden wearing a spacesuit",
+      "Joe Biden dressed in a firefighter outfit",
+      "Joe Biden baking cookies",
+      "Joe Biden holding a piece of cake",
+      "A pointillism painting of Joe Biden"
+    ],
+    "sub_prompts_cn": [
+      "乔·拜登穿着宇航服",
+      "乔·拜登身穿消防员制服",
+      "乔·拜登正在烤饼干",
+      "乔·拜登手持一块蛋糕",
+      "一幅乔·拜登的点彩画"
+    ]
+  },
+  {
+    "id": "cn_056",
+    "prompt": "A consistent multi-image sequence generation task featuring the exact same person, Joe Biden. Maintain identical facial features, age, and physical likeness across all outputs. Image 1: Joe Biden standing confidently on top of a clean wooden floor, wearing smart casual clothing, realistic photography. Image 2: Joe Biden wearing work gloves, kneeling while planting and gardening in a sunny, lush suburban backyard, realistic photography.",
+    "prompt_cn": "这是一组系列图片生成指令，主角始终是同一个明确的人物：乔·拜登。在所有输出中必须严格保持其面部特征、年龄和体态高度一致。图1：乔·拜登穿着时尚休闲装，自信地站在干净的木地板上，写实摄影风格。图2：乔·拜登戴着工作手套，跪在阳光明媚、绿意盎然的郊区后院里进行园艺种植，写实摄影风格。",
+    "global_prompt": "A strict multi-picture series generation task focusing exclusively on one specific individual, Joe Biden. Ensure absolute consistency in facial structure, skin details, hair, and age across every single generated frame to guarantee it is unmistakably the same person throughout the entire set.",
+    "global_prompt_cn": "这是一个严格的多图系列生成任务，聚焦于同一个明确指定的人物：乔·拜登。确保在每张生成的图片中绝对保持一致的面部轮廓、皮肤细节、发型和年龄，以保证整套图片中的人物身份毫无争议地高度统一。",
+    "num_images": 2,
+    "sub_prompts": [
+      "Joe Biden standing confidently on top of a clean wooden floor, wearing smart casual clothing, realistic photography",
+      "Joe Biden wearing work gloves, kneeling while planting and gardening in a sunny, lush suburban backyard, realistic photography"
+    ],
+    "sub_prompts_cn": [
+      "乔·拜登穿着时尚休闲装，自信地站在干净的木地板上，写实摄影风格",
+      "乔·拜登戴着工作手套，跪在阳光明媚、绿意盎然的郊区后院里进行园艺种植，写实摄影风格"
+    ]
+  },
+  {
+    "id": "cn_057",
+    "prompt": "Generate a consistent multi-image sequence series featuring Joe Biden. Global settings: maintain identical facial features, short white hair, and recognizable appearance for Joe Biden across all panels. Image 1: Joe Biden wearing a yellow shirt in a professional indoor setting. Image 2: Joe Biden wearing a rainbow scarf in a casual outdoor park setting. This prompt generates a grouped photo series where every image strictly depicts the same person Joe Biden.",
+    "prompt_cn": "生成一组包含多张图的序列，主角均为同一个人乔·拜登。全局设定：在所有画面中严格保持乔·拜登一致的面部特征、白色短发与标志性外貌。图1：乔·拜登身穿黄色衬衫处于专业室内场景中。图2：乔·拜登佩戴彩虹围巾处于休闲户外公园场景中。本提示词生成一组组图，每张图片均为严格描绘同一个人物乔·拜登。",
+    "global_prompt": "A multi-image photo sequence strictly depicting the same individual, Joe Biden. Maintain consistent facial structure, age, short white hair, and recognizable identity across every frame to ensure character consistency throughout the series.",
+    "global_prompt_cn": "一组多图摄影序列，严格描绘同一个人物乔·拜登。在所有画面中保持其面部结构、年龄、白色短发与标志性身份的高度一致，确保整组图片人物统一。",
+    "num_images": 2,
+    "sub_prompts": [
+      "Image 1: Joe Biden wearing a bright yellow shirt, standing indoors with neutral walls, realistic portrait lighting, looking directly forward",
+      "Image 2: Joe Biden wearing a colorful rainbow scarf around his neck, outdoor daylight environment, relaxed expression, realistic photography"
+    ],
+    "sub_prompts_cn": [
+      "图1：乔·拜登身穿亮黄色衬衫，站在中性墙壁的室内环境中，写实肖像光线，直视前方",
+      "图2：乔·拜登颈部佩戴彩色彩虹围巾，户外日光环境，表情放松，写实摄影风格"
+    ]
+  },
+  {
+    "id": "cn_058",
+    "prompt": "A consistent 6-image sequence series featuring exactly the same person, Joe Biden, with unchanging facial features and identity throughout. Image 1: Joe Biden working out at a gym. Image 2: Joe Biden wearing sunglasses and a necklace. Image 3: A classical Greek marble sculpture of Joe Biden. Image 4: A vibrant street art mural of Joe Biden on a wall. Image 5: Joe Biden wearing a formal doctoral cap. Image 6: Joe Biden dressed in a complete police outfit. All panels form a unified multi-picture set.",
+    "prompt_cn": "一组六张连续序列的组图，全程为完全相同的同一个人物乔·拜登，面部特征与身份在所有画面中保持绝对一致。图1：乔·拜登在健身房进行锻炼。图2：乔·拜登佩戴墨镜与项链。图3：古典希腊大理石雕塑风格的乔·拜登。图4：墙面上色彩鲜艳的乔·拜登街头壁画。图5：乔·拜登头戴正式的博士帽。图6：乔·拜登身穿全套警官制服。所有画面共同构成同一人物的多图序列。",
+    "global_prompt": "A unified multi-image set featuring exactly the same individual, Joe Biden, maintaining identical facial structure, age, and recognizable identity across all six distinct scenes.",
+    "global_prompt_cn": "一组统一的多图片集合，核心人物始终为完全相同的乔·拜登，在所有场景中严格保持一致的面部结构、年龄特征与可识别的身份标识。",
+    "num_images": 6,
+    "sub_prompts": [
+      "Joe Biden working out at the gym, athletic clothing and weights",
+      "Joe Biden wearing cool sunglasses and a chain necklace, stylish casual look",
+      "A Greek marble sculpture carving of Joe Biden with classical artistic detailing",
+      "A street art mural painting of Joe Biden on a brick wall with graffiti style",
+      "Joe Biden wearing a traditional black doctoral cap and graduation gown",
+      "Joe Biden standing confidently in a detailed modern police officer uniform"
+    ],
+    "sub_prompts_cn": [
+      "乔·拜登在健身房锻炼，穿着运动服并在器械旁",
+      "乔·拜登佩戴酷炫墨镜与金属项链，时尚休闲造型",
+      "具有古典艺术细节的乔·拜登希腊大理石雕像",
+      "涂鸦砖墙上呈现的乔·拜登街头壁画艺术作品",
+      "乔·拜登身穿传统黑色博士帽与学位礼服",
+      "乔·拜登自信站立并穿着细节丰富的现代警官制服"
+    ]
+  },
+  {
+    "id": "cn_059",
+    "prompt": "Generate a multi-image sequence of 10 panels featuring the exact same individual, US President Joe Biden, maintaining strictly consistent facial features, age, and identity throughout. Image 1: Joe Biden standing in the snow. Image 2: Joe Biden giving a lecture at a podium. Image 3: Joe Biden with a mountain in the background. Image 4: Joe Biden walking a dog. Image 5: A Japanese woodblock print of Joe Biden. Image 6: A watercolor painting of Joe Biden. Image 7: Joe Biden wearing a red hat. Image 8: Joe Biden in a purple wizard outfit. Image 9: Joe Biden reading a book. Image 10: Joe Biden with a city in the background.",
+    "prompt_cn": "生成一组包含10张画面的多图序列，主体为同一个人物美国总统乔·拜登，在所有画面中严格保持其面部特征、年龄和身份完全一致。图1：乔·拜登站在雪中。图2：乔·拜登正在讲台前发表演讲。图3：乔·拜登以山脉为背景。图4：乔·拜登正在遛狗。图5：乔·拜登的日本浮世绘版画风格作品。图6：乔·拜登的水彩画风格作品。图7：乔·拜登戴着一顶红帽子。图8：乔·拜登身穿紫色巫师服装。图9：乔·拜登正在读书。图10：乔·拜登以城市景观为背景。",
+    "global_prompt": "Generate a cohesive sequence of images featuring the exact same person, US President Joe Biden, with strictly consistent facial features, age, and identity across all variations in the series.",
+    "global_prompt_cn": "生成一组连贯的系列图片，画面主体始终为同一个人物美国总统乔·拜登，在整组图片中严格保持其面部特征、年龄和身份完全一致。",
+    "num_images": 10,
+    "sub_prompts": [
+      "Joe Biden standing in the snow",
+      "Joe Biden giving a lecture at a podium",
+      "Joe Biden with a mountain in the background",
+      "Joe Biden walking a dog",
+      "A Japanese woodblock print of Joe Biden",
+      "A watercolor painting of Joe Biden",
+      "Joe Biden wearing a red hat",
+      "Joe Biden in a purple wizard outfit",
+      "Joe Biden reading a book",
+      "Joe Biden with a city in the background"
+    ],
+    "sub_prompts_cn": [
+      "乔·拜登站在雪中",
+      "乔·拜登正在讲台前发表演讲",
+      "乔·拜登以山脉为背景",
+      "乔·拜登正在遛狗",
+      "乔·拜登的日本浮世绘版画风格作品",
+      "乔·拜登的水彩画风格作品",
+      "乔·拜登戴着一顶红帽子",
+      "乔·拜登身穿紫色巫师服装",
+      "乔·拜登正在读书",
+      "乔·拜登以城市景观为背景"
+    ]
+  },
+  {
+    "id": "cn_060",
+    "prompt": "Generate a cohesive 9-image sequence featuring the exact same person, Joe Biden, maintaining identical facial features and identity across all panels. Panel 1: Joe Biden standing with a blue house in the background. Panel 2: A portrait painting of Joe Biden in the style of Vincent Van Gogh. Panel 3: A black and white photograph of Joe Biden. Panel 4: Joe Biden dressed in a chef outfit. Panel 5: Joe Biden positioned on top of pink fabric. Panel 6: Joe Biden walking on a cobblestone street. Panel 7: Joe Biden coding in front of a computer. Panel 8: A stencil graffiti painting of Joe Biden in the signature style of Banksy. Panel 9: Joe Biden standing on top of a purple rug inside a forest.",
+    "prompt_cn": "生成一组包含9张图片的连贯组图序列，所有画面必须严格呈现完全相同的同一个人物乔·拜登，并在每张图中保持其面部特征与身份高度一致。图1：乔·拜登站在蓝色房屋背景前。图2：一幅梵高风格的乔·拜登油画。图3：一张乔·拜登的黑白照片。图4：乔·拜登身穿厨师服。图5：乔·拜登坐在粉色织物上。图6：乔·拜登走在鹅卵石街道上。图7：乔·拜登在电脑前编程。图8：一幅班克斯风格的乔·拜登街头艺术画作。图9：乔·拜登站在森林中的紫色地毯上。",
+    "global_prompt": "This is a multi-panel sequence of 9 high-quality images consistently depicting the exact same individual, Joe Biden. All panels must share identical facial structure, age, and recognizable features of Joe Biden while varying only in attire, setting, lighting, and artistic medium.",
+    "global_prompt_cn": "这是一组包含9张高质量图片的连贯组图序列，始终描绘完全相同的个体乔·拜登。所有画面必须保持乔·拜登的面部结构、年龄和可辨识特征绝对一致，仅在服装、场景、光影和艺术媒介上有所不同。",
+    "num_images": 9,
+    "sub_prompts": [
+      "Joe Biden standing with a blue house in the background",
+      "A portrait painting of Joe Biden in the style of Vincent Van Gogh",
+      "A classic black and white photograph of Joe Biden",
+      "Joe Biden dressed in a professional chef outfit",
+      "Joe Biden positioned comfortably on top of pink fabric",
+      "Joe Biden walking down a historic cobblestone street",
+      "Joe Biden sitting and coding intently in front of a computer monitor",
+      "A stencil graffiti artwork of Joe Biden in the signature style of Banksy",
+      "Joe Biden standing on top of a large purple rug placed in a forest"
+    ],
+    "sub_prompts_cn": [
+      "乔·拜登站在蓝色房屋背景前",
+      "一幅梵高风格的乔·拜登肖像油画",
+      "一张乔·拜登的经典黑白照片",
+      "乔·拜登身穿专业厨师服装",
+      "乔·拜登舒适地坐在粉色织物上",
+      "乔·拜登走在历史悠久的鹅卵石街道上",
+      "乔·拜登坐在电脑显示器前专注编程",
+      "一幅班克斯标志性风格的乔·拜登喷漆涂鸦画",
+      "乔·拜登站在森林中铺设的大型紫色地毯上"
+    ]
+  },
+  {
+    "id": "cn_061",
+    "prompt": "A consistent multi-image sequence set strictly featuring the exact same person, Joe Biden, with highly consistent facial features and identity across all frames. The series showcases Joe Biden in various settings and styles: Image 1: Joe Biden wearing a black top hat and a monocle. Image 2: Joe Biden in the jungle. Image 3: a colorful graffiti painting of Joe Biden. Image 4: Joe Biden holding a glass of wine. Image 5: Joe Biden in a helmet and vest riding a motorcycle. Image 6: Joe Biden wearing a santa hat. Image 7: Joe Biden on the beach. Image 8: Joe Biden riding a horse.",
+    "prompt_cn": "一组严格保持同一人物身份的多图序列，主角明确为乔·拜登（Joe Biden），所有画面中其面部特征必须高度一致。该系列展示乔·拜登在不同场景与风格下的状态：图1：乔·拜登戴着黑色高顶礼帽和单片眼镜。图2：乔·拜登身处丛林。图3：一幅色彩斑斓的乔·拜登涂鸦画。图4：乔·拜登手持一杯葡萄酒。图5：乔·拜登头戴头盔身穿马甲骑摩托车。图6：乔·拜登戴着圣诞帽。图7：乔·拜登在海滩上。图8：乔·拜登正在骑马。",
+    "global_prompt": "A consistent multi-image generation set strictly depicting the exact same person, Joe Biden, ensuring absolute facial and identity consistency throughout the entire sequence. The set portrays Joe Biden across diverse styles, outfits, and environments.",
+    "global_prompt_cn": "一组严格描绘同一个人物乔·拜登（Joe Biden）的多图生成指令，确保整组画面中人物身份和面部特征绝对一致。该系列展现乔·拜登在不同艺术风格、服装搭配和场景环境下的状态。",
+    "num_images": 8,
+    "sub_prompts": [
+      "Joe Biden wearing a black top hat and a monocle",
+      "Joe Biden in the jungle",
+      "a colorful graffiti painting of Joe Biden",
+      "Joe Biden holding a glass of wine",
+      "Joe Biden in a helmet and vest riding a motorcycle",
+      "Joe Biden wearing a santa hat",
+      "Joe Biden on the beach",
+      "Joe Biden riding a horse"
+    ],
+    "sub_prompts_cn": [
+      "乔·拜登戴着黑色高顶礼帽和单片眼镜",
+      "乔·拜登身处丛林中",
+      "一幅色彩斑斓的乔·拜登涂鸦画",
+      "乔·拜登手持一杯葡萄酒",
+      "乔·拜登头戴头盔身穿防护背心骑摩托车",
+      "乔·拜登戴着圣诞帽",
+      "乔·拜登在海滩上",
+      "乔·拜登正在骑马"
+    ]
+  },
+  {
+    "id": "cn_062",
+    "prompt": "Generate a multi-image sequence of exactly 3 frames featuring the exact same person, Joe Biden, maintaining strict facial and physical consistency throughout the set. Frame 1: Joe Biden cooking a meal in a domestic kitchen. Frame 2: A street art stencil graphic of Joe Biden on a concrete wall. Frame 3: Joe Biden wearing bright pink tinted glasses in a casual studio setting.",
+    "prompt_cn": "生成一组包含3张画面的多图序列，主角始终是同一个人乔·拜登，全程保持严格的面部和外貌一致性。图1：乔·拜登在家庭厨房中烹饪美食。图2：绘制在混凝土墙面上的乔·拜登街头模板喷漆艺术。图3：乔·拜登戴着亮粉色墨镜的休闲工作室肖像。",
+    "global_prompt": "A strictly consistent multi-image series depicting the exact same individual, Joe Biden, across all frames with identical facial structure, white hair, and aging features. The global theme adapts his likeness to different scenarios and artistic styles while preserving his recognizable identity.",
+    "global_prompt_cn": "一组严格保持人物一致性的多图系列，所有画面均为同一个人乔·拜登，具备完全相同的面部结构、白发和年龄特征。整体主题在不同场景和艺术风格中变换，但始终保持其高度可识别的身份特征。",
+    "num_images": 3,
+    "sub_prompts": [
+      "Joe Biden actively cooking a meal in a modern kitchen, holding cooking utensils, warm realistic lighting, high detail",
+      "A bold monochrome street art stencil portrait of Joe Biden on a textured brick wall, high contrast spray paint aesthetic, graphic style",
+      "Close-up portrait of Joe Biden wearing stylish bright pink glasses, casual modern sweater, soft natural daylight, photorealistic texture"
+    ],
+    "sub_prompts_cn": [
+      "乔·拜登在现代厨房中积极烹饪，手持厨具，温暖写实光照，高细节",
+      "纹理砖墙上的粗线条单色乔·拜登街头模板肖像，高对比喷漆美学，平面图形风格",
+      "乔·拜登佩戴时尚亮粉色眼镜的特写肖像，穿着休闲现代毛衣，柔和自然日光，摄影级真实纹理"
+    ]
+  },
+  {
+    "id": "cn_100",
+    "prompt": "A multi-image sequence of the exact same person, Scarlett Johansson, maintaining strict facial consistency throughout. Image 1: a colorful graffiti painting of Scarlett Johansson. Image 2: Scarlett Johansson walking a dog. Image 3: Scarlett Johansson in a purple wizard outfit. Image 4: Scarlett Johansson wearing sunglasses and necklace. Image 5: Scarlett Johansson with a mountain in the background. Image 6: Scarlett Johansson reading a book. All frames must clearly depict Scarlett Johansson with identical identity and facial features.",
+    "prompt_cn": "这是一组同一人物的多图序列，全程严格保持斯嘉丽·约翰逊的面部一致性。第一张：斯嘉丽·约翰逊的彩色涂鸦画。第二张：斯嘉丽·约翰逊正在遛狗。第三张：斯嘉丽·约翰逊身穿紫色法师服装。第四张：斯嘉丽·约翰逊戴着墨镜和项链。第五张：斯嘉丽·约翰逊背景中有山脉。第六张：斯嘉丽·约翰逊正在读书。所有画面必须清晰展现身份与面部特征完全一致的斯嘉丽·约翰逊。",
+    "global_prompt": "A consistent multi-image sequence featuring the exact same person, Scarlett Johansson. Strictly preserve identical facial structure, skin tone, and identity across all generated frames while varying clothing, actions, and backgrounds.",
+    "global_prompt_cn": "这是一组保持身份一致的多图序列，主角为斯嘉丽·约翰逊。在改变服装、动作和背景的同时，必须严格保留完全相同的面部结构、肤色和身份特征。",
+    "num_images": 6,
+    "sub_prompts": [
+      "a colorful graffiti painting of Scarlett Johansson",
+      "Scarlett Johansson walking a dog",
+      "Scarlett Johansson in a purple wizard outfit",
+      "Scarlett Johansson wearing sunglasses and necklace",
+      "Scarlett Johansson with a mountain in the background",
+      "Scarlett Johansson reading a book"
+    ],
+    "sub_prompts_cn": [
+      "斯嘉丽·约翰逊的彩色涂鸦画",
+      "斯嘉丽·约翰逊正在遛狗",
+      "斯嘉丽·约翰逊身穿紫色法师服装",
+      "斯嘉丽·约翰逊戴着墨镜和项链",
+      "斯嘉丽·约翰逊背景中有山脉",
+      "斯嘉丽·约翰逊正在读书"
+    ]
+  },
+  {
+    "id": "cn_108",
+    "prompt": "A cohesive multi-image sequence featuring the exact same person, internationally renowned singer-songwriter Taylor Swift, maintaining identical facial features and identity across all panels. Image 1: Taylor Swift wearing stylish pink-tinted glasses. Image 2: A classical Greek marble statue depicting Taylor Swift. Image 3: Taylor Swift posing while wearing a chic red hat. Image 4: Taylor Swift dressed in a stylish vintage police uniform. Image 5: Taylor Swift standing in front of a bright blue cottage house. Image 6: A vibrant street-style graffiti mural painting of Taylor Swift. Image 7: Taylor Swift smiling and holding a slice of birthday cake. Image 8: A cinematic black and white portrait photograph of Taylor Swift. Image 9: Taylor Swift casually wearing a bright yellow cotton shirt. Image 10: Taylor Swift working out on a treadmill at a modern fitness gym. All images must clearly show the same Taylor Swift with consistent facial structure and likeness.",
+    "prompt_cn": "一组连贯的多图序列，展示的是完全相同的同一个人，国际著名创作歌手泰勒·斯威夫特，在所有画面中保持完全一致的面部特征和身份标识。图1：泰勒·斯威夫特戴着时尚的粉色太阳镜。图2：描绘泰勒·斯威夫特的古希腊大理石雕塑。图3：泰勒·斯威夫特戴着一顶别致的红色帽子摆姿势。图4：泰勒·斯威夫特穿着时尚的复古警察制服。图5：泰勒·斯威夫特站在一座明亮的蓝色小屋前。图6：一幅色彩斑斓的街头涂鸦壁画，画中是泰勒·斯威夫特。图7：泰勒·斯威夫特微笑着拿着一块生日蛋糕。图8：泰勒·斯威夫特的电影感黑白肖像摄影。图9：泰勒·斯威夫特随意地穿着一件明黄色棉质衬衫。图10：泰勒·斯威夫特在现代健身房的跑步机上锻炼。所有图片都必须明确展现相同的泰勒·斯威夫特，保持面部结构和容貌高度一致。",
+    "global_prompt": "A cohesive multi-image sequence featuring the exact same person, internationally renowned singer-songwriter Taylor Swift, maintaining identical facial features and identity across all panels.",
+    "global_prompt_cn": "一组连贯的多图序列，展示的是完全相同的同一个人，国际著名创作歌手泰勒·斯威夫特，在所有画面中保持完全一致的面部特征和身份标识。",
+    "num_images": 10,
+    "sub_prompts": [
+      "Taylor Swift wearing stylish pink-tinted glasses.",
+      "A classical Greek marble statue depicting Taylor Swift.",
+      "Taylor Swift posing while wearing a chic red hat.",
+      "Taylor Swift dressed in a stylish vintage police uniform.",
+      "Taylor Swift standing in front of a bright blue cottage house.",
+      "A vibrant street-style graffiti mural painting of Taylor Swift.",
+      "Taylor Swift smiling and holding a slice of birthday cake.",
+      "A cinematic black and white portrait photograph of Taylor Swift.",
+      "Taylor Swift casually wearing a bright yellow cotton shirt.",
+      "Taylor Swift working out on a treadmill at a modern fitness gym."
+    ],
+    "sub_prompts_cn": [
+      "泰勒·斯威夫特戴着时尚的粉色太阳镜。",
+      "描绘泰勒·斯威夫特的古希腊大理石雕塑。",
+      "泰勒·斯威夫特戴着一顶别致的红色帽子摆姿势。",
+      "泰勒·斯威夫特穿着时尚的复古警察制服。",
+      "泰勒·斯威夫特站在一座明亮的蓝色小屋前。",
+      "一幅色彩斑斓的街头涂鸦壁画，画中是泰勒·斯威夫特。",
+      "泰勒·斯威夫特微笑着拿着一块生日蛋糕。",
+      "泰勒·斯威夫特的电影感黑白肖像摄影。",
+      "泰勒·斯威夫特随意地穿着一件明黄色棉质衬衫。",
+      "泰勒·斯威夫特在现代健身房的跑步机上锻炼。"
+    ]
+  }
+]
