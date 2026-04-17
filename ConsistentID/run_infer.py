@@ -74,6 +74,10 @@ def run_single_inference(api_key: str, item: dict, output_root: Path, *, model_n
     image_count = parse_num_images(item)
     save_dir = output_root / prompt_id
 
+    if save_dir.exists():
+        print(f'跳过 {prompt_id}: 输出目录已存在 {save_dir}')
+        return
+
     if not prompt_text:
         print(f'跳过 {prompt_id}: prompt 为空')
         return
