@@ -16,7 +16,7 @@ dashscope.base_http_api_url = "https://dashscope.aliyuncs.com/api/v1"
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "outputs_wan_2_7_image_pro"
-DEFAULT_MODEL_NAME = "wan-2.7-image-pro"
+DEFAULT_MODEL_NAME = "wan2.7-image-pro"
 DEFAULT_IMAGE_SIZE = "2K"
 DEFAULT_NUM_IMAGES_PER_PROMPT = 4
 DEFAULT_API_BATCH_SIZE = 4
@@ -195,6 +195,10 @@ def submit_generation(
     image_size: str,
     batch_size: int,
 ) -> Tuple[str, List[str], Optional[float]]:
+    # DashScope model naming uses wan2.7-image-pro, not wan-2.7-image-pro.
+    if model_name == "wan-2.7-image-pro":
+        model_name = "wan2.7-image-pro"
+
     message = Message(role="user", content=[{"text": prompt_text}])
 
     response = ImageGeneration.async_call(

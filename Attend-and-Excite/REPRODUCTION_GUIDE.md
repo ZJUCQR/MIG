@@ -1,6 +1,6 @@
 # WAN 2.7 Image Pro 评测简明教程
 
-本文档说明如何用当前仓库的 benchmark 来评测 `wan-2.7-image-pro` 的文生图效果。
+本文档说明如何用当前仓库的 benchmark 来评测 `wan2.7-image-pro` 的文生图效果。
 
 这里的 benchmark 指两部分：
 
@@ -9,7 +9,7 @@
    - `metrics/compute_clip_similarity.py`
    - `metrics/blip_captioning_and_clip_similarity.py`
 
-当前仓库已经适配了 `run_inference.py`，可以直接调用 DashScope 的 `wan-2.7-image-pro` 批量生成图片，并按本项目指标脚本要求的目录结构保存结果。
+当前仓库已经适配了 `run_inference.py`，可以直接调用 DashScope 的 `wan2.7-image-pro` 批量生成图片，并按本项目指标脚本要求的目录结构保存结果。
 
 ## 一、现在的评测思路
 
@@ -21,7 +21,7 @@
 
 也就是说：
 
-- 生成模型换成 `wan-2.7-image-pro`
+- 生成模型换成 `wan2.7-image-pro`
 - prompt 和指标沿用 Attend-and-Excite 项目
 
 ## 二、`run_inference.py` 现在做了什么
@@ -34,7 +34,7 @@
    - 支持 `.txt`，每行一个 prompt
    - 也支持简单 `.json` 数组
 
-2. 调用 DashScope 的 `wan-2.7-image-pro` 生成图片
+2. 调用 DashScope 的 `wan2.7-image-pro` 生成图片
 
 3. 按 benchmark 需要的目录结构保存结果
    - 形式是 `outputs_root/<prompt>/0.png, 1.png, 2.png...`
@@ -110,7 +110,7 @@ pip install -r environment/requirements.txt
 pip install lavis
 ```
 
-如果你只想跑 `wan-2.7-image-pro` 生成，至少需要保证这些包可用：
+如果你只想跑 `wan2.7-image-pro` 生成，至少需要保证这些包可用：
 
 - `dashscope`
 - `requests`
@@ -139,7 +139,7 @@ export DASHSCOPE_API_KEY="your_api_key"
 python run_inference.py \
   --prompt-file ./a.e_prompts.txt \
   --output-root ./outputs_wan_2_7_image_pro \
-  --model-name wan-2.7-image-pro \
+  --model-name wan2.7-image-pro \
   --image-size 2K \
   --num-images-per-prompt 4 \
   --api-batch-size 4
@@ -154,7 +154,7 @@ python run_inference.py \
   - 生成结果根目录
 
 - `--model-name`
-  - 默认为 `wan-2.7-image-pro`
+  - 默认为 `wan2.7-image-pro`
 
 - `--image-size`
   - 传给 DashScope 的图片尺寸，例如 `2K`
@@ -426,10 +426,13 @@ metrics_results_wan/
 3. 当前指标脚本不会读取 `_manifest.jsonl`。
    - 它只看图片目录。
 
-4. `wan-2.7-image-pro` 是否支持完全可控的 seed，不在当前脚本里处理。
+4. `wan2.7-image-pro` 是否支持完全可控的 seed，不在当前脚本里处理。
    - 所以这套流程更适合做 benchmark 打分，不适合严格随机种子对齐实验。
 
-5. 当前默认并不是论文 README 里举例的 65 张每 prompt。
+5. DashScope 的正确模型名是 `wan2.7-image-pro`。
+   - 如果传成 `wan-2.7-image-pro`，接口会报 `Model not exist`
+
+6. 当前默认并不是论文 README 里举例的 65 张每 prompt。
    - 你现在改造后的 `run_inference.py` 默认是每个 prompt 4 张图
    - 如果你想拉高评测稳定性，可以把 `--num-images-per-prompt` 改大
 
